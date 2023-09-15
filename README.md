@@ -13,13 +13,13 @@ This application is a standard MERN Stack. Our collections are contained in Mong
 
 ### Functions:
 #### User:
-Users should be able to CREATE media shelves for books, movies, music, and games.
-Users should be able to CREATE new media for their shelves.
-Users should be able to READ their shelves (and eventually other users' shelves)
-Users should be able to UPDATE their shelves, media, and reviews/ratings.
-Users should be able to DELETE their shelves, media, and reviews/ratings.
+- Users should be able to CREATE media shelves for books, movies, music, and games.
+- Users should be able to CREATE new media for their shelves.
+- Users should be able to READ their shelves (and eventually other users' shelves)
+- Users should be able to UPDATE their shelves, media, and reviews/ratings.
+- Users should be able to DELETE their shelves, media, and reviews/ratings.
 
 #### Admins:
-Admins should have above functions and functions over users.
+- Admins should have above functions and functions over users.
 
 ### Issues/Bugs/Fixes:
