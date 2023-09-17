@@ -12,7 +12,7 @@ function Home() {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZDBiMGNjMTExZDQzNWIyMzM3ZGE2MDc0NzIxZTBkMyIsInN1YiI6IjY1MDcwYzhhMTA5ZGVjMDEwY2MyMDk0NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X8PHXGzgvcepy3Uc808zPOYuKIPVNQGTGkwHntgUh78'
+          Authorization: `${process.env.REACT_APP_TOKEN}`
         }
     };
     
@@ -22,7 +22,7 @@ function Home() {
       console.log(result)
       setMovies(result.results)
     } catch (error) {
-      
+      console.log(error)
     }
       
   }
