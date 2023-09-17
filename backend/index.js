@@ -1,18 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
-
-
 const app = express()
-
+const userRoutes = require('./routes/User')
 
 // middlesware
 app.use(express.json())
 
-// routes
-app.get('/', (req, res) =>{
-    res.send('hello world')
-})
+
+app.use('/user', userRoutes )
+
 
 // db connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
