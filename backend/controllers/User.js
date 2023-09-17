@@ -11,6 +11,16 @@ async function getAllUsers(req, res){
     }
 }
 
+async function getUserById(req, res){
+    try {
+        const { id } = req.params
+       const user = await User.findById(id) 
+       res.json(user)
+    } catch (error) {
+        console.log('errpr getting user', error)
+        res.json({ 'message': 'error getting user'})
+    }
+}
 // Post Functions
 async function createUser(req, res){
     try {
@@ -30,4 +40,5 @@ async function createUser(req, res){
 module.exports = {
     getAllUsers,
     createUser,
+    getUserById,
 }
