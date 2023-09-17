@@ -1,4 +1,5 @@
 import { useState, useEffect} from "react"
+import HomeCss from "./Home.module.css"
 
 
 function Home() {
@@ -31,20 +32,26 @@ function Home() {
   }, []);
 
   const imageUrl = 'https://image.tmdb.org/t/p/original'
-  const display = movies.map(movie => {
+  const display = movies.slice(0,5).map(movie => {
     return (
       <div key={movie.id}>
         {[movie.title]}
-        <img src={`${imageUrl}${movie.backdrop_path}`} />
+        <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} alt="movie poster" />
       </div>
+      
     )
   })
 
   return (
-    <div>
-      <h1>Movies?</h1>
-      {display}
-    </div>
+    <body style={{backgroundColor: 'red'}}>
+      <div className={HomeCss.wrapper}>
+        <h1>Movies</h1>
+        <div className={HomeCss.grid_container}>
+        {display}
+        </div>
+      </div>
+      <p></p>
+    </body>
   )
 }
 
