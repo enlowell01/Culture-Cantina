@@ -1,9 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from "./Components/Home";
+
 
 function App() {
   return (
-    'sup fuckers'
+    
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
