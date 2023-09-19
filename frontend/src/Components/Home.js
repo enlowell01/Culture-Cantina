@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import NavigationBar from './Navbar';
-import { useState, useEffect} from "react"
 import HomeCss from "./Home.module.css"
-
-
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -38,11 +35,8 @@ function Home() {
   const imageUrl = 'https://image.tmdb.org/t/p/original'
 
   return (
-    <div className="container-lg">
-      {<NavigationBar/>}
-      <h1>Movies?</h1>
-      {display}
     <div>
+      {<NavigationBar />}
       <section>
         <div className={HomeCss.container}>
           <h1>Movies</h1>
