@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import NavigationBar from './Navbar';
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -38,7 +39,8 @@ function Home() {
   });
 
   return (
-    <div>
+    <div className="container-lg">
+      {<NavigationBar/>}
       <h1>Movies?</h1>
       {display}
     </div>
