@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import NavigationBar from './Navbar';
 import { useState, useEffect} from "react"
+import HomeCss from "./Home.module.css"
 
 
 
@@ -35,14 +36,6 @@ function Home() {
   }, []);
 
   const imageUrl = 'https://image.tmdb.org/t/p/original'
-  const display = movies.map(movie => {
-    return (
-      <div key={movie.id}>
-        {[movie.title]}
-        <img src={`${imageUrl}${movie.backdrop_path}`} />
-      </div>
-    )
-  })
 
   return (
     <div className="container-lg">
@@ -51,13 +44,15 @@ function Home() {
       {display}
     <div>
       <section>
-        <div className="container">
+        <div className={HomeCss.container}>
           <h1>Movies</h1>
-          <div className="cards">
+          <div className={HomeCss.cards}>
             {movies.slice(0,6).map((movie, i) => (
-              <div key={i} className="card">
+              <div key={i} className={HomeCss.card}>
                 <h3>{movie.title}</h3>
-              <p>Doesn't this movie rock?</p>
+                <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} />
+                <p>Doesn't this movie rock?</p>
+                <button className={HomeCss.btn}>Explore</button>
               </div>
             ))}
           </div>
