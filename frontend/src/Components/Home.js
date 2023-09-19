@@ -1,18 +1,18 @@
 import { useState, useEffect} from "react"
-import HomeCss from "./Home.module.css"
 
 
 function Home() {
-  const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = 'https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'
+      const url =
+        "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
       const options = {
-        method: 'GET',
+        method: "GET",
         headers: {
           accept: 'application/json',
-          Authorization: `${process.env.REACT_APP_TOKEN}`
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZDBiMGNjMTExZDQzNWIyMzM3ZGE2MDc0NzIxZTBkMyIsInN1YiI6IjY1MDcwYzhhMTA5ZGVjMDEwY2MyMDk0NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X8PHXGzgvcepy3Uc808zPOYuKIPVNQGTGkwHntgUh78'
         }
     };
     
@@ -22,17 +22,24 @@ function Home() {
       console.log(result)
       setMovies(result.results)
     } catch (error) {
-      console.log(error)
+      
     }
       
   }
 
 
-    fetchData()
+    fetchData();
   }, []);
 
   const imageUrl = 'https://image.tmdb.org/t/p/original'
-
+  const display = movies.map(movie => {
+    return (
+      <div key={movie.id}>
+        {[movie.title]}
+        <img src={`${imageUrl}${movie.backdrop_path}`} />
+      </div>
+    )
+  })
 
   return (
     <div>
@@ -50,7 +57,7 @@ function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 export default Home;
