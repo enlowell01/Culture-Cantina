@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
+import NavigationBar from './Navbar';
 import { useState, useEffect} from "react"
+
 
 
 function Home() {
@@ -42,6 +45,10 @@ function Home() {
   })
 
   return (
+    <div className="container-lg">
+      {<NavigationBar/>}
+      <h1>Movies?</h1>
+      {display}
     <div>
       <section>
         <div className="container">
