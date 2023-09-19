@@ -32,26 +32,24 @@ function Home() {
   }, []);
 
   const imageUrl = 'https://image.tmdb.org/t/p/original'
-  const display = movies.slice(0,5).map(movie => {
-    return (
-      <div key={movie.id}>
-        {[movie.title]}
-        <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} alt="movie poster" />
-      </div>
-      
-    )
-  })
+
 
   return (
-    <body style={{backgroundColor: 'red'}}>
-      <div className={HomeCss.wrapper}>
-        <h1>Movies</h1>
-        <div className={HomeCss.grid_container}>
-        {display}
+    <div>
+      <section>
+        <div className="container">
+          <h1>Movies</h1>
+          <div className="cards">
+            {movies.slice(0,6).map((movie, i) => (
+              <div key={i} className="card">
+                <h3>{movie.title}</h3>
+              <p>Doesn't this movie rock?</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <p></p>
-    </body>
+      </section>
+    </div>
   )
 }
 
