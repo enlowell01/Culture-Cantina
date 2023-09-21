@@ -18,14 +18,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
       },
-      profilePicture: {
-        type: String,
-        default: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg'
-      },
-      getsUpdates: {
-        type: Boolean,
-        default: false
-      }, 
       password: {
         type: String,
         required: true
