@@ -29,10 +29,19 @@ function Home() {
   }
 
 
-    fetchData();
+  fetchData();
   }, []);
 
-  const imageUrl = 'https://image.tmdb.org/t/p/original'
+  const imageUrl = "https://image.tmdb.org/t/p/w500";
+
+  const display = movies.map((movie) => {
+    return (
+      <div key={movie.id}>
+        {[movie.title]}
+        <img src={`${imageUrl}${movie.backdrop_path}`} alt={movie.title} />
+      </div>
+    );
+  });
 
   return (
     <div>
