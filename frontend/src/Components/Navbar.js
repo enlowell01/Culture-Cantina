@@ -16,6 +16,7 @@ function NavigationBar() {
       <Navbar className="font-nice" style={{backgroundColor:"#217605", color:"#E9FFD8"}}>
           <Nav.Link href='/' className='me-3 ms-3' style={{color:"#E9FFD8"}}>Home</Nav.Link>
             |
+          <Nav.Link href='/newUser' className='me-3 ms-3' style={{color:"#E9FFD8"}}>New User</Nav.Link>
       </Navbar>
     </div>
   )

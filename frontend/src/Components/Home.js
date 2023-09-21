@@ -25,10 +25,11 @@ function Home() {
       } catch (error) {}
     };
 
-    fetchData();
+  fetchData();
   }, []);
 
   const imageUrl = "https://image.tmdb.org/t/p/w500";
+
   const display = movies.map((movie) => {
     return (
       <div key={movie.id}>
