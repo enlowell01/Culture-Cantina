@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NavigationBar from './Navbar';
+import HomeCss from "./Home.module.css"
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -11,19 +12,22 @@ function Home() {
       const options = {
         method: "GET",
         headers: {
-          accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZDBiMGNjMTExZDQzNWIyMzM3ZGE2MDc0NzIxZTBkMyIsInN1YiI6IjY1MDcwYzhhMTA5ZGVjMDEwY2MyMDk0NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X8PHXGzgvcepy3Uc808zPOYuKIPVNQGTGkwHntgUh78",
-        },
-      };
-
-      try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        console.log(result);
-        setMovies(result.results);
-      } catch (error) {}
+          accept: 'application/json',
+          Authorization: `${process.env.REACT_APP_TOKEN}`
+        }
     };
+    
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      console.log(result)
+      setMovies(result.results)
+    } catch (error) {
+      console.log(error)
+    }
+      
+  }
+
 
   fetchData();
   }, []);
@@ -40,10 +44,23 @@ function Home() {
   });
 
   return (
-    <div className="container-lg">
-      {<NavigationBar/>}
-      <h1>Movies?</h1>
-      {display}
+    <div>
+      {<NavigationBar />}
+      <section>
+        <div className={HomeCss.container}>
+          <h1>Movies</h1>
+          <div className={HomeCss.cards}>
+            {movies.slice(0,6).map((movie, i) => (
+              <div key={i} className={HomeCss.card}>
+                <h3>{movie.title}</h3>
+                <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} />
+                <p>Doesn't this movie rock?</p>
+                <button className={HomeCss.btn}>Explore</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
