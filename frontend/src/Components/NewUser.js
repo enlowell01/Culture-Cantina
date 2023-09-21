@@ -16,7 +16,6 @@ function New() {
     firstName: "",
     lastName: "",
     emailAddress: "",
-    profilePicture: "",
     getsUpdates: "",
     password: "",
     bio: ""
@@ -44,21 +43,6 @@ function New() {
     navigate('/')
   };
 
-  {/*const uploadedImage = React.useRef(null);
-  const imageUploader = React.useRef(null);
-
-  const handleImageUpload = e => {
-    const [file] = e.target.files;
-    if (file) {
-      const reader = new FileReader();
-      const { current } = uploadedImage;
-      current.file = file;
-      reader.onload = e => {
-        current.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  };*/}
 
   //New User Form  
   return (
@@ -74,13 +58,6 @@ function New() {
                 <h2 style={{textAlign:"center", margin:"10px"}}>Create An Account</h2>
                 <Form className='p-3' onSubmit={handleSubmit}>
                     <Row className='mb-3'>
-                    {/*<Form.Group as={Col} style={{textAlign:'center'}}>
-                        <Form.Label>
-                            Please input the URL for an image of the animal: 
-                        </Form.Label>
-                        <Form.Control type="text" name="petImage" placeholder="Animal image URL" value={petInput.petImage} onChange={handleChange} style={{textAlign:'center'}}/>
-                    </Form.Group>*/}
-
                         <Form.Group as={Col} style={{textAlign:'center'}}>
                             <Form.Label>
                                 Username:
@@ -94,25 +71,12 @@ function New() {
                             </Form.Label>
                             <Form.Control type="text" name="firstName" placeholder="First name" value={userInput.firstName} onChange={handleChange} required style={{textAlign:'center', color:"#0066cc"}}/>
                         </Form.Group>
-                    </Row>
-
-                    <Row className='mb-3'>    
+ 
                         <Form.Group as={Col} style={{textAlign:'center'}}>
                             <Form.Label>
                                 Last name:
                             </Form.Label>
-                            <Form.Control type="text" name="lastName" placeholder="Last name" placeholderTextColor='#66ccff' value={userInput.lastName} onChange={handleChange} required style={{textAlign:'center', color:"#0066cc"}}/>
-                        </Form.Group>
-
-                        <Form.Group as={Col} style={{textAlign:'center'}}>
-                            <Form.Label>
-                                Receive updates? (optional)
-                            </Form.Label>
-                            <Form.Select name="getsUpdates" value={userInput.getsUpdates} onChange={handleChange} style={{textAlign:'center', color:"#0066cc"}}> 
-                                <option value=""></option>
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </Form.Select>
+                            <Form.Control type="text" name="lastName" placeholder="Last name" value={userInput.lastName} onChange={handleChange} required style={{textAlign:'center', color:"#0066cc"}}/>
                         </Form.Group>
                     </Row>
 
