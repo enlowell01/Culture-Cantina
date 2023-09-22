@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+//import { useNavigate, useParams } from "react-router-dom";
 import { mediaId } from "./Home";
 import Card from "react-bootstrap/Card";
 
@@ -7,9 +7,9 @@ function Media() {
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState({})
   
-    const { id } = useParams()
+    //const { id } = useParams()
   
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
   
     useEffect(() => {
         const fetchData = async () => {
@@ -25,14 +25,9 @@ function Media() {
         
             try {
                 const response = await fetch(url, options);
-                const result = await response.json();
-                console.log(result)
-                setMedia(result)
-                console.log(mediaId)
-                console.log(media)
-                /*const filteredMedia = result.results.filter(media => media.title === mediaId)
-                setMedia(filteredMedia)*/
-                console.log(media)
+                const data = await response.json();
+                const filteredMedia = data.results.filter(media => media.title === mediaId)
+                setMedia(filteredMedia[0])
             } catch (error) {
                 console.log(error)
             }    
@@ -40,18 +35,21 @@ function Media() {
         fetchData();
     }, []);
 
-    /*useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings`
             const response = await fetch(URL)
             const data = await response.json()
-            console.log(data)
-            const filteredRatings = data.filter(rating => rating.productId === media.title);
+            const filteredRatings = data.filter(rating => rating.productId === mediaId)
+            setRatings(filteredRatings)
         }
         fetchData()
-    }, [media.title]);*/
+    }, []);
 
-    const display = media && (
+    console.log(media)
+    console.log(ratings)
+
+    const display = media && ratings && (
         <div className = "container-lg">
             <div  style={{backgroundColor:'#B5EB8D', textAlign:'center'}}>
                 <Card style={{ 
@@ -63,11 +61,23 @@ function Media() {
                     }}>
                     <div className='card-body'>
                         <img className='rounded' src={`https://image.tmdb.org/t/p/original${media.backdrop_path}`} alt={media.title} height={300}/>
-                        <h1 className="p-2">Title:{media.title}</h1>
+                        <h1 className="p-2"> {media.title}</h1>
                         <p className="card-text">Overview: {media.overview}</p>
+                        {/*<p className="card-text"> {ratings.map((rating, i) => (
+                            <div key={i}>
+                                <p>{rating.rating}</p>
+                                <p>{rating.review}</p>
+                            </div>
+                        ))}</p>*/}
                     </div>
                 </Card>
             </div>
+        </div>
+    )
+
+    return (
+        <div>
+            {display}
         </div>
     )
 }
