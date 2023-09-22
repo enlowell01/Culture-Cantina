@@ -42,7 +42,7 @@ function Home() {
   const imageUrl = 'https://image.tmdb.org/t/p/original';
 
   return (
-    <div>
+    <div className = "container-lg">
       {<NavigationBar />}
       <section>
         <div className={HomeCss.container}>

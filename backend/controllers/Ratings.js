@@ -12,7 +12,7 @@ async function getAllRatings(req, res){
     }
 }
 
-/*async function getRatingById(req, res){
+async function getRatingById(req, res){
     try {
         const { id } = req.params
         const rating = await Rating.findById(id) 
@@ -21,7 +21,7 @@ async function getAllRatings(req, res){
         console.log('errpr getting Rating', error)
         res.json({'message': 'error getting Rating'})
     }
-};*/
+};
 
 // Post Functions
 
@@ -63,7 +63,7 @@ async function deleteRatingById(req, res){
 module.exports = {
     getAllRatings,
     createRating,
-    //getRatingById,
+    getRatingById,
     updateRatingById,
     deleteRatingById
 };
