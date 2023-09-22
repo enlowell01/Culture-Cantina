@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NavigationBar from './Navbar';
 import HomeCss from "./Home.module.css"
+import { Link } from "react-router-dom"
+
+let mediaId =  '';
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -32,6 +36,10 @@ function Home() {
   }, []);
 
   const imageUrl = 'https://image.tmdb.org/t/p/original';
+  
+  const changeVariableOnClick = (title) => {
+    mediaId = title
+  }
 
   return (
     <div>
@@ -45,7 +53,9 @@ function Home() {
                 <h3>{movie.title}</h3>
                 <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} />
                 <p>Doesn't this movie rock?</p>
-                <button className={HomeCss.btn}>Explore</button>
+                <Link to="/media">
+                  <button className={HomeCss.btn} onClick={() => mediaId = movie.title}>Explore</button>
+                </Link>
               </div>
             ))}
           </div>
@@ -55,4 +65,5 @@ function Home() {
   );
 }
 
+export {mediaId};
 export default Home;
