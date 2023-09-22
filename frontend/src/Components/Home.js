@@ -1,3 +1,7 @@
+
+import { useState, useEffect } from "react";
+import NavigationBar from "./Navbar";
+import HomeCss from "./Home.module.css";
 import { useState, useEffect, useRef } from "react";
 import NavigationBar from './Navbar';
 import HomeCss from "./Home.module.css"
@@ -17,6 +21,26 @@ function Home() {
       const options = {
         method: "GET",
         headers: {
+          accept: "application/json",
+          Authorization: `${process.env.REACT_APP_TOKEN}`,
+        },
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log(result);
+        setMovies(result.results);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const imageUrl = "https://image.tmdb.org/t/p/original";
+=======
           accept: 'application/json',
           Authorization: `${process.env.REACT_APP_TOKEN}`
         }
@@ -48,9 +72,14 @@ function Home() {
         <div className={HomeCss.container}>
           <h1>Movies</h1>
           <div className={HomeCss.cards}>
-            {movies.slice(0,6).map((movie, i) => (
+            {movies.slice(0, 6).map((movie, i) => (
               <div key={i} className={HomeCss.card}>
                 <h3>{movie.title}</h3>
+                <img
+                  style={{ width: "100px" }}
+                  src={`${imageUrl}${movie.poster_path}`}
+                  alt={movie.title}
+                />
                 <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} alt={movie.title} />
                 <p>Doesn't this movie rock?</p>
                 <Link to="/media">
