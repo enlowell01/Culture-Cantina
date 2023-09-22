@@ -1,17 +1,21 @@
-import { useState, useEffect } from "react";
-//import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import { mediaId } from "./Home";
 import Card from "react-bootstrap/Card";
+import NavigationBar from './Navbar';
 
 function Media() {
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState({})
-  
-    //const { id } = useParams()
-  
-    //const navigate = useNavigate()
+    const [mediaValue, setMediaValue] = useState(() => {
+        const saved = sessionStorage.getItem("mediaValue")
+        const initialValue = JSON.parse(saved)
+        return initialValue || mediaId
+    }) 
+
+    const hasFetchedData = useRef(false)
   
     useEffect(() => {
+        sessionStorage.setItem("mediaValue", JSON.stringify(mediaValue))
         const fetchData = async () => {
             const url =
                 "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
@@ -26,30 +30,27 @@ function Media() {
             try {
                 const response = await fetch(url, options);
                 const data = await response.json();
-                const filteredMedia = data.results.filter(media => media.title === mediaId)
+                const filteredMedia = data.results.filter(media => media.title === mediaValue)
                 setMedia(filteredMedia[0])
+
+                const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
+                const ratingsResponse = await fetch(ratingsPath)
+                const ratingsData = await ratingsResponse.json()
+                const filteredRatings = ratingsData.filter(rating => rating.productId === mediaValue)
+                setRatings(filteredRatings)
             } catch (error) {
                 console.log(error)
-            }    
+            }  
         };
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings`
-            const response = await fetch(URL)
-            const data = await response.json()
-            const filteredRatings = data.filter(rating => rating.productId === mediaId)
-            setRatings(filteredRatings)
-        }
-        fetchData()
-    }, []);
-
-    console.log(media)
+        if (hasFetchedData.current === false) {
+            fetchData()
+            hasFetchedData.current = true
+        };
+    }, [mediaValue]);
+    
     console.log(ratings)
 
-    const display = media && ratings && (
+    const display = media && (
         <div className = "container-lg">
             <div  style={{backgroundColor:'#B5EB8D', textAlign:'center'}}>
                 <Card style={{ 
@@ -63,12 +64,17 @@ function Media() {
                         <img className='rounded' src={`https://image.tmdb.org/t/p/original${media.backdrop_path}`} alt={media.title} height={300}/>
                         <h1 className="p-2"> {media.title}</h1>
                         <p className="card-text">Overview: {media.overview}</p>
-                        {/*<p className="card-text"> {ratings.map((rating, i) => (
-                            <div key={i}>
-                                <p>{rating.rating}</p>
-                                <p>{rating.review}</p>
-                            </div>
-                        ))}</p>*/}
+                        {<div className="card-text">
+                            {ratings.length > 0 && 
+                                <div>
+                                    {ratings.map((rate, i) => (
+                                        <div key={i}>
+                                            <p>Rating: {rate.rating}, Review: {rate.review}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            }
+                        </div>}
                     </div>
                 </Card>
             </div>
@@ -77,7 +83,10 @@ function Media() {
 
     return (
         <div>
-            {display}
+            {<NavigationBar />}
+            <div>
+                {display}
+            </div>
         </div>
     )
 }

@@ -3,7 +3,7 @@ const router = require('express').Router()
 const {
     getAllRatings,
     createRating,
-    getRatingById,
+    //getRatingById,
     updateRatingById,
     deleteRatingById,
 } = require('../controllers/Ratings')
@@ -12,7 +12,7 @@ const {
 router.get('/', getAllRatings)
 
 // GET / get Rating by Id
-router.get('/:id', getRatingById)
+//router.get('/:id', getRatingById)
 
 // POST / create a Rating
 router.post('/', createRating)

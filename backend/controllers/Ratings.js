@@ -4,24 +4,24 @@ const Rating = require('../models/Ratings');
 
 async function getAllRatings(req, res){
     try {
-        const user = await Rating.find()
-        res.json(user)
+        const rating = await Rating.find()
+        res.json(rating)
     } catch (error) {
         console.log('error finding Ratings',error)
         res.json({ 'message': 'error finding Ratings'})
     }
 }
 
-async function getRatingById(req, res){
+/*async function getRatingById(req, res){
     try {
         const { id } = req.params
-        const user = await Rating.findById(id) 
+        const rating = await Rating.findById(id) 
         res.json(rating)
     } catch (error) {
         console.log('errpr getting Rating', error)
         res.json({'message': 'error getting Rating'})
     }
-};
+};*/
 
 // Post Functions
 
@@ -63,7 +63,7 @@ async function deleteRatingById(req, res){
 module.exports = {
     getAllRatings,
     createRating,
-    getRatingById,
+    //getRatingById,
     updateRatingById,
     deleteRatingById
 };

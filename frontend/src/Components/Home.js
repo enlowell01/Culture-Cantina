@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import NavigationBar from './Navbar';
 import HomeCss from "./Home.module.css"
 import { Link } from "react-router-dom"
@@ -7,7 +6,9 @@ import { Link } from "react-router-dom"
 let mediaId =  '';
 
 function Home() {
+  sessionStorage.clear()
   const [movies, setMovies] = useState([]);
+  const hasFetchedData = useRef(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,27 +20,26 @@ function Home() {
           accept: 'application/json',
           Authorization: `${process.env.REACT_APP_TOKEN}`
         }
-    };
+      };
     
-    try {
-      const response = await fetch(url, options);
-      const result = await response.json();
-      console.log(result)
-      setMovies(result.results)
-    } catch (error) {
-      console.log(error)
-    }    
-  };
-
-
-  fetchData();
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log(result)
+        setMovies(result.results)
+      } catch (error) {
+        console.log(error)
+      }    
+    };
+    if (hasFetchedData.current === false) {
+      fetchData()
+      hasFetchedData.current = true
+    };
   }, []);
 
+  console.log(movies)
+
   const imageUrl = 'https://image.tmdb.org/t/p/original';
-  
-  const changeVariableOnClick = (title) => {
-    mediaId = title
-  }
 
   return (
     <div>
@@ -51,7 +51,7 @@ function Home() {
             {movies.slice(0,6).map((movie, i) => (
               <div key={i} className={HomeCss.card}>
                 <h3>{movie.title}</h3>
-                <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} />
+                <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} alt={movie.title} />
                 <p>Doesn't this movie rock?</p>
                 <Link to="/media">
                   <button className={HomeCss.btn} onClick={() => mediaId = movie.title}>Explore</button>
