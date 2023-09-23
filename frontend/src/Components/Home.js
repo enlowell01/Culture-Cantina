@@ -1,16 +1,12 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import NavigationBar from "./Navbar";
 import HomeCss from "./Home.module.css";
-import { useState, useEffect, useRef } from "react";
-import NavigationBar from './Navbar';
-import HomeCss from "./Home.module.css"
-import { Link } from "react-router-dom"
 
-let mediaId =  '';
+let mediaId = "";
 
 function Home() {
-  sessionStorage.clear()
+  sessionStorage.clear();
   const [movies, setMovies] = useState([]);
   const hasFetchedData = useRef(false);
 
@@ -36,38 +32,19 @@ function Home() {
       }
     };
 
-    fetchData();
+    if (!hasFetchedData.current) {
+      fetchData();
+      hasFetchedData.current = true;
+    }
   }, []);
+
+  console.log(movies);
 
   const imageUrl = "https://image.tmdb.org/t/p/original";
-=======
-          accept: 'application/json',
-          Authorization: `${process.env.REACT_APP_TOKEN}`
-        }
-      };
-    
-      try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        console.log(result)
-        setMovies(result.results)
-      } catch (error) {
-        console.log(error)
-      }    
-    };
-    if (hasFetchedData.current === false) {
-      fetchData()
-      hasFetchedData.current = true
-    };
-  }, []);
-
-  console.log(movies)
-
-  const imageUrl = 'https://image.tmdb.org/t/p/original';
 
   return (
-    <div className = "container-lg">
-      {<NavigationBar />}
+    <div className="container-lg">
+      <NavigationBar />
       <section>
         <div className={HomeCss.container}>
           <h1>Movies</h1>
@@ -80,10 +57,14 @@ function Home() {
                   src={`${imageUrl}${movie.poster_path}`}
                   alt={movie.title}
                 />
-                <img style={{width: "100px"}} src={`${imageUrl}${movie.backdrop_path}`} alt={movie.title} />
                 <p>Doesn't this movie rock?</p>
                 <Link to="/media">
-                  <button className={HomeCss.btn} onClick={() => mediaId = movie.title}>Explore</button>
+                  <button
+                    className={HomeCss.btn}
+                    onClick={() => (mediaId = movie.title)}
+                  >
+                    Explore
+                  </button>
                 </Link>
               </div>
             ))}
@@ -94,5 +75,5 @@ function Home() {
   );
 }
 
-export {mediaId};
 export default Home;
+export { mediaId };
