@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
-import { UserContext } from "../Components/UserContext";
+import { UserContext } from "../Contexts/UserContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 
@@ -142,7 +142,7 @@ function NavigationBar() {
         {searchResults.map((movie) => (
           <li key={movie.id} style={{zIndex:'-1'}}>
             <button style={{display:'inline-block', zIndex:'-1'}} >
-              <Nav.Link href="/media" onClick={() => console.log('test')}>
+              <Nav.Link href={`/movies/${movie.id}`}>
                   {movie.title}
               </Nav.Link>
             </button>

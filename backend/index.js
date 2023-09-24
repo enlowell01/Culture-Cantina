@@ -4,17 +4,28 @@ require('dotenv').config();
 const app = express();
 const userRoutes = require('./routes/Users');
 const ratingRoutes = require('./routes/Ratings');
+const movieRoutes = require('./routes/Movies')
+const defineCurrentUser = require('./middleware/defineCurrentUser')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session')
 
 // Middleware
+app.use(cookieSession({
+  name: 'session',
+  sameSite: 'strict',
+  keys: [ process.env.SESSION_SECRET ],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 app.use(express.json());
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(cookieParser());
+app.use(defineCurrentUser);
 
 // Routes
 app.use('/user', userRoutes);
 app.use('/ratings', ratingRoutes);
+app.use('/movies', movieRoutes);
 
 // DB Connection
 mongoose

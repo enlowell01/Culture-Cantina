@@ -15,3 +15,13 @@ code {
 ::placeholder {
   color: #99ccff !important
 }
+
+.editForm {
+  color:#0066cc; 
+  background-color: white;
+  display: block
+}
+
+.editFormHidden {
+  display: none !important
+}

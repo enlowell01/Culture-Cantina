@@ -15,7 +15,7 @@ function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url =
+      {/*const url =
         "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
       const options = {
         method: "GET",
@@ -34,11 +34,19 @@ function Home() {
         console.log(error);
       }
     };
+  */}
+      try {
+      const URL = `${process.env.REACT_APP_BACKEND_URI}/movies`
+      const response = await fetch(URL)
+      const data = await response.json()
+      console.log('data' + data)
+      setMovies(data.results)
+      } catch (error) {
+        console.log(error)
+      }
 
-    if (!hasFetchedData.current) {
-      fetchData();
-      hasFetchedData.current = true;
     }
+    fetchData();
   }, []);
 
   console.log(movies);
@@ -61,7 +69,7 @@ function Home() {
                   alt={movie.title}
                 />
                 <p>Doesn't this movie rock?</p>
-                <Link to="/media">
+                <Link to={`/movies/${movie.id}`}>
                   <button
                     className={HomeCss.btn}
                     onClick={() => (mediaId = movie.title)}

@@ -4,17 +4,18 @@ import Home from "./Components/Home";
 import NewUser from "./Components/NewUser";
 import Media from "./Components/Media";
 import Login from './Components/Login';
-import { UserContextProvider } from './Components/UserContext'
+import { UserContextProvider } from './Contexts/UserContext'
+
 function App() {
   return (
     <div>
-        <UserContextProvider>
+      <UserContextProvider>
         <Router>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path="/newUser" element={<NewUser />} />
             <Route path="/login" element={<Login/>} />
-            <Route path="/media" element={<Media />} />
+            <Route path="/movies/:id" element={<Media />} />
           </Routes>
         </Router>
       </UserContextProvider>

@@ -105,11 +105,16 @@ async function deleteUserById(req, res) {
   }
 }
 
+async function userAuthentication(req, res) {
+  res.json(req.currentUser)
+}
+
 module.exports = {
   createUser,
   getUser,
   updateUserById,
   deleteUserById,
   userLogin,
-  userLogout
+  userLogout,
+  userAuthentication
 };
