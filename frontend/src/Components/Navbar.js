@@ -4,12 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
 import { UserContext } from "../Contexts/UserContext";
 import { useContext } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
 
-let searchId = '';
-function setSearchId(value) {
-  searchId = value
-}
 
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
@@ -56,12 +51,6 @@ function NavigationBar() {
   const handleSearch = (movies) => {
     setSearchResults(movies);
   };
-
-  // Function to set search ID from clicked search link
-  /*const selectSearched = () => {
-    //searchId = selected
-    console.log('test')
-  };*/
 
   return (
     <div>
@@ -153,5 +142,4 @@ function NavigationBar() {
   );
 }
 
-export { searchId, setSearchId };
 export default NavigationBar;

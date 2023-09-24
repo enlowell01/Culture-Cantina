@@ -36,7 +36,6 @@ async function getMovieById(req, res){
     };
         const response = await fetch(url, options);
         const data = await response.json()
-        console.log(data)
         res.json(data)
     } catch (error) {
         console.log('error finding movie',error)

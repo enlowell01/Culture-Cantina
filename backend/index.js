@@ -5,7 +5,6 @@ const app = express();
 const userRoutes = require('./routes/Users');
 const ratingRoutes = require('./routes/Ratings');
 const movieRoutes = require('./routes/Movies')
-const defineCurrentUser = require('./middleware/defineCurrentUser')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session')
@@ -20,7 +19,6 @@ app.use(cookieSession({
 app.use(express.json());
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(cookieParser());
-app.use(defineCurrentUser);
 
 // Routes
 app.use('/user', userRoutes);

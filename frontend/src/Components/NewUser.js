@@ -60,21 +60,21 @@ function New() {
           <Form className='p-3' onSubmit={handleSubmit}>
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
-                <Form.Label>Username:</Form.Label>
+                <Form.Label>Username<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control type="text" name="username" placeholder="Username"
                   value={userInput.username} maxLength={20} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
 
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
-                <Form.Label>First name:</Form.Label>
+                <Form.Label>First name<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control type="text" name="firstname" placeholder="First name"
                   value={userInput.firstname} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
 
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
-                <Form.Label>Last name:</Form.Label>
+                <Form.Label>Last name<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control type="text" name="lastname" placeholder="Last name"
                   value={userInput.lastname} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
@@ -83,14 +83,14 @@ function New() {
 
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
-                <Form.Label>Email Address:</Form.Label>
+                <Form.Label>Email Address<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control type="text" name="email" placeholder="Email address"
                   value={userInput.email} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
 
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
-                <Form.Label>Password:</Form.Label>
+                <Form.Label>Password<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control type="password" name="password" placeholder="Password"
                   value={userInput.password} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
@@ -107,6 +107,7 @@ function New() {
             </Row>
 
             <Form.Group className='mb-3 mx-auto w-50' style={{ textAlign: 'center' }}>
+              <p>Fields marked with <span style={{color:'red'}}>*</span> are required.</p>
               <Button type='submit' style={{ backgroundColor: "#0066cc" }}>Sign Up</Button>
             </Form.Group>
           </Form>
