@@ -142,7 +142,7 @@ function NavigationBar() {
         {searchResults.map((movie) => (
           <li key={movie.id} style={{zIndex:'-1'}}>
             <button style={{display:'inline-block', zIndex:'-1'}} >
-              <Nav.Link href="/media" onClick={() => {console.log('test')}}>
+              <Nav.Link href="/media" onClick={() => console.log('test')}>
                   {movie.title}
               </Nav.Link>
             </button>
