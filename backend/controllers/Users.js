@@ -23,9 +23,29 @@ async function getUser(req, res) {
       } catch (error) {
         console.error('Error in /profile route:', error);
         res.status(500).json({ message: 'Internal server error' });
-      }
-        
+      }        
 };
+
+async function getUserById(req, res){
+  try {
+      const { id } = req.params
+      const rating = await User.findById(id) 
+      res.json(rating)
+  } catch (error) {
+      console.log('errpr getting User', error)
+      res.json({'message': 'error getting User'})
+  }
+};
+
+async function getAllUsers(req, res){
+  try {
+      const user = await User.find()
+      res.json(user)
+  } catch (error) {
+      console.log('error finding Users',error)
+      res.json({ 'message': 'error finding Users'})
+  }
+}
 
 // Post Functions
 
@@ -116,5 +136,7 @@ module.exports = {
   deleteUserById,
   userLogin,
   userLogout,
-  userAuthentication
+  userAuthentication,
+  getUserById,
+  getAllUsers
 };

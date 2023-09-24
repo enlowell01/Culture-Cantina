@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from "../Contexts/UserContext";
 import Card from "react-bootstrap/Card";
 import NavigationBar from './Navbar';
+import Nav from "react-bootstrap/Nav";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -10,19 +11,20 @@ import Row from 'react-bootstrap/Row';
 
 
 function Media() {
-
     const { userInfo } = useContext(UserContext)
 
     const { id } = useParams()
     
     const [selectedFormId, setSelectedFormId] = useState('')
     
+    const [currentUserId, setCurrentUserId] = useState({})
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({
         rating: 0,
         review: '',
         userId: '',
+        profileId: '',
         productId: ''
     })
 
@@ -31,17 +33,29 @@ function Media() {
     const hasFetchedData = useRef(false)
   
     useEffect(() => {
-        let storedRatings = []
         const fetchData = async () => {
             try {
-                const URL = `${process.env.REACT_APP_BACKEND_URI}/movies/${id}`
-                const mediaResponse = await fetch(URL)
+                const mediaPath = `${process.env.REACT_APP_BACKEND_URI}/movies/${id}`
+                const mediaResponse = await fetch(mediaPath)
                 const mediaData = await mediaResponse.json()
                 setMedia(mediaData)
+                
+                let storedUsername = ''
+                if (Object.keys(userInfo).length > 0) {
+                    storedUsername = userInfo?.username
+                }
+                const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
+                const userResponse = await fetch(userPath)
+                const userData = await userResponse.json()
+                console.log(userData)
+                const filteredUser = userData.filter(user => user.username === storedUsername)
+                setCurrentUserId(filteredUser._id)
+                console.log(currentUserId)
 
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
                 const ratingsResponse = await fetch(ratingsPath)
                 const ratingsData = await ratingsResponse.json()
+                console.log(ratingsData)
                 const filteredRatings = ratingsData.filter(rating => rating.productId === mediaData.title)
                 setRatings(filteredRatings)
             } catch (error) {
@@ -66,18 +80,21 @@ function Media() {
 
     const handleReviews = async (e) => {
         const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings`
+        ratingInput.profileId = 'test'
         ratingInput.userId = userInfo?.username
         ratingInput.productId = media.title
-        const response = await fetch(URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(ratingInput)
-        })
         try {
-            const data = await response.json()
-            console.log('response', data)
+            if (Object.keys(userInfo).length > 0) {
+                const response = await fetch(URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ratingInput)
+                })
+                const data = await response.json()
+                console.log('response', data)
+            }
         } catch (error) {
-            console.log(error)
+            console.log('You must be logged in')
         }
     };
 
@@ -109,16 +126,9 @@ function Media() {
     const showingForm = (ratingId) => {
         setShowForm(!showForm)
         setSelectedFormId(ratingId)
-        console.log(ratingId)
-        console.log(selectedFormId)
     }
 
-    console.log(selectedFormId)
-
     const hideForms = (formId) => {
-        console.log(selectedFormId)
-        console.log(formId)
-        console.log('test')
         if (formId === selectedFormId) {
             return 'p-3 editForm'
         } else if (formId !== selectedFormId) {
@@ -131,12 +141,18 @@ function Media() {
         if (x === false) {
             rated = false
         }
-        return rated
+    }
+
+    var loggedIn = false
+    const checkLogin = () => {
+        if (Object.keys(userInfo).length > 0) {
+            loggedIn = true
+        }
     }
 
     const display = media && (
         <div className = "container-lg">
-            {<NavigationBar/>}
+            {checkLogin()}
             <div  style={{backgroundColor:'#B5EB8D', textAlign:'center'}}>
                 <Card style={{ 
                         display: "inline-block", 
@@ -154,7 +170,7 @@ function Media() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review from: {rate.userId}. Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review from: <Nav.Link style={{display:'inline-block'}} href={`/users/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
                                             {rate.userId === userInfo?.username && ( 
                                                 <div>
                                                     {setRating(false)}
@@ -204,7 +220,7 @@ function Media() {
                         </div>
                     </div>
                 </Card>
-                {rated && (
+                {rated && loggedIn && (
                     <Form className = 'p-3' onSubmit={handleReviews} style={{color:"#0066cc", backgroundColor:"white"}}>
                         <h3>Leave a review:</h3>
                         <Row className='mb-3'>
@@ -234,7 +250,8 @@ function Media() {
     )
 
     return (
-        <div>
+        <div className='container-lg'>
+            {<NavigationBar/>}
             <div>
                 {display}
             </div>

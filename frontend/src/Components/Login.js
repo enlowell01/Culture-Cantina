@@ -40,7 +40,7 @@ function Login() {
     navigate('/')
   };
 
-  //New User Form  
+  //Login Form
   return (
     <div className = "container-lg">
         <div style={{textAlign:"center", marginTop:"100px"}}>
