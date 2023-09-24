@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
-import { mediaId } from "./Home";
+import { mediaId, setMediaId } from "./Home";
+import { searchId, setSearchId } from "./Navbar";
+import axios from "axios";
 import Card from "react-bootstrap/Card";
 import NavigationBar from './Navbar';
 import Form from 'react-bootstrap/Form';
@@ -8,8 +10,17 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
+
 function Media() {
-    //this.state = { active_id: null } 
+    let activeId = ''
+    let heldMediaId = mediaId
+    let heldSearchId = searchId
+    if (heldMediaId !== '') {
+        activeId = heldMediaId
+    } else if (heldSearchId !== '') {
+        activeId = heldSearchId
+    }
+    
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState({})
     const [ratingInput, setRatingInput] = useState({
@@ -18,35 +29,34 @@ function Media() {
         userId: '',
         productId: ''
     })
-    //const [ratingEdit, setRatingEdit] = useState({})
+
     const [mediaValue, setMediaValue] = useState(() => {
         const saved = sessionStorage.getItem("mediaValue")
         const initialValue = JSON.parse(saved)
-        return initialValue || mediaId
+        return initialValue || activeId
     }) 
+
     const [showForm, setShowForm] = useState(false)
     const [selectedId, setSelectedId] = useState('')
 
     const hasFetchedData = useRef(false)
-    const { id } = useParams()
   
     useEffect(() => {
+        console.log(searchId)
+        console.log(mediaId)
         sessionStorage.setItem("mediaValue", JSON.stringify(mediaValue))
         const fetchData = async () => {
-            const url =
-                "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
-            const options = {
-                method: "GET",
-                headers: {
-                    accept: 'application/json',
-                    Authorization: `${process.env.REACT_APP_TOKEN}`
-                }
-            };
-        
+            let apiKey = "5dd9b0ec07d16c49183c549810c46954";
+            
             try {
-                const response = await fetch(url, options);
-                const data = await response.json();
-                const filteredMedia = data.results.filter(media => media.title === mediaValue)
+                // Make an API request to search for movies using the TMDB API
+                const response = await axios.get(
+                    `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${mediaValue}`
+                );
+
+                // Extract the list of movies from the response
+                const movies = response.data.results;
+                const filteredMedia = movies.filter(media => media.title === mediaValue)
                 setMedia(filteredMedia[0])
 
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
@@ -62,17 +72,24 @@ function Media() {
             fetchData()
             hasFetchedData.current = true
         };
+
+        /*const handleBeforeUnload = (e) => {
+            e.preventDefault()
+            mediaId = ''
+            searchId = ''
+            console.log('test')
+        }
+
+        window.addEventListener('beforeunload', handleBeforeUnload)
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload)
+        }*/
+        setMediaId('')
+        setSearchId('')
     }, [mediaValue]);
 
-    /*useEffect(() => {
-        const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
-        const fetchData = async () => {
-            const response = await fetch(URL)
-            const data = await response.json()
-            setRatingEdit(data)
-        }
-        fetchData()
-    }, [id]);*/
+    
     
     const handleChange = (e) => {
         const value = e.target.value
@@ -172,7 +189,7 @@ function Media() {
                                         <div key={i}>
                                             <p> Review from: {rate.userId}. Rating: {rate.rating}, Details: {rate.review}</p>
                                             <span>
-                                                <Button id={rate._id} variant='warning' onClick={showingForm(rate._id)}> Edit</Button>
+                                                <Button id={rate._id} variant='warning' onClick={showingForm}> Edit</Button>
                                             </span>
                                             <span> </span>
                                             <span>

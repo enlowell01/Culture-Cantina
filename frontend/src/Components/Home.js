@@ -4,6 +4,9 @@ import NavigationBar from "./Navbar";
 import HomeCss from "./Home.module.css";
 
 let mediaId = "";
+function setMediaId(value) {
+  mediaId = value
+}
 
 function Home() {
   sessionStorage.clear();
@@ -76,4 +79,4 @@ function Home() {
 }
 
 export default Home;
-export { mediaId };
+export { mediaId, setMediaId };

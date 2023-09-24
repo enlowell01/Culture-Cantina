@@ -60,8 +60,8 @@ function Login() {
                             </Form.Label>
                             <Form.Control type="text" name="username" 
                             placeholder="Username" 
-                            value={userInput.username} maxLength={20} onChange={handleChange} r
-                            equired style={{textAlign:'center', color:"#0066cc"}}/>
+                            value={userInput.username} maxLength={20} onChange={handleChange} 
+                            required style={{textAlign:'center', color:"#0066cc"}}/>
                         </Form.Group>
 
                         <Form.Group as={Col} style={{textAlign:'center'}}>

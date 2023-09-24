@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
 import { UserContext } from "../Components/UserContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 
+let searchId = '';
+function setSearchId(value) {
+  searchId = value
+}
+
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
   const URL = `${process.env.REACT_APP_BACKEND_URI}/user/profile`;
   const { setUserInfo, userInfo } = useContext(UserContext);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,6 +57,12 @@ function NavigationBar() {
     setSearchResults(movies);
   };
 
+  // Function to set search ID from clicked search link
+  /*const selectSearched = () => {
+    //searchId = selected
+    console.log('test')
+  };*/
+
   return (
     <div>
       <h1
@@ -73,22 +86,22 @@ function NavigationBar() {
       >
         {username && (
           <>
-            <Link
-              to="/"
+            <Nav.Link
+              href="/"
               className="nav-link me-3 ms-3"
               style={{ color: "#E9FFD8" }}
             >
               Home
-            </Link>
+            </Nav.Link>
             |
-            <Link
-              to="/"
+            <Nav.Link
+              href="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
               style={{ color: "#E9FFD8", cursor: "pointer" }}
             >
               Logout
-            </Link>
+            </Nav.Link>
 
             <SearchBar onSearch={handleSearch} />
           </>
@@ -96,29 +109,29 @@ function NavigationBar() {
 
         {!username && (
           <>
-            <Link
-              to="/"
+            <Nav.Link
+              href="/"
               className="nav-link me-3 ms-3"
               style={{ color: "#E9FFD8" }}
             >
               Home
-            </Link>
+            </Nav.Link>
             |
-            <Link
-              to="/newUser"
+            <Nav.Link
+              href="/newUser"
               className="nav-link me-3 ms-3"
               style={{ color: "#E9FFD8" }}
             >
               New User
-            </Link>
+            </Nav.Link>
             |
-            <Link
-              to="/login"
+            <Nav.Link
+              href="/login"
               className="nav-link me-3 ms-3"
               style={{ color: "#E9FFD8" }}
             >
               Login
-            </Link>
+            </Nav.Link>
 
             <SearchBar onSearch={handleSearch} />
           </>
@@ -127,11 +140,18 @@ function NavigationBar() {
 
       <ul>
         {searchResults.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
+          <li key={movie.id} style={{zIndex:'-1'}}>
+            <button style={{display:'inline-block', zIndex:'-1'}} >
+              <Nav.Link href="/media" onClick={() => {console.log('test')}}>
+                  {movie.title}
+              </Nav.Link>
+            </button>
+          </li>
         ))}
       </ul>
     </div>
   );
 }
 
+export { searchId, setSearchId };
 export default NavigationBar;
