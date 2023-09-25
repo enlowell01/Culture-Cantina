@@ -50,14 +50,15 @@ async function getAllUsers(req, res){
 // Post Functions
 
 async function createUser(req, res) {
-  const { username, firstname, lastname, email, password } = req.body;
+  const { username, firstname, lastname, email, password, bio } = req.body;
   try {
     const userDoc = await User.create({
       username,
       firstname,
       lastname,
       email,
-      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+      bio
     });
     res.json(userDoc);
   } catch (error) {

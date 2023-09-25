@@ -9,24 +9,20 @@ import Button from 'react-bootstrap/Button';
 function New() {
   const navigate = useNavigate();
 
-  const [userInput, setUserInput] = useState({
-    username: "",
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    bio: ""
-  });
+  const [userInput, setUserInput] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserInput({ ...userInput, [name]: value });
-  };
+    const value = e.target.value;
+    setUserInput({
+      ...userInput,
+      [e.target.name]: value
+    });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const URL = `${process.env.REACT_APP_BACKEND_URI}/user`;
-
+    const loginURL = `${process.env.REACT_APP_BACKEND_URI}/user/login`
     try {
       const response = await fetch(URL, {
         method: 'POST',
@@ -37,7 +33,24 @@ function New() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      const data = await response.json();
+      console.log('response', data);
+    } catch (error) {
+      console.error('An error occurred during registration:', error);
+    }
+    
+    try {
+      console.log('User input', userInput)
+      const response = await fetch(loginURL, {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(userInput),
+        credentials: 'include'
+      })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       const data = await response.json();
       console.log('response', data);
       navigate('/');
@@ -100,7 +113,7 @@ function New() {
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>Bio (optional, 80 characters max):</Form.Label>
-                <Form.Control as="textarea" name="bio" maxLength={80}
+                <Form.Control type="text" name="bio" maxLength={80}
                   placeholder="Bio" value={userInput.bio} onChange={handleChange}
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>

@@ -31,17 +31,13 @@ function Home() {
       <NavigationBar />
       <section>
         <div className={HomeCss.container}>
-          <h1>Movies</h1>
+          <h1>Today's Top 6</h1>
           <div className={HomeCss.cards}>
             {movies.slice(0, 6).map((movie, i) => (
               <div key={i} className={HomeCss.card}>
-                <h3>{movie.title}</h3>
-                <img style={{ width: "100px" }} src={`${imageUrl}${movie.poster_path}`} alt={movie.title}/>
-                <p>Doesn't this movie rock?</p>
-                <Link to={`/movies/${movie.id}`}>
-                  <button className={HomeCss.btn}>
-                    Explore
-                  </button>
+                <h3 style={{textAlign:'center'}}>{movie.title}</h3>
+                <Link style={{display:'block'}} to={`/movies/${movie.id}`}>
+                  <img style={{ width: "250px", margin:'auto', display: 'block'}} src={`${imageUrl}${movie.poster_path}`} alt={movie.title}/>
                 </Link>
               </div>
             ))}
