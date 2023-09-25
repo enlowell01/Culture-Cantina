@@ -12,7 +12,7 @@ async function getAllMovies(req, res) {
     };
 
     try {
-        console.log('success')
+        console.log('Movies retrieved')
         const response = await fetch(url, options);
         const data = await response.json()
         res.json(data)
