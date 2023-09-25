@@ -34,7 +34,6 @@ function User() {
                 const userResponse = await fetch(userPath)
                 const userData = await userResponse.json()
                 setUser(userData)
-                console.log(user)
                 setUserInput(userData)
                 setCurrentUserId(userData._id)
 
