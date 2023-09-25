@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -10,6 +10,28 @@ function New() {
   const navigate = useNavigate();
 
   const [userInput, setUserInput] = useState({});
+
+  const { id } = useParams();
+
+  const [profilePictures, setProfilePictures] = useState({})
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const URL = `${process.env.REACT_APP_BACKEND_URI}/pictures`;
+        const response = await fetch(URL)
+        const profilePicturesData = await response.json();
+        console.log(profilePicturesData)
+        console.log('test')
+        setProfilePictures(profilePicturesData);
+
+      } catch (error) {
+        console.error('Error retrieving pictures', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -71,6 +93,11 @@ function New() {
         }}>
           <h2 style={{ textAlign: "center", margin: "10px" }}>Create An Account</h2>
           <Form className='p-3' onSubmit={handleSubmit}>
+            {profilePictures.map((pic, i) => (
+              <div key={i}>
+                <img src={pic.imgURL}></img>
+              </div>
+            ))}
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>Username<span style={{color:'red'}}>*</span>:</Form.Label>

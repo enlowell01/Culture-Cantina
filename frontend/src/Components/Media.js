@@ -40,7 +40,6 @@ function Media() {
                 const mediaPath = `${process.env.REACT_APP_BACKEND_URI}/movies/${id}`
                 const mediaResponse = await fetch(mediaPath)
                 const mediaData = await mediaResponse.json()
-                console.log(mediaData)
                 setMedia(mediaData)
 
                 const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
