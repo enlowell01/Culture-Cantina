@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 
-function Media() {
+function User() {
     const { userInfo, setUserInfo } = useContext(UserContext)
 
     const { id } = useParams()
@@ -19,7 +19,7 @@ function Media() {
     const [selectedFormId, setSelectedFormId] = useState('')
     
     const [currentUserId, setCurrentUserId] = useState('')
-    
+
     const [user, setUser] = useState({})
     const [userInput, setUserInput] = useState({})
     const [ratings, setRatings] = useState([])
@@ -290,4 +290,4 @@ function Media() {
     )
 }
 
-export default Media
+export default User
