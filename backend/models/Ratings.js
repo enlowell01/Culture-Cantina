@@ -19,6 +19,10 @@ const ratingSchema = new mongoose.Schema({
     profileId: {
         type: String,
         required: true
+    },
+    forTitle: {
+        type: String,
+        required: true
     }
 });
 

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from "../Contexts/UserContext";
 import Card from "react-bootstrap/Card";
 import NavigationBar from './Navbar';
-//import Nav from "react-bootstrap/Nav";
+import Nav from "react-bootstrap/Nav";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -11,18 +11,15 @@ import Row from 'react-bootstrap/Row';
 
 
 function Media() {
-    const { userInfo } = useContext(UserContext)
+    const { userInfo, setUserInfo } = useContext(UserContext)
 
     const { id } = useParams()
     const navigate = useNavigate()
 
     const [selectedFormId, setSelectedFormId] = useState('')
-    /*
+    
     const [currentUserId, setCurrentUserId] = useState('')
-
-    const [storedUsername, setStoredUsername] = useState('')
-
-    const [media, setMedia] = useState({})*/
+    
     const [user, setUser] = useState({})
     const [userInput, setUserInput] = useState({})
     const [ratings, setRatings] = useState([])
@@ -32,23 +29,14 @@ function Media() {
   
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                /*const mediaPath = `${process.env.REACT_APP_BACKEND_URI}/movies/${id}`
-                const mediaResponse = await fetch(mediaPath)
-                const mediaData = await mediaResponse.json()
-                setMedia(mediaData)*/
-                
+            try {       
                 const userPath = `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
                 const userResponse = await fetch(userPath)
                 const userData = await userResponse.json()
                 setUser(userData)
                 console.log(user)
                 setUserInput(userData)
-                //setUserInput(userData)
-                /*const filteredUser = userData.filter(user => user.username === storedUsername)
-                if (filteredUser.length > 0) {
-                    setCurrentUserId(filteredUser[0]._id)
-                }*/
+                setCurrentUserId(userData._id)
 
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
                 const ratingsResponse = await fetch(ratingsPath)
@@ -60,12 +48,8 @@ function Media() {
             }  
         };
 
-        /*if (Object.keys(userInfo).length > 0) {
-            setStoredUsername(userInfo?.username)
-        }*/
-
         fetchData()
-    }, [id, /*storedUsername, currentUserId, */userInfo]);
+    }, [id, userInfo]);
 
     const handleChangeRating = (e) => {
         const value = e.target.value
@@ -89,6 +73,7 @@ function Media() {
             ratingInput.profileId = ratingInput.profileId
             ratingInput.userId = ratingInput.userId
             ratingInput.productId = ratingInput.productId
+            ratingInput.forTitle = ratingInput.forTitle
             const response = await fetch(URL, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -120,25 +105,35 @@ function Media() {
         }
     };
 
-    const deleteAllRatings = function() {
-        return async() => {
-            for (let i = 0; i < ratings.length; i++) {
-                const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${ratings[i]._id}`
+    const deleteUser = function(id) {
+        return async (e) => {
+            e.preventDefault()
+            const URL = `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
+            const response = await fetch(URL, {
+                method: 'DELETE'
+            })
+            const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
+            const ratingsResponse = await fetch(ratingsPath)
+            const ratingsData = await ratingsResponse.json()
+            const filteredRatings = ratingsData.filter(rating => rating.profileId === currentUserId)
+            for (let i = 0; i < filteredRatings.length; i++) {
+                console.log('deleted')
+                const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${filteredRatings[i]._id}`
                 const response = await fetch(URL, {
                     method: 'DELETE'
                 })
                 if (response.status !==204) console.log('error')
             }
-        }
-    }
-
-    const deleteUser = function(id) {
-        return async (e) => {
-            const URL = `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
-            const response = await fetch(URL, {
-                method: 'DELETE'
-            })
-            deleteAllRatings()
+            try {
+                const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
+                await fetch(logoutURL, {
+                    credentials: 'include',
+                    method: 'POST',
+                });
+                setUserInfo(null);
+            } catch (error) {
+                console.error('An error occurred during logout:', error);
+            }
             navigate('/')
             if (response.status !==204) console.log('error')
         }
@@ -157,13 +152,6 @@ function Media() {
         } else if (formId !== selectedFormId) {
             return 'p-3 editFormHidden'
         }
-    }
-
-    var rated = false
-    const setRating = (x) => {
-        if (x === true) {
-            rated = true
-        } 
     }
 
     var loggedIn = false
@@ -193,10 +181,9 @@ function Media() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> {/*Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc'}} href={`/users/${rate.profileId}`}>{rate.userId}</Nav.Link>.*/} Review for: {rate.productId}, Rating: {rate.rating}, Details: {rate.review}</p>
-                                            {rate.userId === userInfo?.username && ( 
+                                            <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, Rating: {rate.rating}, Details: {rate.review}</p>
+                                            {loggedIn && ( 
                                                 <div>
-                                                    {setRating(true)}
                                                     <span>
                                                         <Button id={'button'+rate._id} variant='warning' onClick={() => {showingForm('form_'+rate._id)}}> Edit</Button>
                                                     </span>
@@ -242,17 +229,10 @@ function Media() {
                         </div>
                     </div>
                 </Card>
-                {rated && loggedIn && (
+                {loggedIn && (
                     <Form className = 'p-3' onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                         <h3>Edit Profile</h3>
                         <Row className='mb-3'>
-                            <Form.Group as={Col} style={{textAlign:'center'}}>
-                                <Form.Label>
-                                    Username:
-                                </Form.Label>
-                                <Form.Control type='text' name='username' onChange={handleChangeUser} value={userInput.username} required style={{textAlign:'center'}}/>
-                            </Form.Group>
-
                             <Form.Group as={Col} style={{textAlign:'center'}}>
                                 <Form.Label>
                                     First name:

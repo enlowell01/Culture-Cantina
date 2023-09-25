@@ -27,8 +27,9 @@ function Media() {
         rating: 0,
         review: '',
         userId: '',
+        productId: '',
         profileId: '',
-        productId: ''
+        forTitle: ''
     })
 
     const [showForm, setShowForm] = useState(false)
@@ -39,6 +40,7 @@ function Media() {
                 const mediaPath = `${process.env.REACT_APP_BACKEND_URI}/movies/${id}`
                 const mediaResponse = await fetch(mediaPath)
                 const mediaData = await mediaResponse.json()
+                console.log(mediaData)
                 setMedia(mediaData)
 
                 const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
@@ -52,15 +54,17 @@ function Media() {
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
                 const ratingsResponse = await fetch(ratingsPath)
                 const ratingsData = await ratingsResponse.json()
-                const filteredRatings = ratingsData.filter(rating => rating.productId === mediaData.title)
+                const filteredRatings = ratingsData.filter(rating => rating.forTitle === mediaData.title)
                 setRatings(filteredRatings)
             } catch (error) {
                 console.log(error)
             }  
         };
 
-        if (Object.keys(userInfo).length > 0) {
-            setStoredUsername(userInfo?.username)
+        if (userInfo !== null) {
+            if (Object.keys(userInfo).length > 0) {
+                setStoredUsername(userInfo?.username)
+            }
         }
 
         fetchData()
@@ -78,7 +82,8 @@ function Media() {
         const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings`
         ratingInput.profileId = currentUserId
         ratingInput.userId = userInfo?.username
-        ratingInput.productId = media.title
+        ratingInput.productId = media.id
+        ratingInput.forTitle = media.title
         try {
             const response = await fetch(URL, {
                 method: 'POST',
@@ -97,7 +102,8 @@ function Media() {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
             ratingInput.profileId = currentUserId
             ratingInput.userId = userInfo?.username
-            ratingInput.productId = media.title
+            ratingInput.productId = media.id
+            ratingInput.forTitle = media.title
             const response = await fetch(URL, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -140,8 +146,10 @@ function Media() {
 
     var loggedIn = false
     const checkLogin = () => {
-        if (Object.keys(userInfo).length > 0) {
-            loggedIn = true
+        if (userInfo !== null) {
+            if (Object.keys(userInfo).length > 0) {
+                loggedIn = true
+            }
         }
     }
 
@@ -157,7 +165,7 @@ function Media() {
                         backgroundColor:"white"
                     }}>
                     <div className='card-body'>
-                        <img className='rounded' src={`https://image.tmdb.org/t/p/original${media.backdrop_path}`} alt={media.title} height={300}/>
+                        <img className='rounded' src={`https://image.tmdb.org/t/p/original${media.poster_path}`} style={{ width: "290px", margin:'auto', display: 'block'}} alt={media.title}/>
                         <h1 className="p-2"> {media.title}</h1>
                         <p className="card-text">Overview: {media.overview}</p>
                         <div className="card-text">
@@ -166,7 +174,7 @@ function Media() {
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
                                             <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc'}} href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
-                                            {rate.userId === userInfo?.username && ( 
+                                            {rate.profileId === currentUserId && ( 
                                                 <div>
                                                     {setRating(false)}
                                                     <span>
