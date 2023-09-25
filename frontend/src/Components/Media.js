@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from 'react-router-dom';
 import { UserContext } from "../Contexts/UserContext";
 import Card from "react-bootstrap/Card";
@@ -17,7 +17,10 @@ function Media() {
     
     const [selectedFormId, setSelectedFormId] = useState('')
     
-    const [currentUserId, setCurrentUserId] = useState({})
+    const [currentUserId, setCurrentUserId] = useState('')
+
+    const [storedUsername, setStoredUsername] = useState('')
+
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({
@@ -29,8 +32,6 @@ function Media() {
     })
 
     const [showForm, setShowForm] = useState(false)
-
-    const hasFetchedData = useRef(false)
   
     useEffect(() => {
         const fetchData = async () => {
@@ -39,23 +40,18 @@ function Media() {
                 const mediaResponse = await fetch(mediaPath)
                 const mediaData = await mediaResponse.json()
                 setMedia(mediaData)
-                
-                let storedUsername = ''
-                if (Object.keys(userInfo).length > 0) {
-                    storedUsername = userInfo?.username
-                }
+
                 const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
                 const userResponse = await fetch(userPath)
                 const userData = await userResponse.json()
-                console.log(userData)
                 const filteredUser = userData.filter(user => user.username === storedUsername)
-                setCurrentUserId(filteredUser._id)
-                console.log(currentUserId)
+                if (filteredUser.length > 0) {
+                    setCurrentUserId(filteredUser[0]._id)
+                }
 
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
                 const ratingsResponse = await fetch(ratingsPath)
                 const ratingsData = await ratingsResponse.json()
-                console.log(ratingsData)
                 const filteredRatings = ratingsData.filter(rating => rating.productId === mediaData.title)
                 setRatings(filteredRatings)
             } catch (error) {
@@ -63,12 +59,12 @@ function Media() {
             }  
         };
 
-        if (hasFetchedData.current === false) {
-            fetchData()
-            hasFetchedData.current = true
-        };
-        
-    }, [id]);
+        if (Object.keys(userInfo).length > 0) {
+            setStoredUsername(userInfo?.username)
+        }
+
+        fetchData()
+    }, [id, storedUsername, currentUserId, userInfo]);
 
     const handleChange = (e) => {
         const value = e.target.value
@@ -80,19 +76,17 @@ function Media() {
 
     const handleReviews = async (e) => {
         const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings`
-        ratingInput.profileId = 'test'
+        ratingInput.profileId = currentUserId
         ratingInput.userId = userInfo?.username
         ratingInput.productId = media.title
         try {
-            if (Object.keys(userInfo).length > 0) {
-                const response = await fetch(URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(ratingInput)
-                })
-                const data = await response.json()
-                console.log('response', data)
-            }
+            const response = await fetch(URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ratingInput)
+            })
+            const data = await response.json()
+            console.log('response', data)
         } catch (error) {
             console.log('You must be logged in')
         }
@@ -101,6 +95,7 @@ function Media() {
     const handleEdit = function(id) {
         return async (e) => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
+            ratingInput.profileId = currentUserId
             ratingInput.userId = userInfo?.username
             ratingInput.productId = media.title
             const response = await fetch(URL, {
@@ -170,7 +165,7 @@ function Media() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review from: <Nav.Link style={{display:'inline-block'}} href={`/users/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc'}} href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
                                             {rate.userId === userInfo?.username && ( 
                                                 <div>
                                                     {setRating(false)}
@@ -210,7 +205,6 @@ function Media() {
                                                             <Button type='submit'>Submit</Button>
                                                         </Form.Group>
                                                     </Form>
-                                                    {console.log('test')}
                                                 </div>
                                             )}
                                         </div>

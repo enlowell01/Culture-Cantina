@@ -22,7 +22,7 @@ router.get('/profile', getUser)
 // GET / get User by id
 router.get('/:id', getUserById)
 // GET / get all Users
-router.get('/all', getAllUsers)
+router.get('/', getAllUsers)
 
 // PUT / edit User account
 router.put('/:id', updateUserById)
