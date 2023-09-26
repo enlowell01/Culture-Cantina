@@ -12,18 +12,6 @@ async function getAllPictures(req, res){
     }
 }
 
-async function getPictureById(req, res){
-    try {
-        const { id } = req.params
-        const picture = await ProfilePicture.findById(id) 
-        res.json(picture)
-    } catch (error) {
-        console.log('errpr getting Picture', error)
-        res.json({'message': 'error getting Picture'})
-    }
-};
-
 module.exports = {
-    getAllPictures,
-    getPictureById
+    getAllPictures
 };
