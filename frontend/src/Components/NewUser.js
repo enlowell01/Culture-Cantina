@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -20,10 +19,7 @@ function New() {
         const URL = `${process.env.REACT_APP_BACKEND_URI}/pictures`;
         const response = await fetch(URL)
         const profilePicturesData = await response.json();
-        console.log(profilePicturesData)
-        console.log('test')
         setProfilePictures(profilePicturesData);
-        console.log(profilePictures)
       } catch (error) {
         console.error('Error retrieving pictures', error);
       }
