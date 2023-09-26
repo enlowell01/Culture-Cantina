@@ -27,14 +27,22 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div>
+    <div style={{display:'inline-block', 
+      border:"2px solid #0066cc", 
+      borderRadius: '5px', 
+      textAlign:"center", 
+      color:"#0066cc",
+      backgroundColor:"white",
+      className:'search-bar' 
+    }}>
       <input
+        className='search-button'
         type="text"
         placeholder="Search for a movie..."
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className='search-button search-button-text' onClick={handleSearch}>Search</button>
     </div>
   );
 }

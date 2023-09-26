@@ -21,16 +21,20 @@ function NavigationBar() {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
         const userInfo = await response.json();
         setUserInfo(userInfo);
+
+        const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
+        const userResponse = await fetch(userPath)
+        const userData = await userResponse.json()
+        const filteredUser = userData.filter(user => user.username === userInfo?.username)
       } catch (error) {
         console.error('An error occurred:', error);
       }
     };
 
     fetchData();
-  }, [setUserInfo, URL]); // Include URL as a dependency to ensure it's up to date
+  }, [URL]); // Include URL as a dependency to ensure it's up to date
 
   async function logout() {
     try {
@@ -54,54 +58,61 @@ function NavigationBar() {
 
   return (
     <div>
-      <h1
-        className="text-center mb-0"
-        style={{
-          fontWeight: "700",
-          backgroundColor: "#B5EB8D",
-          padding: "12px",
-          color: "black",
-          backgroundImage:
-            "radial-gradient(circle at 10% 20%, rgb(0, 102, 161) 0%, rgb(0, 68, 108) 90.1%)",
-          textShadow: "3px 3px 3px rgba(222, 222, 222, 0.5)",
-        }}
-      >
-        Culture Cantina
-      </h1>
-
       <Navbar
         className="font-nice"
-        style={{ backgroundColor: "#217605", color: "#E9FFD8" }}
+        style={{
+          border:"1px solid #0066cc",  
+          textAlign:"center", 
+          color:"#0066cc",
+          backgroundColor:"white" 
+        }}
       >
+        <h1
+          className="text-center custom-h1"
+          style={{
+            fontWeight: "700",
+            backgroundColor: "white",
+            border:"1px 0px solid #0066cc",  
+            padding: "12px",
+            color: "black",
+            textShadow: "3px 3px 3px rgba(222, 222, 222, 0.5)",
+          }}
+        >
+        Culture Cantina
+        </h1>
         {username && (
-          <>
+          <div style={{display:'inline-block', marginLeft:'auto', marginRight: '20px', padding: '12px'}} className='navbar-text'>
             <Nav.Link
               href="/"
               className="nav-link me-3 ms-3"
-              style={{ color: "#E9FFD8" }}
             >
               Home
+            </Nav.Link>
+            |
+            <Nav.Link
+              href={`/user/${userInfo?.id}`}
+              className="nav-link me-3 ms-3"
+            >
+              Profile
             </Nav.Link>
             |
             <Nav.Link
               href="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
-              style={{ color: "#E9FFD8", cursor: "pointer" }}
             >
               Logout
             </Nav.Link>
 
             <SearchBar onSearch={handleSearch} />
-          </>
+          </div>
         )}
 
         {!username && (
-          <>
+          <div style={{display:'inline-block', marginLeft:'auto', marginRight: '20px', padding: '12px'}} className='navbar-text'>
             <Nav.Link
               href="/"
               className="nav-link me-3 ms-3"
-              style={{ color: "#E9FFD8" }}
             >
               Home
             </Nav.Link>
@@ -109,7 +120,6 @@ function NavigationBar() {
             <Nav.Link
               href="/newUser"
               className="nav-link me-3 ms-3"
-              style={{ color: "#E9FFD8" }}
             >
               New User
             </Nav.Link>
@@ -117,20 +127,19 @@ function NavigationBar() {
             <Nav.Link
               href="/login"
               className="nav-link me-3 ms-3"
-              style={{ color: "#E9FFD8" }}
             >
               Login
             </Nav.Link>
 
             <SearchBar onSearch={handleSearch} />
-          </>
+          </div>
         )}
       </Navbar>
 
       <ul>
         {searchResults.map((movie) => (
-          <li key={movie.id} style={{zIndex:'-1'}}>
-            <button style={{display:'inline-block', zIndex:'-1'}} >
+          <li className='search-results' key={movie.id} style={{zIndex:'-1'}}>
+            <button className='search-button search-button-text search-results'>
               <Nav.Link href={`/movies/${movie.id}`}>
                   {movie.title}
               </Nav.Link>

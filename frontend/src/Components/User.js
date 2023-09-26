@@ -172,7 +172,7 @@ function User() {
                         backgroundColor:"white"
                     }}>
                     <div className='card-body'>
-                        {/*<img className='rounded' src={`https://image.tmdb.org/t/p/original${media.backdrop_path}`} alt={media.title} height={300}/>*/}
+                        <img className='rounded profilePicture' src={user.pictureURL} alt="profile picture" height={300}/>
                         <h1 className="p-2"> {user.username}</h1>
                         <p className="card-text">Bio: {user.bio}</p>
                         <div className="card-text">
@@ -180,7 +180,7 @@ function User() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc', textDecoration:'underline'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, Rating: {rate.rating}, Details: {rate.review}</p>
                                             {loggedIn && ( 
                                                 <div>
                                                     <span>
@@ -236,7 +236,7 @@ function User() {
                                 <Form.Label>
                                     First name:
                                 </Form.Label>
-                                <Form.Control type='text' name='firstname' onChange={handleChangeUser} value={userInput.firstname} 
+                                <Form.Control as="input" type='text' name='firstname' onChange={handleChangeUser} value={userInput.firstname} 
                                 placeholder={user.firstname}required style={{textAlign:'center'}}/>
                             </Form.Group>
 
@@ -244,7 +244,7 @@ function User() {
                                 <Form.Label>
                                     Last name:
                                 </Form.Label>
-                                <Form.Control type='text' name='lastname' onChange={handleChangeUser} value={userInput.lastname} 
+                                <Form.Control as="input" type='text' name='lastname' onChange={handleChangeUser} value={userInput.lastname} 
                                 placeholder={user.lastname}required style={{textAlign:'center'}}/>
                             </Form.Group>
                         </Row>
@@ -253,7 +253,7 @@ function User() {
                                 <Form.Label>
                                     Email:
                                 </Form.Label>
-                                <Form.Control type='text' name='email' onChange={handleChangeUser} value={userInput.email} 
+                                <Form.Control as="input" type='text' name='email' onChange={handleChangeUser} value={userInput.email} 
                                 placeholder={user.email}required style={{textAlign:'center'}}/>
                             </Form.Group>
 
@@ -261,7 +261,7 @@ function User() {
                                 <Form.Label>
                                     Bio:
                                 </Form.Label>
-                                <Form.Control type='text' name='bio' onChange={handleChangeUser} value={userInput.bio} 
+                                <Form.Control as='textarea' name='bio' onChange={handleChangeUser} value={userInput.bio} 
                                 placeholder={user.bio}required style={{textAlign:'center'}}/>
                             </Form.Group>
                         </Row>

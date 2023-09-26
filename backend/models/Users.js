@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
       },
       bio: {
         type: String
+      },
+      pictureURL: {
+        type: String,
+        required: true
       }
   }, {
     timestamps: true
