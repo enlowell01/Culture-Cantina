@@ -27,14 +27,11 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div style={{display:'inline-block', 
-      border:"2px solid #0066cc", 
-      borderRadius: '5px', 
-      textAlign:"center", 
-      color:"#0066cc",
-      backgroundColor:"white",
-      className:'search-bar' 
-    }}>
+    <div style={{
+      display:'inline-block', 
+      border:"1px solid #0066cc", 
+      borderRadius: '5px',
+    }} className='search-bar'>
       <input
         className='search-button'
         type="text"

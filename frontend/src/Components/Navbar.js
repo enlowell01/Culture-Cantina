@@ -58,30 +58,14 @@ function NavigationBar() {
 
   return (
     <div>
-      <Navbar
-        className="font-nice"
-        style={{
-          border:"1px solid #0066cc",  
-          textAlign:"center", 
-          color:"#0066cc",
-          backgroundColor:"white" 
-        }}
-      >
-        <h1
-          className="text-center custom-h1"
-          style={{
-            fontWeight: "700",
-            backgroundColor: "white",
-            border:"1px 0px solid #0066cc",  
-            padding: "12px",
-            color: "black",
-            textShadow: "3px 3px 3px rgba(222, 222, 222, 0.5)",
-          }}
-        >
-        Culture Cantina
-        </h1>
+      <Navbar className="font-nice">
+        <Nav.Link href='/'>
+          <h1 className="custom-h1">
+            Culture Cantina
+          </h1>
+        </Nav.Link>
         {username && (
-          <div style={{display:'inline-block', marginLeft:'auto', marginRight: '20px', padding: '12px'}} className='navbar-text'>
+          <div className='navbar-text'>
             <Nav.Link
               href="/"
               className="nav-link me-3 ms-3"
@@ -109,7 +93,7 @@ function NavigationBar() {
         )}
 
         {!username && (
-          <div style={{display:'inline-block', marginLeft:'auto', marginRight: '20px', padding: '12px'}} className='navbar-text'>
+          <div className='navbar-text'>
             <Nav.Link
               href="/"
               className="nav-link me-3 ms-3"
@@ -135,7 +119,7 @@ function NavigationBar() {
           </div>
         )}
       </Navbar>
-
+      <div className='navbar-strip'></div>    
       <ul>
         {searchResults.map((movie) => (
           <li className='search-results' key={movie.id} style={{zIndex:'-1'}}>

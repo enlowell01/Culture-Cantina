@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
-import FormCheck from 'react-bootstrap/FormCheck'
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -81,15 +81,14 @@ function New() {
   };
 
   const display = profilePictures && (
-    <div className="container-lg">
-      <div style={{ textAlign: "center", marginTop: "100px" }}>
+    <div>
+      <div style={{ textAlign: "center"}} className='account-card'>
         <Card style={{
           display: "inline-block",
-          border: "1px solid #0066cc",
           textAlign: "center",
           color: "#0066cc",
           backgroundColor: "white"
-        }}>
+        }} className='signup-card'>
           <h2 style={{ textAlign: "center", margin: "10px" }}>Create An Account</h2>
           <Form className='p-3' onSubmit={handleSubmit}>
             <Row className='mb-3'>
@@ -139,7 +138,7 @@ function New() {
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
             </Row>
-
+            <p>Please pick a profile picture:</p>
             {profilePictures.length > 0 && 
               <div>
                 {profilePictures.map((pic, i) => (
@@ -151,11 +150,18 @@ function New() {
                 ))}
               </div>
             }
-
+            <br></br>
             <Form.Group className='mb-3 mx-auto w-50' style={{ textAlign: 'center' }}>
               <p>Fields marked with <span style={{color:'red'}}>*</span> are required.</p>
               <Button type='submit' style={{ backgroundColor: "#0066cc" }}>Sign Up</Button>
             </Form.Group>
+            <p>Already have an account?</p>
+            <Button style={{margin:'10px'}} onClick ={()=> {navigate('/login')}}>
+              Login
+            </Button>
+            <Button style={{margin:'10px'}} onClick ={()=> {navigate('/')}}>
+              Home
+            </Button>
           </Form>
         </Card>
       </div>
@@ -163,7 +169,7 @@ function New() {
   );
 
   return (
-    <div className='container-lg'>
+    <div className='container-lg no-border'>
         <div>
             {display} 
         </div>

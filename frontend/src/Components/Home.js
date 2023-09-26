@@ -31,12 +31,12 @@ function Home() {
       <NavigationBar />
       <section>
         <div className={HomeCss.container}>
-          <h1>Today's Top 6</h1>
+          <h2 className='custom-h2'>Today's Top 6</h2>
           <div className={HomeCss.cards}>
             {movies.slice(0, 6).map((movie, i) => (
               <div key={i} className={HomeCss.card}>
-                <h3 style={{textAlign:'center'}}>{movie.title}</h3>
                 <Link style={{display:'block'}} to={`/movies/${movie.id}`}>
+                  <p className='custom-h3' style={{textAlign:'center'}}>{movie.title}</p>
                   <img style={{ width: "250px", margin:'auto', display: 'block'}} src={`${imageUrl}${movie.poster_path}`} alt={movie.title}/>
                 </Link>
               </div>

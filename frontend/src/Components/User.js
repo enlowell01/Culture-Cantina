@@ -17,19 +17,28 @@ function User() {
     const navigate = useNavigate()
 
     const [selectedFormId, setSelectedFormId] = useState('')
+    const [selectedUserFormId, setSelectedUserFormId] = useState('')
     
     const [currentUserId, setCurrentUserId] = useState('')
+
+    const [profilePictures, setProfilePictures] = useState({})
 
     const [user, setUser] = useState({})
     const [userInput, setUserInput] = useState({})
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
 
+    const [showUserForm, setShowUserForm] = useState(false)
     const [showForm, setShowForm] = useState(false)
   
     useEffect(() => {
         const fetchData = async () => {
             try {       
+                const URL = `${process.env.REACT_APP_BACKEND_URI}/pictures`;
+                const response = await fetch(URL)
+                const profilePicturesData = await response.json();
+                setProfilePictures(profilePicturesData);
+
                 const userPath = `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
                 const userResponse = await fetch(userPath)
                 const userData = await userResponse.json()
@@ -153,6 +162,15 @@ function User() {
         }
     }
 
+    const hideUserForm = (formId) => {
+        if (formId === selectedUserFormId) {
+            return 'p-3 editForm'
+        } else if (formId !== selectedUserFormId) {
+            return 'p-3 editFormHidden'
+        }
+    }
+    
+
     var loggedIn = false
     const checkLogin = () => {
         if (Object.keys(userInfo).length > 0 && userInfo?.username === user.username) {
@@ -160,20 +178,25 @@ function User() {
         }
     }
 
+    const showingUserForm = (userFormId) => {
+        setShowUserForm(!showUserForm)
+        setSelectedUserFormId(userFormId)
+    }
+
+
     const display = user && (
-        <div className = "container-lg">
+        <div>
             {checkLogin()}
-            <div  style={{backgroundColor:'#B5EB8D', textAlign:'center'}}>
-                <Card style={{ 
-                        display: "inline-block", 
-                        border:"1px solid #0066cc",  
+            <div  style={{textAlign:'center', marginTop: '50px'}}>
+                <Card style={{  
                         textAlign:"center", 
                         color:"#0066cc",
                         backgroundColor:"white"
-                    }}>
-                    <div className='card-body'>
-                        <img className='rounded profilePicture' src={user.pictureURL} alt="profile picture" height={300}/>
-                        <h1 className="p-2"> {user.username}</h1>
+                    }} className='show-page-card'>
+                    <div className='show-page-card'>
+                        <img className='rounded' style={{maxHeight:'30%', maxWidth:'30%'}} src={user.pictureURL} alt="profile picture"/>
+                        <h2 className="custom-h2"> {user.username}</h2>
+                        <p className="card-text">{user.firstname} {user.lastname}</p>
                         <p className="card-text">Bio: {user.bio}</p>
                         <div className="card-text">
                             {ratings.length > 0 && 
@@ -184,12 +207,12 @@ function User() {
                                             {loggedIn && ( 
                                                 <div>
                                                     <span>
-                                                        <Button id={'button'+rate._id} variant='warning' onClick={() => {showingForm('form_'+rate._id)}}> Edit</Button>
+                                                        <Button id={'button'+rate._id} onClick={() => {showingForm('form_'+rate._id)}}> Edit Rating</Button>
                                                     </span>
                                                     <span> </span>
                                                     <span>
                                                         <Form style={{display:'inline-block'}} onSubmit={deleteRating(rate._id)}>
-                                                            <Button type='submit' variant='danger'> Delete</Button>
+                                                            <Button type='submit' variant='danger'> Delete Rating</Button>
                                                         </Form>
                                                     </span>
                                                 </div>
@@ -227,54 +250,82 @@ function User() {
                             }
                         </div>
                     </div>
-                </Card>
-                {loggedIn && (
-                    <Form className = 'p-3' onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
-                        <h3>Edit Profile</h3>
-                        <Row className='mb-3'>
-                            <Form.Group as={Col} style={{textAlign:'center'}}>
-                                <Form.Label>
-                                    First name:
-                                </Form.Label>
-                                <Form.Control as="input" type='text' name='firstname' onChange={handleChangeUser} value={userInput.firstname} 
-                                placeholder={user.firstname}required style={{textAlign:'center'}}/>
-                            </Form.Group>
-
-                            <Form.Group as={Col} style={{textAlign:'center'}}>
-                                <Form.Label>
-                                    Last name:
-                                </Form.Label>
-                                <Form.Control as="input" type='text' name='lastname' onChange={handleChangeUser} value={userInput.lastname} 
-                                placeholder={user.lastname}required style={{textAlign:'center'}}/>
-                            </Form.Group>
-                        </Row>
-                        <Row className='mb-3'>
-                            <Form.Group as={Col} style={{textAlign:'center'}}>
-                                <Form.Label>
-                                    Email:
-                                </Form.Label>
-                                <Form.Control as="input" type='text' name='email' onChange={handleChangeUser} value={userInput.email} 
-                                placeholder={user.email}required style={{textAlign:'center'}}/>
-                            </Form.Group>
-
-                            <Form.Group as={Col} style={{textAlign:'center'}}>
-                                <Form.Label>
-                                    Bio:
-                                </Form.Label>
-                                <Form.Control as='textarea' name='bio' onChange={handleChangeUser} value={userInput.bio} 
-                                placeholder={user.bio}required style={{textAlign:'center'}}/>
-                            </Form.Group>
-                        </Row>
-                        <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
+                    {loggedIn && (
+                        <div>
                             <span>
-                                <Button type='submit' variant='danger' style={{display:'inline-block'}} onClick={deleteUser(user._id)}>
-                                     Delete
-                                </Button>
+                                <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
                             </span>
-                            <Button type='submit'>Submit</Button>
-                        </Form.Group>
-                    </Form>
-                )}
+                            {showUserForm && (
+                                <Form id='user-form' className = {hideUserForm('user-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
+                                    <h3>Edit Profile</h3>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                Password:
+                                            </Form.Label>
+                                            <Form.Control type='password' name='password' onChange={handleChangeUser} value={userInput.password} 
+                                            placeholder='Edit password' required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                First name:
+                                            </Form.Label>
+                                            <Form.Control as="input" type='text' name='firstname' onChange={handleChangeUser} value={userInput.firstname} 
+                                            placeholder={user.firstname}required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                Last name:
+                                            </Form.Label>
+                                            <Form.Control as="input" type='text' name='lastname' onChange={handleChangeUser} value={userInput.lastname} 
+                                            placeholder={user.lastname}required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                Email:
+                                            </Form.Label>
+                                            <Form.Control as="input" type='text' name='email' onChange={handleChangeUser} value={userInput.email} 
+                                            placeholder={user.email}required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                Bio:
+                                            </Form.Label>
+                                            <Form.Control as='textarea' name='bio' onChange={handleChangeUser} value={userInput.bio} 
+                                            placeholder={user.bio}required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                    </Row>
+                                    <p>Profile picture:</p>
+                                    {profilePictures.length > 0 && 
+                                    <div>
+                                        {profilePictures.map((pic, i) => (
+                                        <div key={i} style = {{display:'inline-block'}} >
+                                            <Button className = 'hiddenButton' onClick={() => {setUserInput({...userInput, pictureURL: pic.imgURL})}}>
+                                            <img style={{ display: 'inline-block' }} className='profilePicture' src={pic.imgURL} ></img>
+                                            </Button>
+                                        </div>
+                                        ))}
+                                    </div>
+                                    }
+                                    <br></br>
+                                    <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
+                                        <Button type='submit'>Edit Profile</Button>
+                                        <span> </span>
+                                        <Button type='submit' variant='danger' style={{display:'inline-block'}} onClick={deleteUser(user._id)}>
+                                            Delete Profile
+                                        </Button>
+                                    </Form.Group>
+                                </Form>
+                            )}
+                        </div>
+                    )}
+                </Card>
+            <div className='show-page-strip'></div> 
             </div>
         </div>
     )
