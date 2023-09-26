@@ -1,3 +1,7 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,6 +18,25 @@ code {
 
 ::placeholder {
   color: #99ccff !important
+}
+
+.container-lg {
+  border-style:solid;
+  border-color: #0066cc;
+  border-width: 0px 1px 0px 1px;
+  padding: 0px !important;
+}
+
+.no-border {
+  border: 0px !important;
+}
+
+img {
+  border-radius: 20px;
+}
+
+.form-label, .form-control {
+  font-size:0.75em !important
 }
 
 .editForm {
@@ -42,28 +65,32 @@ code {
   background-color: white;
   color: #0066cc;
   border: 0px;
-  font-size: 0.8rem;
+  font-size: 0.5rem;
+  font-weight: 300 !important;
+  margin: 0px !important;
 }
 
 .search-bar {
-  width: 10px
+  width: 150px;
+  margin-top: 5px;
 }
 
 .search-button-text:hover {
-  color: #c230bb !important;
+  color: #faaf00 !important;
 }
 
 .search-button:focus-visible {
-  outline: 0px !important
+  outline: 0px !important;
 }
 
 .search-results {
-  font-size: 0.8rem;
+  font-size: 0.5rem;
   display: inline-block;
   text-align: right;
   text-decoration:none;
   z-index:-1;
   padding: 12px;
+  font-weight: 300 !important;
 }
 
 .profilePicture {
@@ -72,7 +99,7 @@ code {
 }
 
 .nav-link:hover {
-  color: #c230bb !important;
+  color: #faaf00 !important;
   text-decoration: none !important;
 }
 
@@ -84,25 +111,144 @@ code {
 
 .custom-h1 {
   font-size: 85%;
-  margin-bottom: 8px;
-  margin-left: 20px;
-  display:block
+  display:block;
+  font-weight: 600 !important;
+  color: #0066cc !important;
+  width: 150px;
+  margin: 0px !important;
+}
+
+.custom-h1:hover {
+  color: #faaf00 !important;
+}
+
+.custom-h2 {
+  display:block;
+  text-align:center;
+  font-size: 1.5em;
+  font-weight: 400 !important;
+  color: #0066cc !important;
+}
+
+.custom-h3 {
+  font-size: 1.2 em;
+  font-weight: 300 !important;
+  color: #0066cc !important;
 }
 
 .navbar {
-  font-size: 0.8rem !important
+  color: #0066cc;
+  background-color: white;
+  text-align: center;
 }
 
 .navbar-text {
-  font-size: 0.8rem !important;
+  font-size: 0.65rem !important;
+  font-weight: 400 !important;
   color: #0066cc !important;
+}
+
+.navbar-strip {
+  display:block;
+  height: 20px;
+  width: 100%;
+  background-color: #e3f1ff;
+}
+
+.show-page-strip {
+  display:hidden;
+}
+
+.card { 
+  --bs-card-border-width: 0px !important;
+}
+
+.card-body {
+  --bs-card-border-width: 0px !important;
+  max-width: 300px;
+}
+
+.account-card {
+  margin-top: 30px;
+}
+
+.login-card {
+  width: 350px;
+  --bs-card-border-width: 0px !important;
+}
+
+.signup-card {
+  width: 350px;
+  --bs-card-border-width: 0px !important;
+}
+
+.show-page-card {
+  margin:auto;
+  width: 95vw;
+  word-wrap: break-word;
+  text-align: center;
+  --bs-card-border-width: 0px !important;
 }
 
 @media only screen and (min-width: 768px) {
   .nav-link {font-size: 1.5rem }
   .nav-bar {font-size: 1.5rem !important}
-  .navbar-text  {font-size: 1.5rem !important}
-  .custom-h1 {font-size: 3em !important}
+  .navbar-text  {
+    font-size: 1.5rem !important; 
+    font-weight: 300 !important; 
+    margin-left: auto;
+    margin-right: 30px;
+  }
+  .form-label, .form-control {
+    font-size: 1em !important;
+  }
+  .custom-h1 {
+    font-size: 3em;
+    font-weight: 300 !important;
+    margin-bottom: 6px !important;
+    margin-left: 20px !important;
+    padding: 5px 10px 5px 10px !important;
+    width: auto;
+  }
+  .custom-h2 {
+    font-size: 2.5em;
+    font-weight: 300 !important;
+    margin-bottom: 30px;
+    margin-top: 15px
+  }
   .search-results {font-size: 1rem !important}
-  .search-button {font-size: 1.5rem}
+  .search-button {font-size: 1.1rem}
+  .search-bar {
+    width: 300px;
+    margin-top: 0px;
+  }
+  .account-card {
+    margin-top: 80px;
+  }
+  .login-card {
+    width: 500px;
+    --bs-card-border-width: 1px !important;
+    --bs-card-border-style: solid !important;
+    --bs-card-border-color: #0066cc !important
+  }
+  .signup-card {
+    width: auto;
+    --bs-card-border-width: 1px !important;
+    --bs-card-border-style: solid !important;
+    --bs-card-border-color: #0066cc !important
+  }
+  .show-page-strip {
+    display:block;
+    height: 1px;
+    width: 100%;
+    background-color: #0066cc;
+    margin-top: 20px;
+  }
+  .show-page-card {
+    width: 80%;
+    max-width: none;
+  }
+  .card-body {
+    max-width: none;
+  }
 }

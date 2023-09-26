@@ -152,19 +152,20 @@ function Media() {
         }
     }
 
+
     const display = media && (
-        <div className = "container-lg">
+        <div>
             {checkLogin()}
-            <div  style={{backgroundColor:'#B5EB8D', textAlign:'center'}}>
+            <div style={{textAlign:'center'}}>
                 <Card style={{ 
-                        display: "inline-block", 
-                        border:"1px solid #0066cc",  
+                        display: "inline-block",  
                         textAlign:"center", 
                         color:"#0066cc",
-                        backgroundColor:"white"
+                        backgroundColor:"white",
                     }}>
                     <div className='card-body'>
-                        <img className='rounded' src={`https://image.tmdb.org/t/p/original${media.poster_path}`} style={{ width: "290px", margin:'auto', display: 'block'}} alt={media.title}/>
+                        <img src={`https://image.tmdb.org/t/p/original${media.poster_path}`} 
+                            style={{ width: "250px", margin:'auto', display: 'block'}} alt={media.title}/>
                         <h1 className="p-2"> {media.title}</h1>
                         <p className="card-text">Overview: {media.overview}</p>
                         <div className="card-text">
@@ -172,17 +173,18 @@ function Media() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', textDecoration:'underline'}} href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', textDecoration:'underline'}} 
+                                            href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
                                             {rate.profileId === currentUserId && ( 
                                                 <div>
                                                     {setRating(false)}
                                                     <span>
-                                                        <Button id={'button'+rate._id} variant='warning' onClick={() => {showingForm('form_'+rate._id)}}> Edit</Button>
+                                                        <Button id={'button'+rate._id} onClick={() => {showingForm('form_'+rate._id)}}> Edit rating</Button>
                                                     </span>
                                                     <span> </span>
                                                     <span>
                                                         <Form style={{display:'inline-block'}} onSubmit={deleteRating(rate._id)}>
-                                                            <Button type='submit' variant='danger'> Delete</Button>
+                                                            <Button type='submit' variant='danger'> Delete Rating</Button>
                                                         </Form>
                                                     </span>
                                                 </div>
@@ -220,10 +222,9 @@ function Media() {
                             }
                         </div>
                     </div>
-                </Card>
-                {rated && loggedIn && (
+                    {rated && loggedIn && (
                     <Form className = 'p-3' onSubmit={handleReviews} style={{color:"#0066cc", backgroundColor:"white"}}>
-                        <h3>Leave a review:</h3>
+                        <h3>Leave a rating:</h3>
                         <Row className='mb-3'>
                             <Form.Group as={Col} style={{textAlign:'center'}}>
                                 <Form.Label>
@@ -242,10 +243,12 @@ function Media() {
                         </Row>
                         <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
                             <p>Fields marked with <span style={{color:'red'}}>*</span> are required.</p>
-                            <Button type='submit'>Submit</Button>
+                            <Button type='submit'>Post Rating</Button>
                         </Form.Group>
                     </Form>
-                )}
+                    )}
+                </Card>
+                <div className='show-page-strip'></div> 
             </div>
         </div>
     )

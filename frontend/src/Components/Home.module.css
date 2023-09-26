@@ -35,21 +35,21 @@ h1 {
   max-width: calc(33.33% - 20px);
   width: 100%;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 25px;
   padding: 20px;
   margin-bottom: 20px;
   transition: .3s;
-  border: 2px solid transparent;
+  border: 0.5px solid transparent;
 }
 
 .card:hover {
-  border-color: #1d39c4;
+  border-color: #0066cc;
 }
 
 .btn {
   border: none;
   outline: none;
-  background: #1d39c4;
+  background: #0066cc;
   color: #fff;
   border-radius: 10px;
   max-width: 120px;
@@ -61,12 +61,12 @@ h1 {
   margin-top: 20px;
   cursor: pointer;
   transition: .3s;
-  border: 1px solid #1d39c4;
+  border: 1px solid #0066cc;
 }
 
 .btn:hover {
   background: transparent;
-  color: #1d39c4;
+  color: #0066cc;
 }
 
 @media(max-width: 969px) {

@@ -106,8 +106,29 @@ async function userLogout(req, res) {
 async function updateUserById(req, res) {
   try {
     const { id } = req.params;
-    if (!req.body.image) req.body.image = undefined;
-    await User.findByIdAndUpdate(id, req.body);
+    const { password, username, firstname, lastname, email, bio, pictureURL } = req.body;
+
+    // Create an object to store the fields you want to update
+    const updatedFields = {};
+
+    // Hash the new password if it's provided
+    if (password) {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      updatedFields.password = hashedPassword;
+    }
+
+    // Add other fields to the updatedFields object
+    if (username) updatedFields.username = username;
+    if (firstname) updatedFields.firstname = firstname;
+    if (lastname) updatedFields.lastname = lastname;
+    if (email) updatedFields.email = email;
+    if (bio) updatedFields.bio = bio;
+    if (pictureURL) updatedFields.pictureURL = pictureURL;
+
+    // Update the user with the new values
+    await User.findByIdAndUpdate(id, updatedFields);
+
     res.status(204).json({ message: 'User account updated' });
   } catch (error) {
     console.error('Error updating User account', error);
