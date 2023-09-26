@@ -29,11 +29,12 @@ To start locally, run NPM RUN DEV in the backend and NPM START in the frontend.
 
 ### Future of Culture-Cantina
 This project has evolved quite a bit since its initial inception. One day, we would like this project to grow into a multi-media social hub where users can not only perform the above functions for Movies, but also do the same for TV, Books, Music, Games, and more.
-**Future Features**:
+**Future Features and Goals**:
 - Allow users to upload their own user images
 - Allow users to create collections of media they would like to watch, have watched/own, etc.
 - Allow users to add other profiles as friends and share ratings/reviews/discussions
 - Add other types of media with filtering and pagination on the home page
+- Add more comments and pseudocode
 
 ### Attributions
 - User icons found on flaticon.com
