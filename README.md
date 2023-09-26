@@ -33,4 +33,10 @@ This project has evolved quite a bit since its initial inception. One day, we wo
 - Allow users to upload their own user images
 - Allow users to create collections of media they would like to watch, have watched/own, etc.
 - Allow users to add other profiles as friends and share ratings/reviews/discussions
-- 
+- Add other types of media with filtering and pagination on the home page
+
+### Attributions
+- User icons found on flaticon.com
+- Wizard, dragon and robot icons created by Freepik
+- Shark icon created by Smashicons
+- Deadpool icon created by Stockio
