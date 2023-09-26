@@ -4,7 +4,8 @@ require('dotenv').config();
 const app = express();
 const userRoutes = require('./routes/Users');
 const ratingRoutes = require('./routes/Ratings');
-const movieRoutes = require('./routes/Movies')
+const movieRoutes = require('./routes/Movies');
+const profilePicturesRoutes = require('./routes/ProfilePictures');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session')
@@ -24,6 +25,7 @@ app.use(cookieParser());
 app.use('/user', userRoutes);
 app.use('/ratings', ratingRoutes);
 app.use('/movies', movieRoutes);
+app.use('/pictures', profilePicturesRoutes);
 
 // DB Connection
 mongoose

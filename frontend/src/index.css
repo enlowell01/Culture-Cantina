@@ -25,3 +25,84 @@ code {
 .editFormHidden {
   display: none !important
 }
+
+.hiddenButton {
+  --bs-btn-bg: white !important;
+  --bs-btn-border-color: white !important;
+  --bs-btn-focus: #0066cc !important;
+  --bs-btn-active-bg: #0066cc !important;
+}
+
+.hiddenButton:focus {
+  --bs-btn-bg: #0066cc !important;
+  --bs-btn-border-color: #0066cc !important;
+}
+
+.search-button {
+  background-color: white;
+  color: #0066cc;
+  border: 0px;
+  font-size: 0.8rem;
+}
+
+.search-bar {
+  width: 10px
+}
+
+.search-button-text:hover {
+  color: #c230bb !important;
+}
+
+.search-button:focus-visible {
+  outline: 0px !important
+}
+
+.search-results {
+  font-size: 0.8rem;
+  display: inline-block;
+  text-align: right;
+  text-decoration:none;
+  z-index:-1;
+  padding: 12px;
+}
+
+.profilePicture {
+  max-width: 100px;
+  max-height: 100px
+}
+
+.nav-link:hover {
+  color: #c230bb !important;
+  text-decoration: none !important;
+}
+
+.nav-link {
+  color:#0066cc !important;
+  display: inline-block !important;
+  font-size: 1rem 
+}
+
+.custom-h1 {
+  font-size: 85%;
+  margin-bottom: 8px;
+  margin-left: 20px;
+  display:block
+}
+
+.navbar {
+  font-size: 0.8rem !important
+}
+
+.navbar-text {
+  font-size: 0.8rem !important;
+  color: #0066cc !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-link {font-size: 1.5rem }
+  .nav-bar {font-size: 1.5rem !important}
+  .navbar-text  {font-size: 1.5rem !important}
+  .custom-h1 {font-size: 3em !important}
+  .search-results {font-size: 1rem !important}
+  .search-button {font-size: 1.5rem}
+}

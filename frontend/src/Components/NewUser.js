@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
+import FormCheck from 'react-bootstrap/FormCheck'
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,6 +11,26 @@ function New() {
   const navigate = useNavigate();
 
   const [userInput, setUserInput] = useState({});
+
+  const [profilePictures, setProfilePictures] = useState({})
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const URL = `${process.env.REACT_APP_BACKEND_URI}/pictures`;
+        const response = await fetch(URL)
+        const profilePicturesData = await response.json();
+        console.log(profilePicturesData)
+        console.log('test')
+        setProfilePictures(profilePicturesData);
+        console.log(profilePictures)
+      } catch (error) {
+        console.error('Error retrieving pictures', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -59,7 +80,7 @@ function New() {
     }
   };
 
-  return (
+  const display = profilePictures && (
     <div className="container-lg">
       <div style={{ textAlign: "center", marginTop: "100px" }}>
         <Card style={{
@@ -74,21 +95,21 @@ function New() {
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>Username<span style={{color:'red'}}>*</span>:</Form.Label>
-                <Form.Control type="text" name="username" placeholder="Username"
+                <Form.Control as="input" type="text" name="username" placeholder="Username"
                   value={userInput.username} maxLength={20} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
 
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>First name<span style={{color:'red'}}>*</span>:</Form.Label>
-                <Form.Control type="text" name="firstname" placeholder="First name"
+                <Form.Control as="input" type="text" name="firstname" placeholder="First name"
                   value={userInput.firstname} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
 
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>Last name<span style={{color:'red'}}>*</span>:</Form.Label>
-                <Form.Control type="text" name="lastname" placeholder="Last name"
+                <Form.Control as="input" type="text" name="lastname" placeholder="Last name"
                   value={userInput.lastname} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
@@ -97,7 +118,7 @@ function New() {
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>Email Address<span style={{color:'red'}}>*</span>:</Form.Label>
-                <Form.Control type="text" name="email" placeholder="Email address"
+                <Form.Control as="input" type="text" name="email" placeholder="Email address"
                   value={userInput.email} onChange={handleChange} required
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
@@ -113,11 +134,23 @@ function New() {
             <Row className='mb-3'>
               <Form.Group as={Col} style={{ textAlign: 'center' }}>
                 <Form.Label>Bio (optional, 80 characters max):</Form.Label>
-                <Form.Control type="text" name="bio" maxLength={80}
+                <Form.Control as="textarea" name="bio" maxLength={80}
                   placeholder="Bio" value={userInput.bio} onChange={handleChange}
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
             </Row>
+
+            {profilePictures.length > 0 && 
+              <div>
+                {profilePictures.map((pic, i) => (
+                  <div key={i} style = {{display:'inline-block'}} >
+                    <Button className = 'hiddenButton' onClick={() => {setUserInput({...userInput, pictureURL: pic.imgURL})}}>
+                      <img style={{ display: 'inline-block' }} className='profilePicture' src={pic.imgURL} ></img>
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            }
 
             <Form.Group className='mb-3 mx-auto w-50' style={{ textAlign: 'center' }}>
               <p>Fields marked with <span style={{color:'red'}}>*</span> are required.</p>
@@ -128,6 +161,15 @@ function New() {
       </div>
     </div>
   );
+
+  return (
+    <div className='container-lg'>
+        <div>
+            {display} 
+        </div>
+    </div>
+  )
+
 }
 
 export default New;

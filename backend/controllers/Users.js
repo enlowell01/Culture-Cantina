@@ -50,7 +50,7 @@ async function getAllUsers(req, res){
 // Post Functions
 
 async function createUser(req, res) {
-  const { username, firstname, lastname, email, password, bio } = req.body;
+  const { username, firstname, lastname, email, password, bio, pictureURL } = req.body;
   try {
     const userDoc = await User.create({
       username,
@@ -58,7 +58,8 @@ async function createUser(req, res) {
       lastname,
       email,
       password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-      bio
+      bio,
+      pictureURL
     });
     res.json(userDoc);
   } catch (error) {

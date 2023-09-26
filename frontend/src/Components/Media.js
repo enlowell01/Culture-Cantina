@@ -40,7 +40,6 @@ function Media() {
                 const mediaPath = `${process.env.REACT_APP_BACKEND_URI}/movies/${id}`
                 const mediaResponse = await fetch(mediaPath)
                 const mediaData = await mediaResponse.json()
-                console.log(mediaData)
                 setMedia(mediaData)
 
                 const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
@@ -173,7 +172,7 @@ function Media() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc'}} href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', textDecoration:'underline'}} href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
                                             {rate.profileId === currentUserId && ( 
                                                 <div>
                                                     {setRating(false)}
