@@ -22,9 +22,6 @@ function NavigationBar() {
         const userInfo = await response.json();
         setUserInfo(userInfo);
 
-        const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
-        const userResponse = await fetch(userPath)
-        const userData = await userResponse.json()
       } catch (error) {
         console.error('An error occurred:', error);
       }
