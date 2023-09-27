@@ -86,7 +86,7 @@ async function userLogin(req, res) {
         res.cookie('token', token, {
           httpOnly: true, // Helps protect against XSS attacks
           secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
-          sameSite: 'strict', // Helps prevent CSRF attacks
+          sameSite: 'none', // Helps prevent CSRF attacks
         });
         
         res.json({ id: userDoc._id, username });
