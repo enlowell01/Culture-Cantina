@@ -86,7 +86,7 @@ async function userLogin(req, res) {
         res.cookie('token', token, {
           httpOnly: true, // Helps protect against XSS attacks
           secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
-          expires: new Date(Date.now() + 8 * 3600000)
+          expires: new Date(Date.now() + (8 * 3600000))
         });
         
         res.json({ id: userDoc._id, username });
