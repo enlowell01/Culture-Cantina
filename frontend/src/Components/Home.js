@@ -35,7 +35,7 @@ function Home() {
           <div className={HomeCss.cards}>
             {movies.slice(0, 6).map((movie, i) => (
               <div key={i} className={HomeCss.card}>
-                <Link style={{display:'block'}} to={`/movies/${movie.id}`}>
+                <Link style={{display:'block', textDecoration:'none'}} to={`/movies/${movie.id}`}>
                   <p className='custom-h3' style={{textAlign:'center'}}>{movie.title}</p>
                   <img style={{ width: "250px", margin:'auto', display: 'block'}} src={`${imageUrl}${movie.poster_path}`} alt={movie.title}/>
                 </Link>
