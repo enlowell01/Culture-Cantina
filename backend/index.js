@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const app = express();
+const cors = require('cors');
 const userRoutes = require('./routes/Users');
 const ratingRoutes = require('./routes/Ratings');
 const movieRoutes = require('./routes/Movies');
@@ -17,6 +18,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 app.use(express.json());
+app.use(cors({ credentials: true, origin: '*' }));
 app.use(cookieParser());
 
 // Routes
