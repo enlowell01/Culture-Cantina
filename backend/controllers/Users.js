@@ -10,7 +10,7 @@ const secretKey = process.env.SECRET_KEY;
 
 async function getUser(req, res) {
     try {
-        const { token } = req.cookies;
+        const token = req.cookies['token']
         jwt.verify(token, 'wioebqvhroibfehibveefvwefvjiheroiwqrebvqyer', {}, (err, info) => {
           if (err) {
             // Handle JWT verification error
@@ -84,9 +84,9 @@ async function userLogin(req, res) {
   
         // Set the token as a cookie in the response
         res.cookie('token', token, {
+          maxAge: 86400 * 1000, // 24 hours
           httpOnly: true, // Helps protect against XSS attacks
           secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
-          expires: new Date(Date.now() + 8 * 3600000)
         });
         
         res.json({ id: userDoc._id, username });
