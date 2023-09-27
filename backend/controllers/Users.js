@@ -80,7 +80,7 @@ async function userLogin(req, res) {
   
       if (passOk) {
         // Generate a JWT token with appropriate configuration
-        const token = jwt.sign({ username, id: userDoc._id }, 'wioebqvhroibfehibveefvwefvjiheroiwqrebvqyer', { expiresIn: '24h' });
+        const token = jwt.sign({ username, id: userDoc._id }, secretKey, { expiresIn: '24h' });
   
         // Set the token as a cookie in the response
         res.cookie('token', token, {
