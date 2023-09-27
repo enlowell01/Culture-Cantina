@@ -149,10 +149,6 @@ async function deleteUserById(req, res) {
   }
 }
 
-async function userAuthentication(req, res) {
-  res.json(req.currentUser)
-}
-
 module.exports = {
   createUser,
   getUser,
@@ -160,7 +156,6 @@ module.exports = {
   deleteUserById,
   userLogin,
   userLogout,
-  userAuthentication,
   getUserById,
   getAllUsers
 };
