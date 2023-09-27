@@ -80,12 +80,13 @@ async function userLogin(req, res) {
   
       if (passOk) {
         // Generate a JWT token with appropriate configuration
-        const token = jwt.sign({ username: username, id: userDoc._id }, secretKey, { expiresIn: '24h' });
+        const token = jwt.sign({ username, id: userDoc._id }, secretKey, { expiresIn: '24h' });
   
         // Set the token as a cookie in the response
         res.cookie('token', token, {
           httpOnly: true, // Helps protect against XSS attacks
-          secure: process.env.NODE_ENV === 'production' // Requires HTTPS in production
+          secure: false //process.env.NODE_ENV === 'production', // Requires HTTPS in production
+          // sameSite: true, // Helps prevent CSRF attacks
         });
         
         res.json({ id: userDoc._id, username });
