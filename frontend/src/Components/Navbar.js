@@ -15,9 +15,7 @@ function NavigationBar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(URL, {
-          credentials: 'include',
-        });
+        const response = await fetch(URL);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -27,7 +25,6 @@ function NavigationBar() {
         const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
         const userResponse = await fetch(userPath)
         const userData = await userResponse.json()
-        const filteredUser = userData.filter(user => user.username === userInfo?.username)
       } catch (error) {
         console.error('An error occurred:', error);
       }
@@ -40,8 +37,7 @@ function NavigationBar() {
     try {
       const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
       await fetch(logoutURL, {
-        credentials: 'include',
-        method: 'POST',
+        method: 'POST' 
       });
       setUserInfo(null);
     } catch (error) {

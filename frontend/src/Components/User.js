@@ -135,8 +135,7 @@ function User() {
             try {
                 const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
                 await fetch(logoutURL, {
-                    credentials: 'include',
-                    method: 'POST',
+                    method: 'POST'
                 });
                 setUserInfo(null);
             } catch (error) {
