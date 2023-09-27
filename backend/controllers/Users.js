@@ -11,7 +11,6 @@ const secretKey = process.env.SECRET_KEY;
 async function getUser(req, res) {
     try {
         const { token } = req.cookies;
-        res.json(token)
         jwt.verify(token, secretKey, {}, (err, info) => {
           if (err) {
             // Handle JWT verification error
@@ -89,7 +88,7 @@ async function userLogin(req, res) {
           secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
           sameSite: 'strict', // Helps prevent CSRF attacks
         });
-      
+        
         res.json({ id: userDoc._id, username });
       } else {
         res.status(400).json('Wrong credentials');
