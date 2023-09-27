@@ -159,7 +159,7 @@ module.exports = {
   deleteUserById,
   userLogin,
   userLogout,
-    userAuthentication,
+  userAuthentication,
   getUserById,
   getAllUsers
 };
