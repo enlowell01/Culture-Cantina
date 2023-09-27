@@ -7,6 +7,7 @@ const {
     deleteUserById,
     userLogin,
     userLogout,
+    userAuthentication,
     getUserById,
     getAllUsers
 } = require('../controllers/Users')
@@ -28,5 +29,9 @@ router.put('/:id', updateUserById)
 
 // DELETE / delete User by id
 router.delete('/:id', deleteUserById)
+
+// GET current User
+router.get('/profile', userAuthentication)
+
 
 module.exports = router
