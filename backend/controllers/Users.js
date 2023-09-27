@@ -89,7 +89,9 @@ async function userLogin(req, res) {
           secure: process.env.NODE_ENV === 'production', // Requires HTTPS in production
           sameSite: 'none', // Helps prevent CSRF attacks
         });
-  
+        
+        res.json(token)
+        res.json(res.cookie)
         res.json({ id: userDoc._id, username });
       } else {
         res.status(400).json('Wrong credentials');
