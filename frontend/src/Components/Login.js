@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -13,8 +12,7 @@ function Login() {
 
   const [userInput, setUserInput] = useState({
     username: "",
-    password: "",
-    
+    password: ""
   });
 
   const handleChange = (e) => {
@@ -31,6 +29,7 @@ function Login() {
     console.log('User input', userInput)
     const response = await fetch(URL, {
       method: 'POST', 
+      credentials: 'include',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(userInput)
     })
