@@ -60,7 +60,6 @@ function New() {
       console.log('User input', userInput)
       const response = await fetch(loginURL, {
         method: 'POST', 
-        credentials: 'include',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(userInput),
       })
