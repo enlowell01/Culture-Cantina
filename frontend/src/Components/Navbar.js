@@ -15,9 +15,7 @@ function NavigationBar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(URL, {
-          credentials: 'include',
-        });
+        const response = await fetch(URL);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
