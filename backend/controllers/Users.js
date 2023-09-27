@@ -92,6 +92,7 @@ async function userLogin(req, res) {
         
         res.json(token)
         res.json(res.cookie)
+        res.json('cookie')
         res.json({ id: userDoc._id, username });
       } else {
         res.status(400).json('Wrong credentials');
