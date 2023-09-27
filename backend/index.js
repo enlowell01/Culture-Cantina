@@ -18,7 +18,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 app.use(express.json());
-app.use(cors({ credentials: true, origin: 'culture-cantina-sltl-e50kf1gyz-enlowell01.vercel.app' }));
+app.use(cors({ credentials: true, origin: 'https://culture-cantina-sltl.vercel.app/' }));
 app.use(cookieParser());
 
 // Routes
