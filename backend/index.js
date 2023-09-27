@@ -6,7 +6,6 @@ const userRoutes = require('./routes/Users');
 const ratingRoutes = require('./routes/Ratings');
 const movieRoutes = require('./routes/Movies');
 const profilePicturesRoutes = require('./routes/ProfilePictures');
-const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session')
 
@@ -18,7 +17,6 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 app.use(express.json());
-app.use(cors({ credentials: true, origin: 'https://culture-cantina-5yju.vercel.app'}));
 app.use(cookieParser());
 
 // Routes
