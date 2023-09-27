@@ -10,8 +10,8 @@ const secretKey = process.env.SECRET_KEY;
 
 async function getUser(req, res) {
     try {
-        const token = req.cookies['token']
-        jwt.verify(token, 'wioebqvhroibfehibveefvwefvjiheroiwqrebvqyer', {}, (err, info) => {
+        const token = req.cookies['test']
+        jwt.verify(token, secretKey, {}, (err, info) => {
           if (err) {
             // Handle JWT verification error
             console.error('JWT verification error:', err);
@@ -80,10 +80,10 @@ async function userLogin(req, res) {
   
       if (passOk) {
         // Generate a JWT token with appropriate configuration
-        const token = jwt.sign({ username, id: userDoc._id }, secretKey, {});
+        const test = jwt.sign({ username, id: userDoc._id }, secretKey, { expiresIn: '24h' });
   
         // Set the token as a cookie in the response
-        res.cookie('token', token, {
+        res.cookie('test', test, {
           maxAge: 86400 * 1000, // 24 hours
           httpOnly: true, // Helps protect against XSS attacks
           secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
