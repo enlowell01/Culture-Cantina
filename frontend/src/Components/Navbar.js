@@ -15,7 +15,7 @@ function NavigationBar() {
       method: 'POST', 
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userInput)
+      body: JSON.stringify(userInfo)
     });
     const data = await response.json()
     console.log('response', data)
