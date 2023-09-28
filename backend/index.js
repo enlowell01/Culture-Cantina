@@ -15,14 +15,21 @@ const defineCurrentUser = require('./middleware/defineCurrentUser')
 app.use(cookieSession({
   name: 'session',
   sameSite: 'none',
-  secure: false,
-  httpOnly: false,
-  keys: [ process.env.SESSION_SECRET ],
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
-}))
+  secure: true,
+  httpOnly: true,
+  secret: process.env.SESSION_SECRET,
+  maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  }),
+);
 app.use(express.json());
-app.use(cors({ credentials: true, origin: 'https://culture-cantina-59e5.vercel.app', methods: '*' }));
+app.use(cors({ 
+  credentials: true, 
+  origin: ['https://culture-cantina-59e5.vercel.app', 'https://culture-cantina-59e5.vercel.app/'], 
+  }),
+);
 app.use(defineCurrentUser)
+
+app.enable('trust proxy');
 
 // Routes
 app.use('/user', userRoutes);
