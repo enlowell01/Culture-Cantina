@@ -46,7 +46,7 @@ function NavigationBar() {
     }
   }
 
-  const username = userInfo.username;
+  const username = userInfo?.username;
 
   // Function to handle search results
   const handleSearch = (movies) => {
