@@ -207,7 +207,7 @@ function Media() {
                                                                     Review:
                                                                 </Form.Label>
                                                                 <Form.Control as='textarea' name='review' onChange={handleChange} 
-                                                                id='rating-review' value={ratingInput.review} required 
+                                                                id='rating-review' value={ratingInput.review}
                                                                 placeholder={rate.review} style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
@@ -224,6 +224,7 @@ function Media() {
                             }
                         </div>
                     </div>
+                    <div className='navbar-strip'></div>
                     {rated && loggedIn && (
                     <Form className = 'p-3' onSubmit={handleReviews} style={{color:"#0066cc", backgroundColor:"white"}}>
                         <h3>Leave a rating:</h3>

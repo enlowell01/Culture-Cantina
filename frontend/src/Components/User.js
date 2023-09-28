@@ -275,6 +275,7 @@ function User() {
                             }
                         </div>
                     </div>
+                    <div className='navbar-strip'></div>
                     {loggedIn && (
                         <div>
                             <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
@@ -339,6 +340,7 @@ function User() {
                                     </Form.Group>
                                 </Form>
                             )}
+                            <br></br>
                             <br></br>
                             <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showCredentialsForm && (
