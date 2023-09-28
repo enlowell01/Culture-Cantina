@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 
 
 function User() {
-    const { userInfo, setUserInfo } = useContext(UserContext)
+    const { userInfo } = useContext(UserContext)
 
     const { id } = useParams()
     const navigate = useNavigate()
