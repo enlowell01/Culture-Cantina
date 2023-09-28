@@ -32,7 +32,7 @@ function Media() {
         forTitle: ''
     })
 
-    const [showForm, setShowForm] = useState(false)s
+    const [showForm, setShowForm] = useState(false)
 
     const username = userInfo?.username;
   
