@@ -76,10 +76,17 @@ async function userLogin(req, res) {
 
 async function userLogout(req, res) {
   try {
-    req.session.userId = null
-    res.json(req.session.userId)
+    res.clearCookie('session', {
+      sameSite: 'none',
+      secure: true,
+      httpOnly: true,
+      secret: process.env.SESSION_SECRET,
+    });
+    req.session.destroy(function (err) {
+      res.redirect('/');
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error during logout', error })
+    res.status(500).json({ message: 'Error during logout'})
   }
 
 }
