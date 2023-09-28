@@ -15,7 +15,7 @@ function UserContextProvider({children}) {
             setUserInfo(user)
         }
         getLoggedInUser()
-    }, [])
+    }, [userInfo])
 
     return(
         <UserContext.Provider value={{ userInfo, setUserInfo }}>
