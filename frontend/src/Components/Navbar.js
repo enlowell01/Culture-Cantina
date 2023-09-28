@@ -12,10 +12,12 @@ function NavigationBar() {
   async function logout() {
     try {
       const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
-      await fetch(logoutURL, {
+      const response = await fetch(logoutURL, {
         method: 'POST',
         credentials: 'include' 
       });
+      const data = await response.json()
+      console.log('response', data)
       setUserInfo(null)
     } catch (error) {
       console.error('An error occurred during logout:', error);
