@@ -275,7 +275,7 @@ function User() {
                             }
                         </div>
                     </div>
-                    <p className='divider' >________</p>
+                    <p className='divider' >____</p>
                     {loggedIn && (
                         <div>
                             <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>

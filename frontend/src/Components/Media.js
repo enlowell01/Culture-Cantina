@@ -200,8 +200,7 @@ function Media() {
                                                                 max='10' step='0.5' id='rating-score' value={ratingInput.rating} required 
                                                                 style={{textAlign:'center'}}/>
                                                             </Form.Group>
-                                                        </Row>
-                                                        <Row className='mb-3'>
+
                                                             <Form.Group as={Col} style={{textAlign:'center'}}>
                                                                 <Form.Label>
                                                                     Review:
@@ -224,7 +223,7 @@ function Media() {
                             }
                         </div>
                     </div>
-                    <p className='divider' >________</p>
+                    <p className='divider' >____</p>
                     {rated && loggedIn && (
                     <Form className = 'p-3' onSubmit={handleReviews} style={{color:"#0066cc", backgroundColor:"white"}}>
                         <h3>Leave a rating:</h3>

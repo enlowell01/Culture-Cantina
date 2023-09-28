@@ -21,8 +21,6 @@ function NavigationBar() {
     }
   }
 
-  const username = userInfo?.username;
-
   // Function to handle search results
   const handleSearch = (movies) => {
     setSearchResults(movies);
@@ -36,7 +34,7 @@ function NavigationBar() {
             Culture Cantina
           </h1>
         </Nav.Link>
-        {username && (
+        {userInfo && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -64,7 +62,7 @@ function NavigationBar() {
           </div>
         )}
 
-        {!username && (
+        {!userInfo && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
