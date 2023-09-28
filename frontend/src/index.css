@@ -129,6 +129,8 @@ img {
   font-size: 1.5em;
   font-weight: 400 !important;
   color: #0066cc !important;
+  margin-bottom: 30px;
+  margin-top: 15px;
 }
 
 .custom-h3 {
@@ -192,7 +194,11 @@ img {
 }
 
 .divider {
-  margin-bottom: 40px !important;
+  margin-bottom: 32px;
+}
+
+.btn {
+  --bs-btn-font-size: 0.78rem !important;
 }
 
 @media only screen and (min-width: 768px) {
@@ -218,8 +224,6 @@ img {
   .custom-h2 {
     font-size: 2.5em;
     font-weight: 300 !important;
-    margin-bottom: 30px;
-    margin-top: 15px
   }
   .search-results {font-size: 1rem !important}
   .search-button {font-size: 1.1rem}
@@ -257,7 +261,6 @@ img {
     max-width: none;
   }
   .btn {
-    width: 70%;
-    height: 70%;
+    --bs-btn-font-size: 1rem !important;
   }
 }
