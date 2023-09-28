@@ -263,7 +263,7 @@ function User() {
                                                 Password:
                                             </Form.Label>
                                             <Form.Control type='password' name='password' onChange={handleChangeUser} value={userInput.password} 
-                                            placeholder='Edit password' autoComplete='off' style={{textAlign:'center'}}/>
+                                            placeholder='Edit password' autoComplete='new-password' style={{textAlign:'center'}}/>
                                         </Form.Group>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
