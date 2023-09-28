@@ -220,11 +220,14 @@ function User() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc', textDecoration:'underline'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc', 
+                                            textDecoration:'underline'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, 
+                                            Rating: {rate.rating}, Details: {rate.review}</p>
                                             {loggedIn && ( 
                                                 <div>
                                                     <span>
-                                                        <Button id={'button'+rate._id} onClick={() => {showingForm('form_'+rate._id)}}> Edit Rating</Button>
+                                                        <Button id={'button'+rate._id} onClick={() => {showingForm('form_'+rate._id)}}> 
+                                                        Edit Rating</Button>
                                                     </span>
                                                     <span> </span>
                                                     <span>
@@ -237,7 +240,8 @@ function User() {
                                             <p></p>
                                             {showForm && (
                                                 <div>
-                                                    <Form id = {'form_'+rate._id} className = {hideForms(`form_${rate._id}`)} onSubmit={handleEditRating(rate._id)}>
+                                                    <Form id = {'form_'+rate._id} className = {hideForms(`form_${rate._id}`)} 
+                                                    onSubmit={handleEditRating(rate._id)}>
                                                         <Row className='mb-3'>
                                                             <Form.Group as={Col} style={{textAlign:'center'}}>
                                                                 <Form.Label>
@@ -275,23 +279,23 @@ function User() {
                         <div>
                             <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
                             {showUserForm && (
-                                <Form id='user-form' className = {hideUserForm('user-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
-                                    <h3>Edit Profile</h3>
+                                <Form id='user-form' className = {hideUserForm('user-form')} onSubmit={handleEditUser(user._id)} 
+                                style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <Row className='mb-3'>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
                                                 First name:
                                             </Form.Label>
-                                            <Form.Control as="input" type='text' name='firstname' onChange={handleChangeUser} value={userInput.firstname} 
-                                            placeholder={user.firstname}required style={{textAlign:'center'}}/>
+                                            <Form.Control as="input" type='text' name='firstname' onChange={handleChangeUser} 
+                                            value={userInput.firstname} placeholder={user.firstname}required style={{textAlign:'center'}}/>
                                         </Form.Group>
 
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
                                                 Last name:
                                             </Form.Label>
-                                            <Form.Control as="input" type='text' name='lastname' onChange={handleChangeUser} value={userInput.lastname} 
-                                            placeholder={user.lastname}required style={{textAlign:'center'}}/>
+                                            <Form.Control as="input" type='text' name='lastname' onChange={handleChangeUser} 
+                                            value={userInput.lastname} placeholder={user.lastname}required style={{textAlign:'center'}}/>
                                         </Form.Group>
                                     </Row>
                                     <Row className='mb-3'>
@@ -299,8 +303,8 @@ function User() {
                                             <Form.Label>
                                                 Email:
                                             </Form.Label>
-                                            <Form.Control as="input" type='text' name='email' onChange={handleChangeUser} value={userInput.email} 
-                                            placeholder={user.email}required style={{textAlign:'center'}}/>
+                                            <Form.Control as="input" type='text' name='email' onChange={handleChangeUser} 
+                                            value={userInput.email} placeholder={user.email}required style={{textAlign:'center'}}/>
                                         </Form.Group>
                                     </Row>
                                     <Row className='mb-3'>
@@ -317,8 +321,9 @@ function User() {
                                     <div>
                                         {profilePictures.map((pic, i) => (
                                         <div key={i} style = {{display:'inline-block'}} >
-                                            <Button className = 'hiddenButton' onClick={() => {setUserInput({...userInput, pictureURL: pic.imgURL})}}>
-                                            <img style={{ display: 'inline-block' }} className='profilePicture' src={pic.imgURL} ></img>
+                                            <Button className = 'hiddenButton' 
+                                            onClick={() => {setUserInput({...userInput, pictureURL: pic.imgURL})}}>
+                                                <img style={{ display: 'inline-block' }} className='profilePicture' src={pic.imgURL} ></img>
                                             </Button>
                                         </div>
                                         ))}
@@ -337,8 +342,8 @@ function User() {
                             <br></br>
                             <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showCredentialsForm && (
-                                <Form id='credentials-form' className = {hideCredentialsForm('credentials-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
-                                    <h3>Edit Credentials</h3>
+                                <Form id='credentials-form' className = {hideCredentialsForm('credentials-form')} 
+                                onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <Row className='mb-3'>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>

@@ -23,14 +23,7 @@ function Media() {
 
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState([])
-    const [ratingInput, setRatingInput] = useState({
-        rating: 0,
-        review: '',
-        userId: '',
-        productId: '',
-        profileId: '',
-        forTitle: ''
-    })
+    const [ratingInput, setRatingInput] = useState({})
 
     const [showForm, setShowForm] = useState(false)
 
@@ -174,13 +167,16 @@ function Media() {
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', textDecoration:'underline'}} 
-                                            href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, Details: {rate.review}</p>
+                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', 
+                                            textDecoration:'underline'}} 
+                                            href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, 
+                                            Details: {rate.review}</p>
                                             {rate.profileId === currentUserId && ( 
                                                 <div>
                                                     {setRating(false)}
                                                     <span>
-                                                        <Button id={'button'+rate._id} onClick={() => {showingForm('form_'+rate._id)}}> Edit rating</Button>
+                                                        <Button id={'button'+rate._id} onClick={() => {showingForm('form_'+rate._id)}}> 
+                                                        Edit rating</Button>
                                                     </span>
                                                     <span> </span>
                                                     <span>
@@ -193,14 +189,16 @@ function Media() {
                                             <p></p>
                                             {showForm && (
                                                 <div>
-                                                    <Form id = {'form_'+rate._id} className = {hideForms(`form_${rate._id}`)} onSubmit={handleEdit(rate._id)}>
+                                                    <Form id = {'form_'+rate._id} className = {hideForms(`form_${rate._id}`)} 
+                                                    onSubmit={handleEdit(rate._id)}>
                                                         <Row className='mb-3'>
                                                             <Form.Group as={Col} style={{textAlign:'center'}}>
                                                                 <Form.Label>
                                                                     Rating<span style={{color:'red'}}>*</span>:
                                                                 </Form.Label>
-                                                                <Form.Control type='number' name='rating' onChange={handleChange} min='0' max='10' step='0.5' id='rating-score' 
-                                                                value={ratingInput.rating} required style={{textAlign:'center'}}/>
+                                                                <Form.Control type='number' name='rating' onChange={handleChange} min='0' 
+                                                                max='10' step='0.5' id='rating-score' value={ratingInput.rating} required 
+                                                                style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
                                                         <Row className='mb-3'>
@@ -208,8 +206,9 @@ function Media() {
                                                                 <Form.Label>
                                                                     Review:
                                                                 </Form.Label>
-                                                                <Form.Control as='textarea' name='review' onChange={handleChange} id='rating-review' value={ratingInput.review} 
-                                                                required placeholder={rate.review} style={{textAlign:'center'}}/>
+                                                                <Form.Control as='textarea' name='review' onChange={handleChange} 
+                                                                id='rating-review' value={ratingInput.review} required 
+                                                                placeholder={rate.review} style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
                                                         <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
@@ -233,7 +232,8 @@ function Media() {
                                 <Form.Label>
                                     Rating<span style={{color:'red'}}>*</span>:
                                 </Form.Label>
-                                <Form.Control type='number' name='rating' onChange={handleChange} min='0' max='10' step='0.5' id='rating-score' value={ratingInput.rating} required style={{textAlign:'center'}}/>
+                                <Form.Control type='number' name='rating' onChange={handleChange} min='0' max='10' step='0.5' 
+                                id='rating-score' value={ratingInput.rating} required style={{textAlign:'center'}}/>
                             </Form.Group>
                         </Row>
                         <Row className='mb-3'>
@@ -241,7 +241,8 @@ function Media() {
                                 <Form.Label>
                                     Review:
                                 </Form.Label>
-                                <Form.Control as='textarea' name='review' onChange={handleChange} id='rating-review' value={ratingInput.review} style={{textAlign:'center'}}></Form.Control>
+                                <Form.Control as='textarea' name='review' onChange={handleChange} id='rating-review' 
+                                value={ratingInput.review} style={{textAlign:'center'}}></Form.Control>
                             </Form.Group>
                         </Row>
                         <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
