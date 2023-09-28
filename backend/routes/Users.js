@@ -7,7 +7,6 @@ const {
     deleteUserById,
     userLogin,
     userLogout,
-    userAuthentication,
     getUserById,
     getAllUsers
 } = require('../controllers/Users')
@@ -18,9 +17,7 @@ router.post('/login', userLogin)
 router.post('/logout', userLogout)
 
 //  GET / get logged in User profile
-router.get('/profile', async (req, res) => {
-    res.json(req.currentUser)
-})
+router.get('/profile', getUser)
 // GET / get User by id
 router.get('/:id', getUserById)
 // GET / get all Users

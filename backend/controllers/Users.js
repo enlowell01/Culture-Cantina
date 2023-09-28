@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 
 // Get Functions
 
+async function getUser(req, res) {
+    res.json(req.currentUser)
+};
+
 async function getUserById(req, res){
   try {
       const { id } = req.params
