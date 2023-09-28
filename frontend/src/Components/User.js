@@ -86,6 +86,7 @@ function User() {
             ratingInput.forTitle = ratingInput.forTitle
             const response = await fetch(URL, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(ratingInput)
             })
@@ -98,6 +99,7 @@ function User() {
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             const response = await fetch(URL, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userInput)
             })
@@ -109,7 +111,8 @@ function User() {
         return async (e) => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
             const response = await fetch(URL, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             })
             if (response.status !==204) console.log('error')
         }
@@ -120,7 +123,8 @@ function User() {
             e.preventDefault()
             const URL = `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             const response = await fetch(URL, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             })
             const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
             const ratingsResponse = await fetch(ratingsPath)
@@ -130,7 +134,8 @@ function User() {
                 console.log('deleted')
                 const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${filteredRatings[i]._id}`
                 const response = await fetch(URL, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    credentials: 'include'
                 })
                 if (response.status !==204) console.log('error')
             }

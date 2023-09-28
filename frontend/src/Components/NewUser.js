@@ -46,6 +46,7 @@ function New() {
     try {
       const response = await fetch(URL, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userInput)
       });

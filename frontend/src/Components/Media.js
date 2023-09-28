@@ -86,6 +86,7 @@ function Media() {
         try {
             const response = await fetch(URL, {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(ratingInput)
             })
@@ -105,6 +106,7 @@ function Media() {
             ratingInput.forTitle = media.title
             const response = await fetch(URL, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(ratingInput)
             })
@@ -116,7 +118,8 @@ function Media() {
         return async (e) => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
             const response = await fetch(URL, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             })
             if (response.status !==204) console.log('error')
         }
