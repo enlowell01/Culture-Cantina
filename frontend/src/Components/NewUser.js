@@ -70,10 +70,10 @@ function New() {
       const data = await response.json();
       console.log('response', data);
       if (response.status === 200) {
-        navigate('/')
+        setUserInfo(data.user)
+        navigate('/');
       } else {
         console.log(`error: ${data.message}`)
-        alert('The username and password do not match.')
       }
     } catch (error) {
       console.error('An error occurred during registration:', error);
