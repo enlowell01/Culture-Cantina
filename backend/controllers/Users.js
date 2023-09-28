@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 // Get Functions
 
 async function getUser(req, res) {
-    res.json(req.currentUser)
+    res.json(req.session.userId)
 };
 
 async function getUserById(req, res){
