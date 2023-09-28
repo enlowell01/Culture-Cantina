@@ -64,7 +64,7 @@ async function userLogin(req, res) {
      try {
       const user = await User.findOne({ username });
   
-      if (!user || !await bcrypt.compare(password, userDoc.password)) {
+      if (!user || !await bcrypt.compare(password, user.password)) {
         res.status(404).json({
           message: 'Wrong credentials'
         })
