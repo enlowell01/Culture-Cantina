@@ -40,7 +40,6 @@ function Login() {
     const data = await response.json()
     console.log('response', data)
     if (response.status === 200) {
-      setUserInfo(data.user)
       navigate('/')
     } else {
       console.log(`error: ${data.message}`)
