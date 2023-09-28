@@ -24,9 +24,7 @@ function User() {
     const [profilePictures, setProfilePictures] = useState({})
 
     const [user, setUser] = useState({})
-    const [userInput, setUserInput] = useState({
-        password: ''
-    })
+    const [userInput, setUserInput] = useState({})
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
 
@@ -265,7 +263,7 @@ function User() {
                                                 Password:
                                             </Form.Label>
                                             <Form.Control type='password' name='password' onChange={handleChangeUser} value={userInput.password} 
-                                            placeholder='Edit password' required style={{textAlign:'center'}}/>
+                                            placeholder='Edit password' autoComplete='off' style={{textAlign:'center'}}/>
                                         </Form.Group>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
