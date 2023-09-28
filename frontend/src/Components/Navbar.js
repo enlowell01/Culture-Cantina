@@ -7,7 +7,7 @@ import { UserContext } from "../Contexts/UserContext";
 
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   async function logout() {
     try {
@@ -16,6 +16,7 @@ function NavigationBar() {
         method: 'POST',
         credentials: 'include' 
       });
+      setUserInfo(null)
     } catch (error) {
       console.error('An error occurred during logout:', error);
     }
