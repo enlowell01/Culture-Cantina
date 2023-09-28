@@ -79,7 +79,7 @@ async function userLogout(req, res) {
     res.clearCookie('session', {
       sameSite: 'none',
       secure: true,
-      httpOnly: true,
+      httpOnly: false,
       secret: process.env.SESSION_SECRET,
     });
     req.session.destroy()
