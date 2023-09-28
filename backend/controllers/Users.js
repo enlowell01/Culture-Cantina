@@ -84,7 +84,6 @@ async function userLogin(req, res) {
   
         // Set the token as a cookie in the response
         res.cookie('token', token, {
-          maxAge: 86400 * 1000, // 24 hours
           sameSite: 'none',
           httpOnly: true, // Helps protect against XSS attacks
           secure: true //process.env.NODE_ENV === 'production', // Requires HTTPS in production
