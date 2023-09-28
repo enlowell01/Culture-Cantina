@@ -191,6 +191,10 @@ img {
   --bs-card-border-width: 0px !important;
 }
 
+.divider {
+  margin-bottom: 40px !important;
+}
+
 @media only screen and (min-width: 768px) {
   .nav-link {font-size: 1.5rem }
   .nav-bar {font-size: 1.5rem !important}
