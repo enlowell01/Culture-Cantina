@@ -57,7 +57,7 @@ function User() {
         };
 
         fetchData()
-    }, [id, userInfo]);
+    }, [id]);
 
     const handleChangeRating = (e) => {
         const value = e.target.value
