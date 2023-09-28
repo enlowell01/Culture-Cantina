@@ -8,11 +8,12 @@ const ratingRoutes = require('./routes/Ratings');
 const movieRoutes = require('./routes/Movies');
 const profilePicturesRoutes = require('./routes/ProfilePictures');
 const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 
 // Middleware
 app.use(cookieSession({
   name: 'session',
-  sameSite: 'strict',
+  sameSite: 'none',
   keys: [ process.env.SESSION_SECRET ],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
