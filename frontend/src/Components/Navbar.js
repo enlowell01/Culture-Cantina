@@ -16,7 +16,6 @@ function NavigationBar() {
         credentials: 'include' 
       });
       console.log(`logout response: ${response}`)
-      setUserInfo(null)
     } catch (error) {
       console.error('An error occurred during logout:', error);
     }
