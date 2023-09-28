@@ -3,7 +3,9 @@ import { createContext, useState, useEffect } from "react";
 export const UserContext = createContext()
 
 function UserContextProvider({children}) {
+    
     const  [userInfo, setUserInfo] = useState(null)
+
     useEffect(() => {
 
         const getLoggedInUser = async() => {

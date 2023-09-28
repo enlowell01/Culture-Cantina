@@ -18,7 +18,9 @@ router.post('/login', userLogin)
 router.post('/logout', userLogout)
 
 //  GET / get logged in User profile
-router.get('/profile', getUser)
+router.get('/profile', async (req, res) => {
+    res.json(req.currentUser)
+})
 // GET / get User by id
 router.get('/:id', getUserById)
 // GET / get all Users
@@ -29,9 +31,6 @@ router.put('/:id', updateUserById)
 
 // DELETE / delete User by id
 router.delete('/:id', deleteUserById)
-
-// GET current User
-router.get('/profile', userAuthentication)
 
 
 module.exports = router

@@ -33,7 +33,7 @@ function Login() {
     const response = await fetch(URL, {
       method: 'POST', 
       credentials: 'include',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userInput)
     })
     console.log(userInput)

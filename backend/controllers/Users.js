@@ -4,10 +4,6 @@ const bcrypt = require('bcryptjs');
 
 // Get Functions
 
-async function getUser(req, res) {
-    res.json(req.currentUser)
-};
-
 async function getUserById(req, res){
   try {
       const { id } = req.params
@@ -52,7 +48,7 @@ async function createUser(req, res) {
 
 async function userLogin(req, res) {
     const { username, password } = req.body;
-     try {
+    try {
       const user = await User.findOne({ username });
   
       if (!user || !await bcrypt.compare(password, user.password)) {
@@ -68,6 +64,7 @@ async function userLogin(req, res) {
       res.status(500).json({ message: 'Internal server error' });
     }
   }
+
   async function userLogout(req, res) {
     req.session.userId = null
   }
@@ -118,9 +115,6 @@ async function deleteUserById(req, res) {
   }
 }
 
-async function userAuthentication(req, res) {
-  res.json(req.currentUser)
-}
 
 module.exports = {
   createUser,
@@ -129,7 +123,6 @@ module.exports = {
   deleteUserById,
   userLogin,
   userLogout,
-  userAuthentication,
   getUserById,
   getAllUsers
 };
