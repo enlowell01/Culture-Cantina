@@ -12,10 +12,15 @@ function NavigationBar() {
   async function logout() {
     const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
     const response = await fetch(logoutURL, {
-      credentials: 'include' 
+      method: 'POST', 
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userInput)
     });
-    console.log(response)
+    const data = await response.json()
+    console.log('response', data)
     setUserInfo(null)
+    console.log(userInfo)
   }
 
   // Function to handle search results

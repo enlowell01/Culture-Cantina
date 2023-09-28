@@ -14,11 +14,10 @@ const {
 // POST / create a User
 router.post('/', createUser)
 router.post('/login', userLogin)
+router.post('/logout', userLogout)
 
 //  GET / get logged in User profile
 router.get('/profile', getUser)
-// GET / log User out
-router.get('/logout', userLogout)
 // GET / get User by id
 router.get('/:id', getUserById)
 // GET / get all Users
