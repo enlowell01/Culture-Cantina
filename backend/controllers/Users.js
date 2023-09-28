@@ -101,7 +101,12 @@ async function userLogin(req, res) {
     }
   }
 async function userLogout(req, res) {
-  res.clearCookie('token').json('OK');
+  res.cookie('token', '', {
+          maxAge: 0 // clears cookie
+          sameSite: 'none',
+          httpOnly: true, // Helps protect against XSS attacks
+          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
+  });
 }
 
 // Put Functions
