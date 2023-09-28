@@ -11,11 +11,9 @@ async function getUser(req, res) {
             _id: req.session.userId
         }
     })
-    req.currentUser = user
-    res.json(req.currentUser)
-    next()
+    res.json(user)
   } catch {
-    next()
+    res.json(null)
   }
 };
 
