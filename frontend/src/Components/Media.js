@@ -224,7 +224,7 @@ function Media() {
                             }
                         </div>
                     </div>
-                    <div className='navbar-strip'></div>
+                    <p>________</p>
                     {rated && loggedIn && (
                     <Form className = 'p-3' onSubmit={handleReviews} style={{color:"#0066cc", backgroundColor:"white"}}>
                         <h3>Leave a rating:</h3>

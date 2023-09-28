@@ -252,4 +252,8 @@ img {
   .card-body {
     max-width: none;
   }
+  .btn {
+    width: 70%;
+    height: 70%;
+  }
 }

@@ -275,7 +275,7 @@ function User() {
                             }
                         </div>
                     </div>
-                    <div className='navbar-strip'></div>
+                    <p>________</p>
                     {loggedIn && (
                         <div>
                             <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
