@@ -196,7 +196,7 @@ function User() {
     
     var loggedIn = false
     const checkLogin = () => {
-        if (userInfo !== null && userInfo?.username === user.username) {
+        if (userInfo !== null && userInfo?._id === user._id) {
             loggedIn = true
         }
     }
@@ -270,8 +270,6 @@ function User() {
                     {loggedIn && (
                         <div>
                             <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
-                            <br></br>
-                            <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showUserForm && (
                                 <Form id='user-form' className = {hideUserForm('user-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <h3>Edit Profile</h3>
@@ -332,6 +330,7 @@ function User() {
                                     </Form.Group>
                                 </Form>
                             )}
+                            <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showCredentialsForm && (
                                 <Form id='credentials-form' className = {hideCredentialsForm('credentials-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <h3>Edit Credentials</h3>

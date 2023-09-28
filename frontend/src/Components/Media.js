@@ -199,7 +199,8 @@ function Media() {
                                                                 <Form.Label>
                                                                     Rating<span style={{color:'red'}}>*</span>:
                                                                 </Form.Label>
-                                                                <Form.Control type='number' name='rating' onChange={handleChange} min='0' max='10' step='0.5' id='rating-score' value={ratingInput.rating} required style={{textAlign:'center'}}/>
+                                                                <Form.Control type='number' name='rating' onChange={handleChange} min='0' max='10' step='0.5' id='rating-score' 
+                                                                value={ratingInput.rating} required style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
                                                         <Row className='mb-3'>
@@ -207,7 +208,8 @@ function Media() {
                                                                 <Form.Label>
                                                                     Review:
                                                                 </Form.Label>
-                                                                <Form.Control as='textarea' name='review' onChange={handleChange} id='rating-review' value={ratingInput.review} style={{textAlign:'center'}}></Form.Control>
+                                                                <Form.Control as='textarea' name='review' onChange={handleChange} id='rating-review' value={ratingInput.review} 
+                                                                required placeholder={ratingInput.review} style={{textAlign:'center'}}></Form.Control>
                                                             </Form.Group>
                                                         </Row>
                                                         <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
