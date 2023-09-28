@@ -12,7 +12,7 @@ const cookieParser = require('cookie-parser');
 // Middleware
 app.use(cookieSession({
   name: 'session',
-  sameSite: 'none',
+  sameSite: 'strict',
   keys: [ process.env.SESSION_SECRET ],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
