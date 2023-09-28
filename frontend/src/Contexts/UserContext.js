@@ -11,6 +11,7 @@ function UserContextProvider({children}) {
                 credentials: 'include'
             })
             let user = await response.json()
+            console.log(user)
             setUserInfo(user)
         }
         getLoggedInUser()
