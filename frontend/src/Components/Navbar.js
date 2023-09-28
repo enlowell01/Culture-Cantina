@@ -36,7 +36,7 @@ function NavigationBar() {
             Culture Cantina
           </h1>
         </Nav.Link>
-        {/*{userInfo && (
+        {/*{userInfo && (*/}
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -62,9 +62,9 @@ function NavigationBar() {
 
             <SearchBar onSearch={handleSearch} />
           </div>
-        )}*/}
+        
 
-        {!userInfo && (
+        {/*{!userInfo && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -89,7 +89,7 @@ function NavigationBar() {
 
             <SearchBar onSearch={handleSearch} />
           </div>
-        )}
+        )}*/}
       </Navbar>
       <div className='navbar-strip'></div>    
       <ul>
