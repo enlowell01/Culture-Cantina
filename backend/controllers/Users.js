@@ -6,12 +6,13 @@ const bcrypt = require('bcryptjs');
 
 async function getUser(req, res) {
   try {
-    let user = await User.findOne({
+    const user = await User.findOne({
         where: {
             _id: req.session.userId
         }
     })
-    res.json(user)
+    req.currentUser = user
+    res.json(req.currentUser)
     next()
   } catch {
     next()
