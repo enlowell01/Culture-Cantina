@@ -9,7 +9,7 @@ import { useContext } from "react";
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
   const URL = `${process.env.REACT_APP_BACKEND_URI}/user/profile`;
-  const { userInfo } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
 
   async function logout() {
     try {

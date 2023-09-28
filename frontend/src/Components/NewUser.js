@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../Contexts/UserContext";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -71,7 +72,7 @@ function New() {
       if (response.status === 200) {
         setUserInfo(data.user)
       } else {
-        setErrorMessage(data.message)
+        console.log(`error: ${data.message}`)
       }
       navigate('/');
     } catch (error) {

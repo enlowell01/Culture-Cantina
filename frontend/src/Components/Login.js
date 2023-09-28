@@ -42,7 +42,7 @@ function Login() {
     if (response.status === 200) {
       setUserInfo(data.user)
     } else {
-      setErrorMessage(data.message)
+      console.log(`error: ${data.message}`)
     }
     navigate('/')
   };
