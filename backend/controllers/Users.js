@@ -99,11 +99,8 @@ async function userLogin(req, res) {
     }
   }
 async function userLogout(req, res) {
-  res.clearCookie('token', { 
-      domain: 'https://culture-cantina-59e5.vercel.app/',
-      sameSite: 'none',
-      httpOnly: true, 
-      secure: true
+  res.clearCookie('token', '', {
+      expires: new Date('1995-12-17T03:24:00')
   }).json('OK');
 }
 
