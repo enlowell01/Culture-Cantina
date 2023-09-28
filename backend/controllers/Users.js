@@ -10,7 +10,8 @@ const secretKey = process.env.SECRET_KEY;
 
 async function getUser(req, res) {
     try {
-        const token = req.cookies['token']
+        let token = {}
+        token = req.cookies['token']
         jwt.verify(token, secretKey, {}, (err, info) => {
           if (err) {
             // Handle JWT verification error
