@@ -264,13 +264,9 @@ function User() {
                     </div>
                     {loggedIn && (
                         <div>
-                            <span>
-                                <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
-                            </span>
-                            <span></span>
-                            <span>
-                                <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
-                            </span>
+                            <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
+                            <br></br>
+                            <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showUserForm && (
                                 <Form id='user-form' className = {hideUserForm('user-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <h3>Edit Profile</h3>
@@ -337,21 +333,25 @@ function User() {
                                     <Row className='mb-3'>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
+                                                Username:
+                                            </Form.Label>
+                                            <Form.Control as='input' type='text' name='username' onChange={handleChangeUser} 
+                                            value={userInput.username} placeholder={user.username} required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
                                                 Password:
                                             </Form.Label>
                                             <Form.Control type='password' name='password' onChange={handleChangeUser} 
                                             placeholder='Edit password' style={{textAlign:'center'}}/>
                                         </Form.Group>
                                     </Row>
-                                    <Row className='mb-3'>
-                                        <Form.Group as={Col} style={{textAlign:'center'}}>
-                                            <Form.Label>
-                                                Username:
-                                            </Form.Label>
-                                            <Form.Control type='input' as='text' name='username' onChange={handleChangeUser} 
-                                            value={userInput.username} placeholder={user.username} required style={{textAlign:'center'}}/>
-                                        </Form.Group>
-                                    </Row>
+                                    <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
+                                        <Button type='submit'>Edit Credentials</Button>
+                                        <span> </span>
+                                    </Form.Group>
                                 </Form> 
                             )}
                         </div>
