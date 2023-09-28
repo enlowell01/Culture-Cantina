@@ -7,14 +7,14 @@ import { UserContext } from "../Contexts/UserContext";
 
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   async function logout() {
     const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
-    const response = await fetch(logoutURL, {
+    await fetch(logoutURL, {
       credentials: 'include' 
     });
-    console.log(`logout response: ${response}`)
+    setUserInfo(null)
   }
 
   // Function to handle search results
