@@ -5,7 +5,17 @@ const bcrypt = require('bcryptjs');
 // Get Functions
 
 async function getUser(req, res) {
-    res.json(req.currentUser)
+  try {
+    let user = await User.findOne({
+        where: {
+            _id: req.session.userId
+        }
+    })
+    res.json(user)
+    next()
+  } catch {
+    next()
+  }
 };
 
 async function getUserById(req, res){
@@ -51,27 +61,27 @@ async function createUser(req, res) {
 }
 
 async function userLogin(req, res) {
-    const { username, password } = req.body;
-    try {
-      const user = await User.findOne({ username });
-  
-      if (!user || !await bcrypt.compare(password, user.password)) {
-        res.status(404).json({
-          message: 'Wrong credentials'
-        })
-      } else {
-        req.session.userId = user._id
-        res.json({ user })
-      }
-    } catch (error) {
-      console.error('Error during login', error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  }
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username });
 
-  async function userLogout(req, res) {
-    req.session.userId = null
+    if (!user || !await bcrypt.compare(password, user.password)) {
+      res.status(404).json({
+        message: 'Wrong credentials'
+      })
+    } else {
+      req.session.userId = user._id
+      res.json({ user })
+    }
+  } catch (error) {
+    console.error('Error during login', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
+}
+
+async function userLogout(req, res) {
+  req.session.userId = null
+}
 
 // Put Functions
 async function updateUserById(req, res) {

@@ -8,7 +8,6 @@ const ratingRoutes = require('./routes/Ratings');
 const movieRoutes = require('./routes/Movies');
 const profilePicturesRoutes = require('./routes/ProfilePictures');
 const cookieSession = require('cookie-session');
-const defineCurrentUser = require('./middleware/defineCurrentUser')
 
 
 // Middleware
@@ -27,7 +26,6 @@ app.use(cors({
   origin: ['https://culture-cantina-59e5.vercel.app', 'https://culture-cantina-59e5.vercel.app/'], 
   }),
 );
-app.use(defineCurrentUser)
 
 app.enable('trust proxy');
 
