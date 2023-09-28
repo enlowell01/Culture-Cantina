@@ -9,7 +9,6 @@ const movieRoutes = require('./routes/Movies');
 const profilePicturesRoutes = require('./routes/ProfilePictures');
 const cookieSession = require('cookie-session');
 
-
 // Middleware
 app.use(cookieSession({
   name: 'session',
@@ -20,6 +19,7 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000, // 24 hours
   }),
 );
+
 app.use(express.json());
 app.use(cors({ 
   credentials: true, 
