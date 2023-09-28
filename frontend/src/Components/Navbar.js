@@ -36,7 +36,7 @@ function NavigationBar() {
             Culture Cantina
           </h1>
         </Nav.Link>
-        {userInfo && (
+        {/*{userInfo && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -62,7 +62,7 @@ function NavigationBar() {
 
             <SearchBar onSearch={handleSearch} />
           </div>
-        )}
+        )}*/}
 
         {!userInfo && (
           <div className='navbar-text'>
