@@ -99,7 +99,11 @@ async function userLogin(req, res) {
     }
   }
 async function userLogout(req, res) {
-  res.clearCookie('token').json('OK');
+  res.clearCookie('token', {
+      sameSite: 'none',
+      httpOnly: true, // Helps protect against XSS attacks
+      secure: true //process.env.NODE_ENV === 'production', // Requires HTTPS in production
+    }).json('OK');
 }
 
 // Put Functions
