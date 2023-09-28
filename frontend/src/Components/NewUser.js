@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -10,6 +10,8 @@ function New() {
   const navigate = useNavigate();
 
   const [userInput, setUserInput] = useState({});
+
+  const { setUserInfo } = useContext(UserContext)
 
   const [profilePictures, setProfilePictures] = useState({})
 
@@ -64,12 +66,13 @@ function New() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(userInput),
       })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
       const data = await response.json();
       console.log('response', data);
+      if (response.status === 200) {
+        setUserInfo(data.user)
+      } else {
+        setErrorMessage(data.message)
+      }
       navigate('/');
     } catch (error) {
       console.error('An error occurred during registration:', error);

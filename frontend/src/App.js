@@ -5,7 +5,7 @@ import NewUser from "./Components/NewUser";
 import Media from "./Components/Media";
 import Login from './Components/Login';
 import User from './Components/User';
-import { UserContextProvider } from './Contexts/UserContext'
+import UserContextProvider from './Contexts/UserContext'
 
 function App() {
   return (

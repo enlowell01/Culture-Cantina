@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../Contexts/UserContext'
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -14,6 +15,8 @@ function Login() {
     username: "",
     password: ""
   });
+
+  const { setUserInfo } = useContext(UserContext)
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -36,6 +39,11 @@ function Login() {
     console.log(userInput)
     const data = await response.json()
     console.log('response', data)
+    if (response.status === 200) {
+      setUserInfo(data.user)
+    } else {
+      setErrorMessage(data.message)
+    }
     navigate('/')
   };
 

@@ -9,30 +9,7 @@ import { useContext } from "react";
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
   const URL = `${process.env.REACT_APP_BACKEND_URI}/user/profile`;
-  const { userInfo, setUserInfo } = useContext(UserContext);
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(URL, {
-          method: 'GET', 
-          credentials: 'include'
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const userData = await response.json();
-        setUserInfo(userData);
-        console.log('response', userInfo)
-
-      } catch (error) {
-        console.error('An error occurred:', error);
-      }
-    };
-
-    fetchData();
-  }, []); // Include URL as a dependency to ensure it's up to date
+  const { userInfo } = useContext(UserContext);
 
   async function logout() {
     try {
@@ -41,6 +18,7 @@ function NavigationBar() {
         method: 'POST',
         credentials: 'include' 
       });
+      setUserInfo(null)
     } catch (error) {
       console.error('An error occurred during logout:', error);
     }
