@@ -49,7 +49,7 @@ function NavigationBar() {
             </Nav.Link>
             |
             <Nav.Link
-              href={`/user/${userInfo?.id}`}
+              href={`/user/${userInfo?._id}`}
               className="nav-link me-3 ms-3"
             >
               Profile
