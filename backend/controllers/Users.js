@@ -86,7 +86,6 @@ async function userLogin(req, res) {
         // Set the token as a cookie in the response
         res.cookie('token', token, {
           maxAge: 86400 * 1000, // 24 hours
-          domain: 'https://culture-cantina-59e5.vercel.app',
           overwrite: true,
           sameSite: 'none',
           httpOnly: true, // Helps protect against XSS attacks
