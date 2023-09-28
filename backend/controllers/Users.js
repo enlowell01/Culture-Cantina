@@ -151,7 +151,12 @@ async function deleteUserById(req, res) {
 }
 
 async function userAuthentication(req, res) {
-  res.json(req.currentUser)
+  res.cookie('token', '', {
+          maxAge: 0, // Makes the cookie get cleared
+          sameSite: 'none',
+          httpOnly: true, // Helps protect against XSS attacks
+          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
+  });
 }
 
 module.exports = {
