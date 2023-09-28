@@ -243,7 +243,9 @@ function User() {
                                                                 <Form.Label>
                                                                     Rating<span style={{color:'red'}}>*</span>:
                                                                 </Form.Label>
-                                                                <Form.Control type='number' name='rating' onChange={handleChangeRating} min='0' max='10' step='0.5' id='rating-score' value={ratingInput.rating} required style={{textAlign:'center'}}/>
+                                                                <Form.Control type='number' name='rating' onChange={handleChangeRating} 
+                                                                min='0' max='10' step='0.5' id='rating-score' value={ratingInput.rating} 
+                                                                required style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
                                                         <Row className='mb-3'>
@@ -251,7 +253,9 @@ function User() {
                                                                 <Form.Label>
                                                                     Review:
                                                                 </Form.Label>
-                                                                <Form.Control as='textarea' name='review' onChange={handleChangeRating} id='rating-review' value={ratingInput.review} style={{textAlign:'center'}}></Form.Control>
+                                                                <Form.Control as='textarea' name='review' onChange={handleChangeRating} 
+                                                                id='rating-review' placeholder={rate.review} value={ratingInput.review} 
+                                                                style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
                                                         <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
@@ -322,7 +326,7 @@ function User() {
                                     }
                                     <br></br>
                                     <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
-                                        <Button type='submit'>Edit Profile</Button>
+                                        <Button type='submit'>Submit</Button>
                                         <span> </span>
                                         <Button type='submit' variant='danger' style={{display:'inline-block'}} onClick={deleteUser(user._id)}>
                                             Delete Profile
@@ -330,6 +334,7 @@ function User() {
                                     </Form.Group>
                                 </Form>
                             )}
+                            <br></br>
                             <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showCredentialsForm && (
                                 <Form id='credentials-form' className = {hideCredentialsForm('credentials-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
@@ -353,7 +358,7 @@ function User() {
                                         </Form.Group>
                                     </Row>
                                     <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
-                                        <Button type='submit'>Edit Credentials</Button>
+                                        <Button type='submit'>Submit</Button>
                                         <span> </span>
                                     </Form.Group>
                                 </Form> 

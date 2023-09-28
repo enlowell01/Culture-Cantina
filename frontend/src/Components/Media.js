@@ -209,7 +209,7 @@ function Media() {
                                                                     Review:
                                                                 </Form.Label>
                                                                 <Form.Control as='textarea' name='review' onChange={handleChange} id='rating-review' value={ratingInput.review} 
-                                                                required placeholder={ratingInput.review} style={{textAlign:'center'}}></Form.Control>
+                                                                required placeholder={rate.review} style={{textAlign:'center'}}/>
                                                             </Form.Group>
                                                         </Row>
                                                         <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
