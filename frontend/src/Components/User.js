@@ -18,6 +18,7 @@ function User() {
 
     const [selectedFormId, setSelectedFormId] = useState('')
     const [selectedUserFormId, setSelectedUserFormId] = useState('')
+    const [selectedCredentialsFormId, setSelectedCredentialsFormId] = useState('')
     
     const [currentUserId, setCurrentUserId] = useState('')
 
@@ -28,6 +29,7 @@ function User() {
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
 
+    const [showCredentialsForm, setShowCredentialsForm] = useState(false)
     const [showUserForm, setShowUserForm] = useState(false)
     const [showForm, setShowForm] = useState(false)
   
@@ -148,9 +150,19 @@ function User() {
     
 
     // Shows form when rating edit button is clicked and stores id of selected rating
-    const showingForm = (ratingId) => {
+    const showingForm = (shownFormId) => {
         setShowForm(!showForm)
-        setSelectedFormId(ratingId)
+        setSelectedFormId(shownFormId)
+    }
+
+    const showingUserForm = (userFormId) => {
+        setShowUserForm(!showUserForm)
+        setSelectedUserFormId(userFormId)
+    }
+
+    const showingCredentialsForm = (credentialsFormId) => {
+        setShowCredentialsForm(!showCredentialsForm)
+        setSelectedCredentialsFormId(credentialsFormId)
     }
 
     const hideForms = (formId) => {
@@ -168,20 +180,21 @@ function User() {
             return 'p-3 editFormHidden'
         }
     }
-    
 
+    const hideCredentialsForm = (formId) => {
+        if (formId === selectedCredentialsFormId) {
+            return 'p-3 editForm'
+        } else if (formId !== selectedCredentialsFormId) {
+            return 'p-3 editFormHidden'
+        }
+    }
+    
     var loggedIn = false
     const checkLogin = () => {
         if (userInfo !== null && userInfo?.username === user.username) {
             loggedIn = true
         }
     }
-
-    const showingUserForm = (userFormId) => {
-        setShowUserForm(!showUserForm)
-        setSelectedUserFormId(userFormId)
-    }
-
 
     const display = user && (
         <div>
@@ -254,17 +267,14 @@ function User() {
                             <span>
                                 <Button onClick={() => {showingUserForm('user-form')}}>Edit Profile</Button>
                             </span>
+                            <span></span>
+                            <span>
+                                <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
+                            </span>
                             {showUserForm && (
                                 <Form id='user-form' className = {hideUserForm('user-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <h3>Edit Profile</h3>
                                     <Row className='mb-3'>
-                                        <Form.Group as={Col} style={{textAlign:'center'}}>
-                                            <Form.Label>
-                                                Password:
-                                            </Form.Label>
-                                            <Form.Control as='input' type='text' name='password' onChange={handleChangeUser} value={userInput.password} 
-                                            placeholder='Edit password' secureTextEntry={true} style={{textAlign:'center'}}/>
-                                        </Form.Group>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
                                                 First name:
@@ -320,6 +330,29 @@ function User() {
                                         </Button>
                                     </Form.Group>
                                 </Form>
+                            )}
+                            {showCredentialsForm && (
+                                <Form id='credentials-form' className = {hideCredentialsForm('credentials-form')} onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
+                                    <h3>Edit Credentials</h3>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                Password:
+                                            </Form.Label>
+                                            <Form.Control type='password' name='password' onChange={handleChangeUser} 
+                                            placeholder='Edit password' style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                    </Row>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} style={{textAlign:'center'}}>
+                                            <Form.Label>
+                                                Username:
+                                            </Form.Label>
+                                            <Form.Control type='input' as='text' name='username' onChange={handleChangeUser} 
+                                            value={userInput.username} placeholder={user.username} required style={{textAlign:'center'}}/>
+                                        </Form.Group>
+                                    </Row>
+                                </Form> 
                             )}
                         </div>
                     )}
