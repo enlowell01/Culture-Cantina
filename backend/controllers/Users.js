@@ -10,8 +10,7 @@ const secretKey = process.env.SECRET_KEY;
 
 async function getUser(req, res) {
     try {
-        let token = {}
-        token = req.cookies['token']
+        const token = req.cookies['token']
         jwt.verify(token, secretKey, {}, (err, info) => {
           if (err) {
             // Handle JWT verification error
@@ -88,7 +87,7 @@ async function userLogin(req, res) {
           maxAge: 86400 * 1000, // 24 hours
           sameSite: 'none',
           httpOnly: true, // Helps protect against XSS attacks
-          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production       
+          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
         });
         
         res.json({ id: userDoc._id, username });
