@@ -76,7 +76,7 @@ async function userLogin(req, res) {
         return res.status(400).json('User not found');
       }
   
-      const passOk = bcrypt.compareSync(password, userDoc.password);
+      const passOk = await bcrypt.compare(password, userDoc.password);
   
       if (passOk) {
         // Generate a JWT token with appropriate configuration
@@ -87,7 +87,7 @@ async function userLogin(req, res) {
           maxAge: 86400 * 1000, // 24 hours
           sameSite: 'none',
           httpOnly: true, // Helps protect against XSS attacks
-          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
+          secure: true //process.env.NODE_ENV === 'production', // Requires HTTPS in production
         });
         
         res.json({ id: userDoc._id, username });
