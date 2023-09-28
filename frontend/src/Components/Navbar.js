@@ -22,8 +22,9 @@ function NavigationBar() {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const userInfo = await response.json();
-        setUserInfo(userInfo);
+        const userData = await response.json();
+        setUserInfo(userData);
+        console.log('response', userInfo)
 
       } catch (error) {
         console.error('An error occurred:', error);
@@ -31,7 +32,7 @@ function NavigationBar() {
     };
 
     fetchData();
-  }, [URL]); // Include URL as a dependency to ensure it's up to date
+  }, []); // Include URL as a dependency to ensure it's up to date
 
   async function logout() {
     try {
@@ -40,13 +41,12 @@ function NavigationBar() {
         method: 'POST',
         credentials: 'include' 
       });
-      setUserInfo(null);
     } catch (error) {
       console.error('An error occurred during logout:', error);
     }
   }
 
-  const username = userInfo?.username;
+  const username = userInfo.username;
 
   // Function to handle search results
   const handleSearch = (movies) => {

@@ -32,7 +32,9 @@ function Media() {
         forTitle: ''
     })
 
-    const [showForm, setShowForm] = useState(false)
+    const [showForm, setShowForm] = useState(false)s
+
+    const username = userInfo?.username;
   
     useEffect(() => {
         const fetchData = async () => {
@@ -61,9 +63,7 @@ function Media() {
         };
 
         if (userInfo !== null) {
-            if (Object.keys(userInfo).length > 0) {
-                setStoredUsername(userInfo?.username)
-            }
+            setStoredUsername(username)
         }
 
         fetchData()
@@ -80,7 +80,7 @@ function Media() {
     const handleReviews = async (e) => {
         const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings`
         ratingInput.profileId = currentUserId
-        ratingInput.userId = userInfo?.username
+        ratingInput.userId = username
         ratingInput.productId = media.id
         ratingInput.forTitle = media.title
         try {
@@ -100,7 +100,7 @@ function Media() {
         return async (e) => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
             ratingInput.profileId = currentUserId
-            ratingInput.userId = userInfo?.username
+            ratingInput.userId = username
             ratingInput.productId = media.id
             ratingInput.forTitle = media.title
             const response = await fetch(URL, {
@@ -146,9 +146,7 @@ function Media() {
     var loggedIn = false
     const checkLogin = () => {
         if (userInfo !== null) {
-            if (Object.keys(userInfo).length > 0) {
-                loggedIn = true
-            }
+            loggedIn = true
         }
     }
 

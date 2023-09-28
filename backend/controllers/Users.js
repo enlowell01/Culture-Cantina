@@ -1,29 +1,20 @@
 const User = require('../models/Users');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-// It's better to store the JWT secretKey securely, not hardcoded in the code.
-const secretKey = process.env.SECRET_KEY;
 
 
 // Get Functions
 
 async function getUser(req, res) {
     try {
-        const token = req.cookies['token']
-        jwt.verify(token, secretKey, {}, (err, info) => {
-          if (err) {
-            // Handle JWT verification error
-            console.error('JWT verification error:', err);
-            return res.status(401).json({ message: 'Unauthorized' });
+        let user = await User.findOne({
+          where: {
+            _id: req.session.userId
           }
-          // JWT verification succeeded, send user info
-          res.json(info);
-        });
-      } catch (error) {
-        console.error('Error in /profile route:', error);
-        res.status(500).json({ message: 'Internal server error' });
-      }        
+        })
+        res.json(user)
+      } catch {
+        res.json(null)
+      }
 };
 
 async function getUserById(req, res){
@@ -71,38 +62,24 @@ async function createUser(req, res) {
 async function userLogin(req, res) {
     const { username, password } = req.body;
      try {
-      const userDoc = await User.findOne({ username });
-      if (!userDoc) {
-        return res.status(400).json('User not found');
-      }
+      const user = await User.findOne({ username });
   
-      const passOk = await bcrypt.compare(password, userDoc.password);
-  
-      if (passOk) {
-        // Generate a JWT token with appropriate configuration
-        const token = jwt.sign({ username, id: userDoc._id }, secretKey, { expiresIn: '24h' });
-  
-        // Set the token as a cookie in the response
-        res.cookie('token', token, {
-          sameSite: 'none',
-          httpOnly: true, // Helps protect against XSS attacks
-          secure: true //process.env.NODE_ENV === 'production', // Requires HTTPS in production
-        });
-        
-        res.json({ id: userDoc._id, username });
+      if (!user || !await bcrypt.compare(password, userDoc.password)) {
+        res.status(404).json({
+          message: 'Wrong credentials'
+        })
       } else {
-        res.status(400).json('Wrong credentials');
+        req.session.userId = user._id
+        res.json({ user })
       }
     } catch (error) {
       console.error('Error during login', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   }
-async function userLogout(req, res) {
-  res.cookie('token', '', {
-      expires: new Date('1995-12-17T03:24:00')
-  }).json('OK');
-}
+  async function userLogout(req, res) {
+    req.session.userId = null
+  }
 
 // Put Functions
 async function updateUserById(req, res) {
@@ -151,7 +128,7 @@ async function deleteUserById(req, res) {
 }
 
 async function userAuthentication(req, res) {
-   res.json(req.currentUser)
+  res.json(req.currentUser)
 }
 
 module.exports = {

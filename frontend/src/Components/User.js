@@ -138,7 +138,6 @@ function User() {
                     method: 'POST',
                     credentials: 'include'
                 });
-                setUserInfo(null);
             } catch (error) {
                 console.error('An error occurred during logout:', error);
             }
@@ -173,7 +172,7 @@ function User() {
 
     var loggedIn = false
     const checkLogin = () => {
-        if (Object.keys(userInfo).length > 0 && userInfo?.username === user.username) {
+        if (userInfo !== null && userInfo?.username === user.username) {
             loggedIn = true
         }
     }
