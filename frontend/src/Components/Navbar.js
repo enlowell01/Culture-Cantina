@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
 import { UserContext } from "../Contexts/UserContext";
-import { useContext } from "react";
 
 
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
-  const URL = `${process.env.REACT_APP_BACKEND_URI}/user/profile`;
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { userInfo } = useContext(UserContext);
 
   async function logout() {
     try {
@@ -18,7 +16,6 @@ function NavigationBar() {
         method: 'POST',
         credentials: 'include' 
       });
-      setUserInfo(null)
     } catch (error) {
       console.error('An error occurred during logout:', error);
     }
