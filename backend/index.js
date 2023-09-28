@@ -14,7 +14,6 @@ const defineCurrentUser = require('./middleware/defineCurrentUser')
 // Middleware
 app.use(cookieSession({
   name: 'session',
-  sameSite: 'strict',
   keys: [ process.env.SESSION_SECRET ],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
