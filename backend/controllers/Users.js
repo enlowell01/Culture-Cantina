@@ -88,8 +88,7 @@ async function userLogin(req, res) {
           maxAge: 86400 * 1000, // 24 hours
           sameSite: 'none',
           httpOnly: true, // Helps protect against XSS attacks
-          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production
-          
+          secure: true, //process.env.NODE_ENV === 'production', // Requires HTTPS in production       
         });
         
         res.json({ id: userDoc._id, username });
@@ -102,7 +101,7 @@ async function userLogin(req, res) {
     }
   }
 async function userLogout(req, res) {
-  res.clearCookies('token')
+  res.clearCookie('token').json('OK');
 }
 
 // Put Functions
