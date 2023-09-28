@@ -99,11 +99,12 @@ async function userLogin(req, res) {
     }
   }
 async function userLogout(req, res) {
-  /*res.clearCookie('token', {
-      sameSite: 'none',
-      httpOnly: true, // Helps protect against XSS attacks
-      secure: true //process.env.NODE_ENV === 'production', // Requires HTTPS in production
-    }).json('OK');*/
+  res.clearCookie('token', { 
+          domain: 'https://culture-cantina-59e5.vercel.app/',
+          sameSite: 'none',
+          httpOnly: true, 
+          secure: true
+      }).json('OK');
 }
 
 // Put Functions
