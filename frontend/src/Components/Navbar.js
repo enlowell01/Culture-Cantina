@@ -11,9 +11,10 @@ function NavigationBar() {
 
   async function logout() {
     const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
-    await fetch(logoutURL, {
+    const response = await fetch(logoutURL, {
       credentials: 'include' 
     });
+    console.log(response)
     setUserInfo(null)
   }
 
