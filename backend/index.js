@@ -8,6 +8,8 @@ const ratingRoutes = require('./routes/Ratings');
 const movieRoutes = require('./routes/Movies');
 const profilePicturesRoutes = require('./routes/ProfilePictures');
 const cookieSession = require('cookie-session');
+const defineCurrentUser = require('./middleware/defineCurrentUser')
+
 
 // Middleware
 app.use(cookieSession({
@@ -18,6 +20,7 @@ app.use(cookieSession({
 }))
 app.use(express.json());
 app.use(cors({ credentials: true, origin: 'https://culture-cantina-59e5.vercel.app' }));
+app.use(defineCurrentUser)
 
 // Routes
 app.use('/user', userRoutes);
