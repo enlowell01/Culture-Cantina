@@ -76,7 +76,9 @@ async function userLogin(req, res) {
 
 async function userLogout(req, res) {
   try {
+    req.session.userId = null
     req.session = null
+    res.json(req.session)
   } catch (error) {
     res.status(500).json({ message: 'Error during logout'})
   }
