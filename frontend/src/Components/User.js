@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 
 
 function User() {
-    const { userInfo } = useContext(UserContext)
+    const { userInfo, setUserInfo } = useContext(UserContext)
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -24,7 +24,9 @@ function User() {
     const [profilePictures, setProfilePictures] = useState({})
 
     const [user, setUser] = useState({})
-    const [userInput, setUserInput] = useState({})
+    const [userInput, setUserInput] = useState({
+        password: ''
+    })
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
 
@@ -135,9 +137,9 @@ function User() {
             try {
                 const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
                 await fetch(logoutURL, {
-                    method: 'POST',
-                    credentials: 'include'
+                  credentials: 'include' 
                 });
+                setUserInfo(null)
             } catch (error) {
                 console.error('An error occurred during logout:', error);
             }
