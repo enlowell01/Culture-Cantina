@@ -16,7 +16,7 @@ function NavigationBar() {
     const fetchData = async () => {
       try {
         const response = await fetch(URL, {
-          method: 'POST', 
+          method: 'GET', 
           credentials: 'include'
         });
         if (!response.ok) {
