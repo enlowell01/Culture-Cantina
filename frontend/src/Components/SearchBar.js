@@ -12,10 +12,7 @@ function SearchBar({ onSearch }) {
     let apiKey = "5dd9b0ec07d16c49183c549810c46954";
     try {
       // Make an API request to search for movies using the TMDB API
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`, 
-        { withCredentials: true }
-      );
+      const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
 
       // Extract the list of movies from the response
       const movies = response.data.results;
