@@ -15,19 +15,13 @@ const defineCurrentUser = require('./middleware/defineCurrentUser')
 app.use(cookieSession({
   name: 'session',
   sameSite: 'none',
-  path: '/',
-  secure: true,
+  secure: false,
   httpOnly: false,
   keys: [ process.env.SESSION_SECRET ],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
-// enable the "secure" flag on the sessionCookies object
-app.use((req, res, next)=>{
-  req["session"].secure = true;
-  next();
-});
 app.use(express.json());
-app.use(cors({ credentials: true, origin: 'https://culture-cantina-59e5.vercel.app' }));
+app.use(cors({ credentials: true, origin: 'https://culture-cantina-59e5.vercel.app', methods: '*' }));
 app.use(defineCurrentUser)
 
 // Routes
