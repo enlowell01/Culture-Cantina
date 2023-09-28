@@ -100,11 +100,11 @@ async function userLogin(req, res) {
   }
 async function userLogout(req, res) {
   res.clearCookie('token', { 
-          domain: 'https://culture-cantina-59e5.vercel.app/',
-          sameSite: 'none',
-          httpOnly: true, 
-          secure: true
-      }).json('OK');
+      domain: 'https://culture-cantina-59e5.vercel.app/',
+      sameSite: 'none',
+      httpOnly: true, 
+      secure: true
+  }).json('OK');
 }
 
 // Put Functions
