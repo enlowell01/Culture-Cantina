@@ -105,7 +105,6 @@ async function userLogin(req, res) {
 async function userLogout(req, res) {
   res.cookie('token', '', {
       maxAge: 0, // clears cookie
-      domain: 'https://culture-cantina-59e5.vercel.app',
       overwrite: true,
       sameSite: 'none',
       httpOnly: true, // Helps protect against XSS attacks
