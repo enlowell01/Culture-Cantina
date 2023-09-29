@@ -16,7 +16,7 @@ function NavigationBar() {
     sessionStorage.clear();
     setUserInfo('test')
     console.log('test')
-    navigate('/')
+    navigate('/login')
   }
 
   // Function to handle search results
