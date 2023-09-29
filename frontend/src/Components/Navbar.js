@@ -12,7 +12,7 @@ function NavigationBar() {
   const logout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    setUserInfo(null)
+    setUserInfo('test')
     console.log(userInfo)
     console.log('test')
   }
@@ -48,7 +48,7 @@ function NavigationBar() {
             |
             <Nav.Link
               href="/"
-              onClick={logout()}
+              onClick={logout}
               className="nav-link me-3 ms-3"
             >
               Logout
