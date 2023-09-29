@@ -157,7 +157,7 @@ function Media() {
                                         <div key={i}>
                                             <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', 
                                             textDecoration:'underline'}} 
-                                            href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}, 
+                                            href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}; 
                                             Details: {rate.review}</p>
                                             {rate.profileId === currentUserId && ( 
                                                 <div>

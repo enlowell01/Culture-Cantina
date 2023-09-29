@@ -196,7 +196,7 @@ function User() {
             } catch (error) {
                 console.error('An error occurred during logout:', error);
             }
-            navigate('/')
+            navigate(`/user/${id}`)
             if (response.status !==204) console.log('error')
         }
     };
@@ -270,7 +270,7 @@ function User() {
                                         <div key={i}>
                                             <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc', 
                                             textDecoration:'underline'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, 
-                                            Rating: {rate.rating}, Details: {rate.review}</p>
+                                            Rating: {rate.rating}; Details: {rate.review}</p>
                                             {loggedIn && ( 
                                                 <div>
                                                     <span>
