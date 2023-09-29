@@ -280,6 +280,7 @@ function User() {
                         <h2 className="custom-h2"> {user.username}</h2>
                         <p className="card-text">{user.firstname} {user.lastname}</p>
                         <p className="card-text">Bio: {user.bio}</p>
+                        <p className='divider' >____</p>
                         <div className="card-text">
                             {ratings.length > 0 && 
                                 <div>
