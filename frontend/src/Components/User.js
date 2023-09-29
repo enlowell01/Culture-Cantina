@@ -129,7 +129,7 @@ function User() {
                 console.log('rating userId edited')
                 ratingInput.rating = filteredRatings[i].rating
                 ratingInput.review = filteredRatings[i].review
-                ratingInput.userId = userInput.username
+                ratingInput.userId = username
                 ratingInput.profileId = filteredRatings[i].profileId
                 ratingInput.productId = filteredRatings[i].productId
                 ratingInput.forTitle = filteredRatings[i].forTitle

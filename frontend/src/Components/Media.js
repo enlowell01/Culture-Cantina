@@ -188,7 +188,8 @@ function Media() {
                                                                 max='10' step='0.5' id='rating-score' value={ratingInput.rating} required 
                                                                 style={{textAlign:'center'}}/>
                                                             </Form.Group>
-
+                                                        </Row>
+                                                        <Row className='mb-3'>
                                                             <Form.Group as={Col} style={{textAlign:'center'}}>
                                                                 <Form.Label>
                                                                     Review:
