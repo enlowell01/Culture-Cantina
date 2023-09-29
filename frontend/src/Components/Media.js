@@ -145,17 +145,16 @@ function Media() {
                         <img src={`https://image.tmdb.org/t/p/original${media.poster_path}`} 
                             style={{ width: "250px", margin:'auto', display: 'block'}} alt={media.title}/>
                         <h1 className="p-2"> {media.title}</h1>
-                        <p className="card-text">Overview: {media.overview}</p>
+                        <p className="card-text"><strong>Overview: </strong>{media.overview}</p>
                         <p className='divider' >____</p>
                         <div className="card-text">
                             {ratings.length > 0 && 
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review from: <Nav.Link style={{display:'inline-block', color:'#0066cc', 
-                                            textDecoration:'underline'}} 
-                                            href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>. Rating: {rate.rating}; 
-                                            Details: {rate.review}</p>
+                                            <p><strong>Review from: </strong><Nav.Link style={{display:'inline-block', color:'#0066cc', 
+                                            textDecoration:'underline'}} href={`/user/${rate.profileId}`}>{rate.userId}</Nav.Link>;
+                                            <strong>  Rating: </strong>{rate.rating};<strong>  Details: </strong>{rate.review}</p>
                                             {rate.profileId === currentUserId && ( 
                                                 <div>
                                                     {setRating(false)}
