@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
+  const [reRender, setReRender] = useState(0)
 
   const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`
   const logout = async(e) => {
@@ -18,7 +19,8 @@ function NavigationBar() {
     })
     const data = await response.json()
     console.log('logout response', data)
-    setUserInfo({ test: 'test' })
+    setUserInfo({ cleared: 'cleared' })
+    setReRender(reRender)
   }
 
   // Function to handle search results
