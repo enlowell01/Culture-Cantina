@@ -146,6 +146,7 @@ function Media() {
                             style={{ width: "250px", margin:'auto', display: 'block'}} alt={media.title}/>
                         <h1 className="p-2"> {media.title}</h1>
                         <p className="card-text">Overview: {media.overview}</p>
+                        <p className='divider' >____</p>
                         <div className="card-text">
                             {ratings.length > 0 && 
                                 <div>
