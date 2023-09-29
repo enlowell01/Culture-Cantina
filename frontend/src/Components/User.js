@@ -112,7 +112,12 @@ function User() {
 
     const handleEditUserCredentials = function(id) {
         return async(e) => {
+            e.preventDefault()
+            
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
+            if (userInput.password === '') {
+                userInput.password = user.password
+            }
             const response = await fetch(URL, {
                 method: 'PUT',
                 credentials: 'include',
@@ -150,6 +155,7 @@ function User() {
                 ...userInfo, 
                 username: storedUsername
             })
+            navigate('/')
         }
     }
 
@@ -406,7 +412,7 @@ function User() {
                                             <Form.Label>
                                                 Password:
                                             </Form.Label>
-                                            <Form.Control as='input' type='text' onChange={handleChangeUser} 
+                                            <Form.Control as='input' type='password' onChange={handleChangeUser} name='password'
                                             placeholder='Edit password' style={{textAlign:'center'}}/>
                                         </Form.Group>
                                     </Row>

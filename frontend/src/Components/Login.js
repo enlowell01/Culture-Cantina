@@ -65,7 +65,7 @@ function Login() {
                         <Form.Label>
                             Username:
                         </Form.Label>
-                        <Form.Control type="text" name="username" 
+                        <Form.Control as="input" type="text" name="username" 
                         placeholder="Username" 
                         value={userInput.username} maxLength={20} onChange={handleChange} 
                         required style={{textAlign:'center', color:"#0066cc"}}/>
@@ -76,7 +76,7 @@ function Login() {
                         <Form.Label>
                             Password:
                         </Form.Label>
-                        <Form.Control type="password" name="password" 
+                        <Form.Control as="input" type="password" name="password" 
                         placeholder="Password" 
                         value={userInput.password} onChange={handleChange} 
                         required style={{textAlign:'center', color:"#0066cc"}}/>

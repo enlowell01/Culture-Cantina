@@ -139,7 +139,7 @@ function New() {
                   style={{ textAlign: 'center', color: "#0066cc" }} />
               </Form.Group>
             </Row>
-            <p>Please pick a profile picture:</p>
+            <p>Please pick a profile picture<span style={{color:'red'}}>*</span>:</p>
             {profilePictures.length > 0 && 
               <div>
                 {profilePictures.map((pic, i) => (
