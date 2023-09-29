@@ -12,7 +12,6 @@ function App() {
   return (
     <div>
       <UserContextProvider>
-        <Navbar></Navbar>
         <Router>
           <Routes>
             <Route path='/' element={<Home />} />
