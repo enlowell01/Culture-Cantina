@@ -17,8 +17,6 @@ function Media() {
     const { id } = useParams()
     
     const [selectedFormId, setSelectedFormId] = useState('')
-    
-    const [currentUserId, setCurrentUserId] = useState('')
 
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState([])
@@ -28,6 +26,8 @@ function Media() {
 
     const username = userInfo?.username;
     console.log(username)
+    const currentUserId = userInfo?._id;
+    console.log(currentUserId)
   
     useEffect(() => {
         const fetchData = async () => {
@@ -47,12 +47,8 @@ function Media() {
             }  
         };
 
-        if (userInfo !== null && username !== null) {
-            setCurrentUserId(userInfo._id)
-        }
-
         fetchData()
-    }, [id, currentUserId]);
+    }, [id]);
 
     const handleChange = (e) => {
         const value = e.target.value
