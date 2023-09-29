@@ -12,9 +12,9 @@ function App() {
   return (
     <div>
       <UserContextProvider>
+        <Navbar></Navbar>
         <Router>
           <Routes>
-            <Route path='/navBar' element={<Navbar />} />
             <Route path='/' element={<Home />} />
             <Route path="/newUser" element={<NewUser />} />
             <Route path="/login" element={<Login/>} />
