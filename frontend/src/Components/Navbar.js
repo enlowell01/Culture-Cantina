@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function NavigationBar() {
   const navigate = useNavigate();
-  
+
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
@@ -20,7 +20,7 @@ function NavigationBar() {
     })
     const data = await response.json()
     console.log('logout response', data)
-    setUserInfo({ cleared: 'cleared' })
+    setUserInfo({})
     navigate('/')
   }
   console.log('logout test')
