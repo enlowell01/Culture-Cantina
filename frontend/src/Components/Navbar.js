@@ -9,16 +9,9 @@ function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-  async function logout() {
-    const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
-    const response = await fetch(logoutURL, {
-      method: 'POST', 
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userInfo)
-    });
-    const data = await response.json()
-    console.log('response', data)
+  const logout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
     setUserInfo(null)
     console.log(userInfo)
   }
@@ -36,7 +29,7 @@ function NavigationBar() {
             Culture Cantina
           </h1>
         </Nav.Link>
-        {/*{userInfo && (*/}
+        {userInfo && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -62,9 +55,9 @@ function NavigationBar() {
 
             <SearchBar onSearch={handleSearch} />
           </div>
-        
+        )}
 
-        {/*{!userInfo && (
+        {!userInfo && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -89,7 +82,7 @@ function NavigationBar() {
 
             <SearchBar onSearch={handleSearch} />
           </div>
-        )}*/}
+        )}
       </Navbar>
       <div className='navbar-strip'></div>    
       <ul>
