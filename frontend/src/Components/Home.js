@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../Contexts/UserContext";
 import NavigationBar from "./Navbar";
 import HomeCss from "./Home.module.css";
 
 
 function Home() {
   const [movies, setMovies] = useState([]);
+  const { userInfo } = useContext(UserContext)
+  console.log(userInfo)
 
   useEffect(() => {
     const fetchData = async () => {
