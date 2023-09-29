@@ -28,9 +28,7 @@ function User() {
     const [profilePictures, setProfilePictures] = useState({})
 
     const [user, setUser] = useState({})
-    const [userInput, setUserInput] = useState({
-        password: ''
-    })
+    const [userInput, setUserInput] = useState({})
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
 
@@ -50,7 +48,10 @@ function User() {
                 const userResponse = await fetch(userPath)
                 const userData = await userResponse.json()
                 setUser(userData)
-                setUserInput(userData)
+                setUserInput({
+                    ...userData,
+                    password: ''
+                })
                 setCurrentUserId(userData._id)
 
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
@@ -161,7 +162,8 @@ function User() {
             }
             setUserInfo({
                 ...userInfo, 
-                username: userInput.username
+                username: userInput.username,
+                password: userInput.password
             })
         }
     }
