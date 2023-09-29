@@ -37,7 +37,7 @@ function SearchBar({ onSearch }) {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <button className='search-button search-button-text' onClick={handleSearch}  onKeyDown={(e) => e.key === 'Enter' ? handleSearch:''}>
+      <button className='search-button search-button-text' onClick={handleSearch}  onKeyDown={(e) => {if (e.key === 'Enter') {handleSearch}}}>
         Search
       </button>
     </div>
