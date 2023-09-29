@@ -13,6 +13,8 @@ import Row from 'react-bootstrap/Row';
 function User() {
     const { userInfo, setUserInfo } = useContext(UserContext)
     console.log(userInfo)
+    const username = userInfo?.username;
+    console.log(username)
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -107,6 +109,41 @@ function User() {
             if (response.status !== 204) console.log('error!') 
         }
     };
+
+    const handleEditUserCredentials = function(id) {
+        return async(e) => {
+            const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
+            const response = await fetch(URL, {
+                method: 'PUT',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userInput)
+            })
+            if (response.status !== 204) console.log('error editing user') 
+
+            const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
+            const ratingsResponse = await fetch(ratingsPath)
+            const ratingsData = await ratingsResponse.json()
+            const filteredRatings = ratingsData.filter(rating => rating.profileId === currentUserId)
+            for (let i = 0; i < filteredRatings.length; i++) {
+                console.log('rating userId edited')
+                ratingInput.rating = filteredRatings[i].rating
+                ratingInput.review = filteredRatings[i].review
+                ratingInput.userId = userInput.username
+                ratingInput.profileId = filteredRatings[i].profileId
+                ratingInput.productId = filteredRatings[i].productId
+                ratingInput.forTitle = filteredRatings[i].forTitle
+                const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${filteredRatings[i]._id}`
+                const response = await fetch(URL, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ratingInput)
+                })
+                if (response.status !==204) console.log('error editing rating username')
+            }
+        }
+    }
 
     const deleteRating = function(id) {
         return async (e) => {
@@ -346,7 +383,7 @@ function User() {
                             <Button onClick={() => {showingCredentialsForm('credentials-form')}}>Edit Credentials</Button>
                             {showCredentialsForm && (
                                 <Form id='credentials-form' className = {hideCredentialsForm('credentials-form')} 
-                                onSubmit={handleEditUser(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
+                                onSubmit={handleEditUserCredentials(user._id)} style={{color:"#0066cc", backgroundColor:"white"}}>
                                     <Row className='mb-3'>
                                         <Form.Group as={Col} style={{textAlign:'center'}}>
                                             <Form.Label>
