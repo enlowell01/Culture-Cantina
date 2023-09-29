@@ -167,6 +167,7 @@ function User() {
                 console.error('An error occurred during logout:', error);
             }
             navigate(`/`)
+            alert('You have been logged out for security purposes.')
             if (response.status !==204) console.log('error logging out')
         }
     }
