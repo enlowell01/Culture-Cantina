@@ -99,6 +99,8 @@ function User() {
 
     const handleEditUser = function(id) {
         return async (e) => {
+            e.preventDefault()
+
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             const response = await fetch(URL, {
                 method: 'PUT',
@@ -107,11 +109,14 @@ function User() {
                 body: JSON.stringify(userInput)
             })
             if (response.status !== 204) console.log('error!') 
+            navigate(`/user/${id}`)
         }
     };
 
     const handleEditUserCredentials = function(id) {
         return async(e) => {
+            e.preventDefault()
+
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             const response = await fetch(URL, {
                 method: 'PUT',
@@ -146,6 +151,7 @@ function User() {
                 })
                 if (response.status !==204) console.log('error editing rating username')
             }
+            navigate(`/user/${id}`)
         }
     }
 
