@@ -11,11 +11,15 @@ function NavigationBar() {
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-  const logout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    setUserInfo('test')
-    console.log('test')
+  const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`
+  const logout = async(e) => {
+    const response = await fetch(logoutURL, {
+      method: 'POST',
+      credentials: 'include',
+    })
+    const data = await response.json()
+    console.log('logout response', data)
+    setUserInfo({ test: 'test' })
     navigate('/login')
   }
 
