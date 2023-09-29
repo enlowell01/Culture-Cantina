@@ -20,8 +20,6 @@ function Media() {
     
     const [currentUserId, setCurrentUserId] = useState('')
 
-    const [storedUsername, setStoredUsername] = useState('')
-
     const [media, setMedia] = useState({})
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
@@ -29,6 +27,7 @@ function Media() {
     const [showForm, setShowForm] = useState(false)
 
     const username = userInfo?.username;
+    console.log(username)
   
     useEffect(() => {
         const fetchData = async () => {
@@ -37,14 +36,6 @@ function Media() {
                 const mediaResponse = await fetch(mediaPath)
                 const mediaData = await mediaResponse.json()
                 setMedia(mediaData)
-
-                const userPath = `${process.env.REACT_APP_BACKEND_URI}/user`
-                const userResponse = await fetch(userPath)
-                const userData = await userResponse.json()
-                const filteredUser = userData.filter(user => user.username === storedUsername)
-                if (filteredUser.length > 0) {
-                    setCurrentUserId(filteredUser[0]._id)
-                }
 
                 const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
                 const ratingsResponse = await fetch(ratingsPath)
@@ -57,7 +48,7 @@ function Media() {
         };
 
         if (userInfo !== null && username !== null) {
-            setStoredUsername(username)
+            setCurrentUserId(userInfo._id)
         }
 
         fetchData()
