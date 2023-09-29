@@ -158,11 +158,17 @@ function User() {
                 })
                 if (response.status !==204) console.log('error editing rating username')
             }
-            setUserInfo({
-                ...userInfo, 
-                username: userInput.username,
-                password: user.password
-            })
+            try {
+                const logoutURL = `${process.env.REACT_APP_BACKEND_URI}/user/logout`;
+                await fetch(logoutURL, {
+                  credentials: 'include' 
+                });
+                setUserInfo(null)
+            } catch (error) {
+                console.error('An error occurred during logout:', error);
+            }
+            navigate(`/`)
+            if (response.status !==204) console.log('error logging out')
         }
     }
 
