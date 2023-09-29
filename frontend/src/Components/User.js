@@ -279,16 +279,16 @@ function User() {
                         <img className='rounded' style={{maxHeight:'30%', maxWidth:'30%'}} src={user.pictureURL} alt="profile picture"/>
                         <h2 className="custom-h2"> {user.username}</h2>
                         <p className="card-text">{user.firstname} {user.lastname}</p>
-                        <p className="card-text">Bio: {user.bio}</p>
+                        <p className="card-text"><strong>Bio: </strong>{user.bio}</p>
                         <p className='divider' >____</p>
                         <div className="card-text">
                             {ratings.length > 0 && 
                                 <div>
                                     {ratings.map((rate, i) => (
                                         <div key={i}>
-                                            <p> Review for: <Nav.Link style={{display:'inline-block', color:'#0066cc', 
-                                            textDecoration:'underline'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>, 
-                                            Rating: {rate.rating}; Details: {rate.review}</p>
+                                            <p><strong>Review for: </strong><Nav.Link style={{display:'inline-block', color:'#0066cc', 
+                                            textDecoration:'underline'}} href={`/movies/${rate.productId}`}>{rate.forTitle}</Nav.Link>; 
+                                            <strong>  Rating: </strong>{rate.rating};<strong>  Details: </strong>{rate.review}</p>
                                             {loggedIn && ( 
                                                 <div>
                                                     <span>
