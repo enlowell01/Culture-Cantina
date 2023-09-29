@@ -141,7 +141,7 @@ function Media() {
 
     var loggedIn = false
     const checkLogin = () => {
-        if (userInfo !== null) {
+        if (userInfo !== null && username !== null) {
             loggedIn = true
         }
     }
