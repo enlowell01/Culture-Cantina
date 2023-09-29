@@ -126,9 +126,10 @@ function User() {
             const ratingsResponse = await fetch(ratingsPath)
             const ratingsData = await ratingsResponse.json()
             const filteredRatings = ratingsData.filter(rating => rating.profileId === currentUserId)
+            let ratingEdit = {};
             for (let i = 0; i < filteredRatings.length; i++) {
                 console.log('rating userId edited')
-                const ratingEdit = {
+                ratingEdit = {
                     rating: filteredRatings[i].rating,
                     review: filteredRatings[i].review,
                     userId: storedUsername,
