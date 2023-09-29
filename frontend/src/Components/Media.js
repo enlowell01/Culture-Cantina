@@ -55,7 +55,7 @@ function Media() {
             }  
         };
 
-        if (userInfo !== null) {
+        if (userInfo !== null && username !== null) {
             setStoredUsername(username)
         }
 
