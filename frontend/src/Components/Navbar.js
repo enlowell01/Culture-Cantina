@@ -20,7 +20,7 @@ function NavigationBar() {
     })
     const data = await response.json()
     console.log('logout response', data)
-    setUserInfo({})
+    setUserInfo(null)
     navigate('/')
   }
   console.log('logout test')
