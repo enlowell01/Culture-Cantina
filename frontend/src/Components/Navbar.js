@@ -3,9 +3,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
 import { UserContext } from "../Contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 
 function NavigationBar() {
+  const navigate = useNavigate()
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
@@ -13,7 +15,6 @@ function NavigationBar() {
     localStorage.clear();
     sessionStorage.clear();
     setUserInfo('test')
-    console.log(userInfo)
     console.log('test')
   }
 
@@ -46,13 +47,13 @@ function NavigationBar() {
               Profile
             </Nav.Link>
             |
-            <Nav.Link
+            <div
               href="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
             >
               Logout
-            </Nav.Link>
+            </div>
 
             <SearchBar onSearch={handleSearch} />
           </div>
