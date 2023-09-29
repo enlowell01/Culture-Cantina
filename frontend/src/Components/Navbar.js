@@ -20,7 +20,6 @@ function NavigationBar() {
     const data = await response.json()
     console.log('logout response', data)
     setUserInfo({ test: 'test' })
-    navigate('/')
   }
 
   // Function to handle search results
@@ -52,14 +51,13 @@ function NavigationBar() {
               Profile
             </Nav.Link>
             |
-            <div
+            <Nav.Link
               href="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
-              style={{cursor:'pointer'}}
             >
               Logout
-            </div>
+            </Nav.Link>
 
             <SearchBar onSearch={handleSearch} />
           </div>
