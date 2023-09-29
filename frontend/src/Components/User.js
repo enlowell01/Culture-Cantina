@@ -12,6 +12,7 @@ import Row from 'react-bootstrap/Row';
 
 function User() {
     const { userInfo, setUserInfo } = useContext(UserContext)
+    console.log(userInfo)
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -59,7 +60,7 @@ function User() {
         };
 
         fetchData()
-    }, [id, userInfo]);
+    }, [id]);
 
     const handleChangeRating = (e) => {
         const value = e.target.value

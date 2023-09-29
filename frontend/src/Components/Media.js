@@ -12,6 +12,7 @@ import Row from 'react-bootstrap/Row';
 
 function Media() {
     const { userInfo } = useContext(UserContext)
+    console.log(userInfo)
 
     const { id } = useParams()
     
@@ -60,7 +61,7 @@ function Media() {
         }
 
         fetchData()
-    }, [id, storedUsername, currentUserId, userInfo]);
+    }, [id, storedUsername, currentUserId]);
 
     const handleChange = (e) => {
         const value = e.target.value

@@ -23,7 +23,7 @@ function Home() {
 
     }
     fetchData();
-  }, [userInfo]);
+  }, []);
 
   console.log(movies);
 
