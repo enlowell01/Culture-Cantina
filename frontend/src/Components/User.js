@@ -122,7 +122,7 @@ function User() {
     const handleEditUserCredentials = function(id) {
         return async(e) => {
             e.preventDefault()
-            
+
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             if (userInput.password === '') {
                 userInput.password = user.password
@@ -145,7 +145,7 @@ function User() {
                 ratingEdit = {
                     rating: filteredRatings[i].rating,
                     review: filteredRatings[i].review,
-                    userId: storedUsername,
+                    userId: userInput.username,
                     profileId: filteredRatings[i].profileId,
                     productId: filteredRatings[i].productId,
                     forTitle: filteredRatings[i].forTitle,
