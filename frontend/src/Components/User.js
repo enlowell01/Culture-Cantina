@@ -151,6 +151,10 @@ function User() {
                 })
                 if (response.status !==204) console.log('error editing rating username')
             }
+            setUserInfo({
+                ...userInfo, 
+                username: storedUsername
+            })
             navigate(`/user/${id}`)
         }
     }
