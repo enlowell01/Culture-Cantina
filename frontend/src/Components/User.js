@@ -86,10 +86,6 @@ function User() {
     const handleEditRating = function(id) {
         return async (e) => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
-            ratingInput.profileId = ratingInput.profileId
-            ratingInput.userId = ratingInput.userId
-            ratingInput.productId = ratingInput.productId
-            ratingInput.forTitle = ratingInput.forTitle
             const response = await fetch(URL, {
                 method: 'PUT',
                 credentials: 'include',
@@ -124,7 +120,10 @@ function User() {
 
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             if (userInput.password === '') {
-                userInput.password = user.password
+                setUserInput({
+                    ...userInput,
+                    password: user.password
+                })
             }
             const response = await fetch(URL, {
                 method: 'PUT',

@@ -81,10 +81,6 @@ function Media() {
     const handleEdit = function(id) {
         return async (e) => {
             const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${id}`
-            ratingInput.profileId = currentUserId
-            ratingInput.userId = username
-            ratingInput.productId = media.id
-            ratingInput.forTitle = media.title
             const response = await fetch(URL, {
                 method: 'PUT',
                 credentials: 'include',
