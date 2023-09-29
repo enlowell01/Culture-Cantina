@@ -5,6 +5,7 @@ import NewUser from "./Components/NewUser";
 import Media from "./Components/Media";
 import Login from './Components/Login';
 import User from './Components/User';
+import Navbar from './Components/Navbar';
 import UserContextProvider from './Contexts/UserContext'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <UserContextProvider>
         <Router>
           <Routes>
+            <Route path='/navBar' element={<Navbar />} />
             <Route path='/' element={<Home />} />
             <Route path="/newUser" element={<NewUser />} />
             <Route path="/login" element={<Login/>} />
