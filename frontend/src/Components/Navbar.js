@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
@@ -20,6 +20,8 @@ function NavigationBar() {
     console.log('logout response', data)
     setUserInfo({ cleared: 'cleared' })
   }
+  console.log('logout test')
+  const username = userInfo?.username
 
   // Function to handle search results
   const handleSearch = (movies) => {
@@ -34,7 +36,7 @@ function NavigationBar() {
             Culture Cantina
           </h1>
         </Nav.Link>
-        {userInfo && (
+        {username && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
@@ -50,19 +52,19 @@ function NavigationBar() {
               Profile
             </Nav.Link>
             |
-            <Link
+            <Nav.Link
               to="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
             >
               Logout
-            </Link>
+            </Nav.Link>
 
             <SearchBar onSearch={handleSearch} />
           </div>
         )}
 
-        {!userInfo && (
+        {!username && (
           <div className='navbar-text'>
             <Nav.Link
               href="/"
