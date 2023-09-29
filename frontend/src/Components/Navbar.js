@@ -3,11 +3,10 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
 import { UserContext } from "../Contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function NavigationBar() {
-  const navigate = useNavigate()
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
@@ -51,13 +50,13 @@ function NavigationBar() {
               Profile
             </Nav.Link>
             |
-            <Nav.Link
-              href="/"
+            <Link
+              to="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
             >
               Logout
-            </Nav.Link>
+            </Link>
 
             <SearchBar onSearch={handleSearch} />
           </div>
