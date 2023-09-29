@@ -121,6 +121,7 @@ function User() {
             })
             if (response.status !== 204) console.log('error editing user') 
 
+            const storedUsername = userInput.username
             const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
             const ratingsResponse = await fetch(ratingsPath)
             const ratingsData = await ratingsResponse.json()
@@ -129,7 +130,7 @@ function User() {
                 console.log('rating userId edited')
                 ratingInput.rating = filteredRatings[i].rating
                 ratingInput.review = filteredRatings[i].review
-                ratingInput.userId = username
+                ratingInput.userId = storedUsername
                 ratingInput.profileId = filteredRatings[i].profileId
                 ratingInput.productId = filteredRatings[i].productId
                 ratingInput.forTitle = filteredRatings[i].forTitle

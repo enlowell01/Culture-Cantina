@@ -23,7 +23,7 @@ function NavigationBar() {
     setUserInfo(null)
     navigate('/')
   }
-  console.log('logout test')
+
   const username = userInfo?.username
 
   // Function to handle search results
