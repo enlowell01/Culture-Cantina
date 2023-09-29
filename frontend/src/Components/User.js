@@ -28,7 +28,9 @@ function User() {
     const [profilePictures, setProfilePictures] = useState({})
 
     const [user, setUser] = useState({})
-    const [userInput, setUserInput] = useState({})
+    const [userInput, setUserInput] = useState({
+        password: ''
+    })
     const [ratings, setRatings] = useState([])
     const [ratingInput, setRatingInput] = useState({})
 
@@ -99,6 +101,8 @@ function User() {
 
     const handleEditUser = function(id) {
         return async (e) => {
+            e.preventDefault()
+
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             const response = await fetch(URL, {
                 method: 'PUT',
@@ -107,11 +111,18 @@ function User() {
                 body: JSON.stringify(userInput)
             })
             if (response.status !== 204) console.log('error!') 
+            setUserInfo({
+                ...userInfo, 
+                username: user.username,
+                password: user.password
+            })
         }
     };
 
     const handleEditUserCredentials = function(id) {
         return async(e) => {
+            e.preventDefault()
+            
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             if (userInput.password === '') {
                 userInput.password = user.password
@@ -124,7 +135,6 @@ function User() {
             })
             if (response.status !== 204) console.log('error editing user') 
 
-            const storedUsername = userInput.username
             const ratingsPath = `${process.env.REACT_APP_BACKEND_URI}/ratings`
             const ratingsResponse = await fetch(ratingsPath)
             const ratingsData = await ratingsResponse.json()
@@ -151,7 +161,7 @@ function User() {
             }
             setUserInfo({
                 ...userInfo, 
-                username: storedUsername
+                username: userInput.username
             })
         }
     }
@@ -410,7 +420,7 @@ function User() {
                                                 Password:
                                             </Form.Label>
                                             <Form.Control as='input' type='password' onChange={handleChangeUser} name='password'
-                                            placeholder='Edit password' style={{textAlign:'center'}}/>
+                                            value={userInput.password} placeholder='Edit password' style={{textAlign:'center'}}/>
                                         </Form.Group>
                                     </Row>
                                     <Form.Group className='mb-3 mx-auto w-50' style={{textAlign: 'center'}}>
