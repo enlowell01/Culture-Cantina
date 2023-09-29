@@ -23,7 +23,7 @@ app.use(cookieSession({
 app.use(express.json());
 app.use(cors({ 
   credentials: true, 
-  origin: ['https://culture-cantina-59e5.vercel.app', 'https://culture-cantina-59e5.vercel.app/'], 
+  origin: ['https://culture-cantina-59e5.vercel.app', 'https://culture-cantina-59e5.vercel.app/', 'https://culture-cantina-react.vercel.app', 'https://culture-cantina-react.vercel.app/'], 
   }),
 );
 
