@@ -4,7 +4,7 @@ export const UserContext = createContext()
 
 function UserContextProvider({children}) {
 
-    const  [userInfo, setUserInfo] = useState({})
+    const  [userInfo, setUserInfo] = useState(null)
 
     useEffect(() => {
 

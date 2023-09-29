@@ -16,6 +16,7 @@ function NavigationBar() {
     sessionStorage.clear();
     setUserInfo('test')
     console.log('test')
+    navigate('/')
   }
 
   // Function to handle search results
@@ -51,6 +52,7 @@ function NavigationBar() {
               href="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
+              style={{cursor:'pointer'}}
             >
               Logout
             </div>
