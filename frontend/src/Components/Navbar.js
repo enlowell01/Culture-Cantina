@@ -20,7 +20,7 @@ function NavigationBar() {
     const data = await response.json()
     console.log('logout response', data)
     setUserInfo({ test: 'test' })
-    navigate('/login')
+    navigate('/')
   }
 
   // Function to handle search results
