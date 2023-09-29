@@ -14,6 +14,7 @@ function NavigationBar() {
     sessionStorage.clear();
     setUserInfo(null)
     console.log(userInfo)
+    console.log('test')
   }
 
   // Function to handle search results
