@@ -52,7 +52,7 @@ function Media() {
         }
 
         fetchData()
-    }, [id, storedUsername, currentUserId]);
+    }, [id, currentUserId]);
 
     const handleChange = (e) => {
         const value = e.target.value
