@@ -128,18 +128,20 @@ function User() {
             const filteredRatings = ratingsData.filter(rating => rating.profileId === currentUserId)
             for (let i = 0; i < filteredRatings.length; i++) {
                 console.log('rating userId edited')
-                ratingInput.rating = filteredRatings[i].rating
-                ratingInput.review = filteredRatings[i].review
-                ratingInput.userId = storedUsername
-                ratingInput.profileId = filteredRatings[i].profileId
-                ratingInput.productId = filteredRatings[i].productId
-                ratingInput.forTitle = filteredRatings[i].forTitle
+                const ratingEdit = {
+                    rating: filteredRatings[i].rating,
+                    review: filteredRatings[i].review,
+                    userId: storedUsername,
+                    profileId: filteredRatings[i].profileId,
+                    productId: filteredRatings[i].productId,
+                    forTitle: filteredRatings[i].forTitle,
+                }
                 const URL = `${process.env.REACT_APP_BACKEND_URI}/ratings/${filteredRatings[i]._id}`
                 const response = await fetch(URL, {
                     method: 'PUT',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(ratingInput)
+                    body: JSON.stringify(ratingEdit)
                 })
                 if (response.status !==204) console.log('error editing rating username')
             }
@@ -399,7 +401,7 @@ function User() {
                                             <Form.Label>
                                                 Password:
                                             </Form.Label>
-                                            <Form.Control type='password' name='password' onChange={handleChangeUser} 
+                                            <Form.Control as='input' type='text' onChange={handleChangeUser} 
                                             placeholder='Edit password' style={{textAlign:'center'}}/>
                                         </Form.Group>
                                     </Row>
