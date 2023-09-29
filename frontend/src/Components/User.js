@@ -62,7 +62,7 @@ function User() {
         };
 
         fetchData()
-    }, [id]);
+    }, [id, userInfo]);
 
     const handleChangeRating = (e) => {
         const value = e.target.value
@@ -112,8 +112,6 @@ function User() {
 
     const handleEditUserCredentials = function(id) {
         return async(e) => {
-            e.preventDefault()
-            
             const URL= `${process.env.REACT_APP_BACKEND_URI}/user/${id}`
             if (userInput.password === '') {
                 userInput.password = user.password
@@ -155,7 +153,6 @@ function User() {
                 ...userInfo, 
                 username: storedUsername
             })
-            navigate('/')
         }
     }
 

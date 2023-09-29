@@ -16,8 +16,8 @@ async function getUser(req, res) {
 async function getUserById(req, res){
   try {
       const { id } = req.params
-      const rating = await User.findById(id) 
-      res.json(rating)
+      const user = await User.findById(id) 
+      res.json(user)
   } catch (error) {
       console.log('errpr getting User', error)
       res.json({'message': 'error getting User'})
