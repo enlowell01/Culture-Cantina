@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Contexts/UserContext";
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';

@@ -1,12 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import SearchBar from "./SearchBar";
 import { UserContext } from "../Contexts/UserContext";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function NavigationBar() {
+  const navigate = useNavigate();
+  
   const [searchResults, setSearchResults] = useState([]);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
@@ -19,6 +21,7 @@ function NavigationBar() {
     const data = await response.json()
     console.log('logout response', data)
     setUserInfo({ cleared: 'cleared' })
+    navigate('/')
   }
   console.log('logout test')
   const username = userInfo?.username
@@ -53,7 +56,6 @@ function NavigationBar() {
             </Nav.Link>
             |
             <Nav.Link
-              to="/"
               onClick={logout}
               className="nav-link me-3 ms-3"
             >
