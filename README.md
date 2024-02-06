@@ -7,7 +7,7 @@ Created by Evan Lowell, Luis Lewis Pimentel, Ligia De Lara, and Zach Mathias. 2-
 Culture Cantina is a full-stack MERN application where users can browse movies, search for their favorites and leave ratings and reviews for each movie. Users can display and alter their ratings and reviews on their profiles and view profiles of other users.
 
 ### Culture Cantina Demo
-**Hosted Web Page**:
+**Hosted Web Page**: https://culture-cantina-react.vercel.app/
 
 ### Tech Stack
 This application is a standard MERN Stack. Our collections are contained in Mongo DB, and powered with Express, React, and Node.js. 
